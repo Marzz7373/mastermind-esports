@@ -4,21 +4,65 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mastermind Esports Top-Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {margin:0;background:#0a0a0a;color:#fff;font-family:sans-serif;}
-    header {background:#111;height:40vh;display:flex;align-items:center;justify-content:center;}
-    header h1 {font-size:2rem;}
-    .tabs {display:flex;justify-content:center;margin:1rem 0;}
-    .tab-btn {background:#1a1a1a;color:#fff;border:none;padding:10px 20px;margin:0 5px;cursor:pointer;}
-    .tab-btn.active {background:#00ffcc;color:#000;}
-    .section {display:none;max-width:1100px;margin:auto;padding:1rem;}
+    body {margin:0;background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;}
+    header {
+      background:url('banner.jpg') center/cover no-repeat;
+      height:70vh;display:flex;align-items:center;justify-content:center;position:relative;text-align:center;
+    }
+    header::after {content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.6),#0a0a0a);}
+    header h1 {position:relative;font-family:'Playfair Display',serif;font-size:3rem;letter-spacing:2px;z-index:1;}
+
+    .tabs {display:flex;justify-content:center;margin:2rem 0;position:sticky;top:0;background:#0a0a0a;z-index:10;padding:0.5rem;}
+    .tab-btn {background:#1a1a1a;color:#fff;border:none;padding:12px 24px;margin:0 10px;cursor:pointer;font-weight:bold;border-radius:6px;transition:all 0.3s;}
+    .tab-btn.active,.tab-btn:hover {background:#00ffcc;color:#000;box-shadow:0 0 15px rgba(0,255,204,0.6);}
+
+    .section {display:none;max-width:1100px;margin:auto;padding:2rem;animation:fadeIn 0.6s ease;}
     .section.active {display:block;}
-    .packages {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;}
-    .card {background:#1a1a1a;padding:1rem;border-radius:8px;text-align:center;}
+    @keyframes fadeIn {from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+    .packages {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;}
+    .card {
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:12px;
+      padding:1.5rem;
+      text-align:center;
+      box-shadow:0 0 15px rgba(0,255,204,0.1);
+      transition:transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {transform:translateY(-5px) scale(1.03);box-shadow:0 0 25px rgba(0,255,204,0.5);}
+    .card h3 {margin:0.5rem 0;font-size:1.3rem;}
     .card p strong {color:#00ffcc;}
-    .buy-btn {display:inline-block;margin-top:0.5rem;padding:6px 12px;background:#00ffcc;color:#000;text-decoration:none;border-radius:4px;}
-    footer {text-align:center;padding:1rem;color:#888;}
-    .whatsapp-float {position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff;font-weight:bold;padding:12px 18px;border-radius:50px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,0.3);z-index:999;}
+
+    .buy-btn {
+      display:inline-block;margin-top:1rem;padding:10px 20px;
+      background:linear-gradient(90deg,#00ffcc,#00bfff);
+      color:#000;font-weight:bold;text-decoration:none;border-radius:6px;
+      animation:pulse 2s infinite;transition:transform 0.3s;
+    }
+    .buy-btn:hover {transform:scale(1.05);}
+    @keyframes pulse {
+      0%,100% {box-shadow:0 0 10px #00ffcc;}
+      50% {box-shadow:0 0 20px #00bfff;}
+    }
+
+    .how-it-works {background:#111;border-radius:10px;padding:2rem;margin-top:3rem;}
+    .how-it-works h2 {margin-bottom:1rem;}
+    .how-it-works ol {padding-left:1.2rem;}
+
+    footer {text-align:center;padding:2rem;font-size:0.9rem;color:#888;}
+
+    .whatsapp-float {
+      position:fixed;bottom:20px;right:20px;
+      background:#25D366;color:#fff;font-weight:bold;
+      padding:12px 18px;border-radius:50px;text-decoration:none;
+      box-shadow:0 4px 10px rgba(0,0,0,0.3);
+      transition:transform 0.3s,background 0.3s;z-index:999;
+    }
+    .whatsapp-float:hover {background:#20b954;transform:scale(1.05);}
   </style>
 </head>
 <body>
@@ -63,59 +107,68 @@
 <div class="card" data-package="40,000 UC" data-price="RM1,900"><h3>40,000 UC</h3><p><strong>RM1,900</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
 <div class="card" data-package="52,000 UC" data-price="RM2,450"><h3>52,000 UC</h3><p><strong>RM2,450</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
 <div class="card" data-package="105,300 UC" data-price="RM5,013"><h3>105,300 UC</h3><p><strong>RM5,013</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
->
-    <div class="card" data-package="325 UC" data-price="RM22">
-      <h3>325 UC</h3><p><strong>RM22</strong></p>
-      <a href="#" class="buy-btn">Buy Now</a>
-    </div>
-    <!-- 👉 Add ALL other PUBG packages here -->
+
+  </div>
+  <div class="how-it-works">
+    <h2>How It Works</h2>
+    <ol>
+      <li>Enter your PUBG Player ID.</li>
+      <li>Select your UC package and make payment.</li>
+      <li>Receive UC instantly in-game.</li>
+    </ol>
   </div>
 </section>
 
 <section id="mlbb" class="section">
   <h2>MLBB Diamond Packages</h2>
   <div class="packages">
-  <div class="card" data-package="70 💎" data-price="RM6"><h3>70 💎</h3><p><strong>RM6</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="140 💎" data-price="RM12"><h3>140 💎</h3><p><strong>RM12</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="284 💎" data-price="RM23"><h3>284 💎</h3><p><strong>RM23</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="355 💎" data-price="RM30"><h3>355 💎</h3><p><strong>RM30</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="429 💎" data-price="RM35"><h3>429 💎</h3><p><strong>RM35</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="565 💎" data-price="RM45"><h3>565 💎</h3><p><strong>RM45</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="639 💎" data-price="RM50"><h3>639 💎</h3><p><strong>RM50</strong></p><a href="#" class="buy-btn">Buy Now</a></div>   <div class="card" data-package="716 💎" data-price="RM55"><h3>716 💎</h3><p><strong>RM55</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="870 💎" data-price="RM65"><h3>870 💎</h3><p><strong>RM65</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="1060 💎" data-price="RM75"><h3>1060 💎</h3><p><strong>RM75</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="1145 💎" data-price="RM80"><h3>1145 💎</h3><p><strong>RM80</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="1285 💎" data-price="RM90"><h3>1285 💎</h3><p><strong>RM90</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="1446 💎" data-price="RM100"><h3>1446 💎</h3><p><strong>RM100</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="1586 💎" data-price="RM110"><h3>1586 💎</h3><p><strong>RM110</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="1712 💎" data-price="RM115"><h3>1712 💎</h3><p><strong>RM115</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="2015 💎" data-price="RM145"><h3>2015 💎</h3><p><strong>RM145</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="2162 💎" data-price="RM155"><h3>2162 💎</h3><p><strong>RM155</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="2531 💎" data-price="RM180"><h3>2531 💎</h3><p><strong>RM180</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="2976 💎" data-price="RM200"><h3>2976 💎</h3><p><strong>RM200</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="3274 💎" data-price="RM215"><h3>3274 💎</h3><p><strong>RM215</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="3517 💎" data-price="RM230"><h3>3517 💎</h3><p><strong>RM230</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="4047 💎" data-price="RM260"><h3>4047 💎</h3><p><strong>RM260</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="4562 💎" data-price="RM300"><h3>4562 💎</h3><p><strong>RM300</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="5138 💎" data-price="RM335"><h3>5138 💎</h3><p><strong>RM335</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="5567 💎" data-price="RM360"><h3>5567 💎</h3><p><strong>RM360</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="6092 💎" data-price="RM390"><h3>6092 💎</h3><p><strong>RM390</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="6668 💎" data-price="RM430"><h3>6668 💎</h3><p><strong>RM430</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="7502 💎" data-price="RM490"><h3>7502 💎</h3><p><strong>RM490</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="8218 💎" data-price="RM515"><h3>8218 💎</h3><p><strong>RM515</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="9377 💎" data-price="RM600"><h3>9377 💎</h3><p><strong>RM600</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="10907 💎" data-price="RM690"><h3>10907 💎</h3><p><strong>RM690</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-  <div class="card" data-package="12640 💎" data-price="RM810"><h3>12640 💎</h3><p><strong>RM810</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="70 💎" data-price="RM6"><h3>70 💎</h3><p><strong>RM6</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="140 💎" data-price="RM12"><h3>140 💎</h3><p><strong>RM12</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="284 💎" data-price="RM23"><h3>284 💎</h3><p><strong>RM23</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="355 💎" data-price="RM30"><h3>355 💎</h3><p><strong>RM30</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="429 💎" data-price="RM35"><h3>429 💎</h3><p><strong>RM35</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="565 💎" data-price="RM45"><h3>565 💎</h3><p><strong>RM45</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="639 💎" data-price="RM50"><h3>639 💎</h3><p><strong>RM50</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="716 💎" data-price="RM55"><h3>716 💎</h3><p><strong>RM55</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="870 💎" data-price="RM65"><h3>870 💎</h3><p><strong>RM65</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1060 💎" data-price="RM75"><h3>1060 💎</h3><p><strong>RM75</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1145 💎" data-price="RM80"><h3>1145 💎</h3><p><strong>RM80</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1285 💎" data-price="RM90"><h3>1285 💎</h3><p><strong>RM90</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1446 💎" data-price="RM100"><h3>1446 💎</h3><p><strong>RM100</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1586 💎" data-price="RM110"><h3>1586 💎</h3><p><strong>RM110</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1712 💎" data-price="RM115"><h3>1712 💎</h3><p><strong>RM115</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2015 💎" data-price="RM145"><h3>2015 💎</h3><p><strong>RM145</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2162 💎" data-price="RM155"><h3>2162 💎</h3><p><strong>RM155</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2531 💎" data-price="RM180"><h3>2531 💎</h3><p><strong>RM180</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2976 💎" data-price="RM200"><h3>2976 💎</h3><p><strong>RM200</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="3274 💎" data-price="RM215"><h3>3274 💎</h3><p><strong>RM215</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="3517 💎" data-price="RM230"><h3>3517 💎</h3><p><strong>RM230</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="4047 💎" data-price="RM260"><h3>4047 💎</h3><p><strong>RM260</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="4562 💎" data-price="RM300"><h3>4562 💎</h3><p><strong>RM300</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="5138 💎" data-price="RM335"><h3>5138 💎</h3><p><strong>RM335</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="5567 💎" data-price="RM360"><h3>5567 💎</h3><p><strong>RM360</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="6092 💎" data-price="RM390"><h3>6092 💎</h3><p><strong>RM390</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="6668 💎" data-price="RM430"><h3>6668 💎</h3><p><strong>RM430</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="7502 💎" data-price="RM490"><h3>7502 💎</h3><p><strong>RM490</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="8218 💎" data-price="RM515"><h3>8218 💎</h3><p><strong>RM515</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="9377 💎" data-price="RM600"><h3>9377 💎</h3><p><strong>RM600</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="10907 💎" data-price="RM690"><h3>10907 💎</h3><p><strong>RM690</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="12640 💎" data-price="RM810"><h3>12640 💎</h3><p><strong>RM810</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
 
-    <div class="card" data-package="70 💎" data-price="RM6">
-      <h3>70 💎</h3><p><strong>RM6</strong></p>
-      <a href="#" class="buy-btn">Buy Now</a>
-    </div>
-    <!-- 👉 Add ALL other MLBB packages here -->
+  </div>
+  <div class="how-it-works">
+    <h2>How It Works</h2>
+    <ol>
+      <li>Enter your MLBB ID and Zone (e.g. 36274747 (7729)).</li>
+      <li>Select your diamond package and make payment.</li>
+      <li>Receive diamonds instantly in-game.</li>
+    </ol>
   </div>
 </section>
 
-<footer>&copy; 2020 Mastermind Esports</footer>
+<footer>&copy; 2020 Mastermind Esports. Trusted by thousands of gamers.</footer>
+
+<a href="https://wa.me/60147433177" class="whatsapp-float" target="_blank">💬 Order on WhatsApp</a>
 
 <script>
   const whatsappNumber = "60147433177"; // replace with your number
@@ -131,15 +184,15 @@
   });
 
   // WhatsApp Buy Now
-  document.querySelectorAll(".buy-btn").forEach(button=>{
-    button.addEventListener("click",function(e){
+  document.addEventListener("click",function(e){
+    if(e.target.classList.contains("buy-btn")){
       e.preventDefault();
-      const card=this.closest(".card");
+      const card=e.target.closest(".card");
       const pkg=card.dataset.package;
       const price=card.dataset.price;
       const msg=`Hi Mastermind Esports! I want to order ${pkg} (${price}).`;
       window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`,"_blank");
-    });
+    }
   });
 </script>
 
