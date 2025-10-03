@@ -1,38 +1,250 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mastermind Esports</title>
+  <title>Mastermind Esports Top-Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background: #121212; color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center; padding: 40px;
-      animation: fadeIn 1s ease-in;
+      margin: 0;
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
     }
-    h1 { color: #00ffcc; }
-    a.button {
-      display: inline-block; margin: 20px; padding: 14px 25px;
-      background: #00ffcc; color: #000; font-weight: bold;
-      text-decoration: none; border-radius: 6px;
+
+    header {
+      background: url('banner.jpg') center/cover no-repeat;
+      height: 50vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      z-index: 1;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .tab-btn {
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      margin: 0 10px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: #00ffcc;
+      color: #000;
+    }
+
+    .section {
+      padding: 2rem;
+      max-width: 1100px;
+      margin: auto;
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #1a1a1a;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h3 {
+      margin: 1rem 0 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+    .card p strong {
+      color: #00ffcc;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 10px 20px;
+      background: #00ffcc;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .card a:hover {
+      background: #00e6b8;
+    }
+
+    .how-it-works {
+      background: #111;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: #fff;
+      font-weight: bold;
+      padding: 12px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       transition: transform 0.3s ease, background 0.3s ease;
+      z-index: 999;
     }
-    a.button:hover {
-      transform: scale(1.05); background: #00e6b8;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .whatsapp-float:hover {
+      background: #20b954;
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Mastermind Esports</h1>
-  <p>Choose your game to view the top-up options:</p>
-  <a class="button" href="pubg.html">🔫 PUBG UC</a>
-  <a class="button" href="mlbb.html">⚔️ Mobile Legends Diamonds</a>
-  <footer style="margin-top:50px;color:#888;font-size:0.9em;">© 2020 Mastermind Esports</footer>
+
+  <header>
+    <h1>Mastermind Esports Top-Up</h1>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="pubg">PUBG UC</button>
+    <button class="tab-btn" data-tab="mlbb">MLBB Diamonds</button>
+  </div>
+
+  <!-- PUBG Section -->
+  <section id="pubg" class="section active">
+    <h2>Choose Your PUBG UC Package</h2>
+    <div class="packages">
+      <div class="card" data-package="325 UC" data-price="RM22"><h3>325 UC</h3><p><strong>RM22</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+      <div class="card" data-package="660 UC" data-price="RM43"><h3>660 UC</h3><p><strong>RM43</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+      <!-- Add the rest of your PUBG packages here -->
+    </div>
+    <div class="how-it-works">
+      <h2>How It Works</h2>
+      <ol>
+        <li>Enter your PUBG Player ID.</li>
+        <li>Select your UC package and make payment.</li>
+        <li>Receive UC instantly in-game.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- MLBB Section -->
+  <section id="mlbb" class="section">
+    <h2>Choose Your MLBB Diamond Package</h2>
+    <div class="packages">
+      <div class="card" data-package="70 💎" data-price="RM6"><h3>70 💎</h3><p><strong>RM6</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+      <div class="card" data-package="140 💎" data-price="RM12"><h3>140 💎</h3><p><strong>RM12</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+      <!-- Add the rest of your MLBB packages here -->
+    </div>
+    <div class="how-it-works">
+      <h2>How It Works</h2>
+      <ol>
+        <li>Enter your MLBB ID and Zone (e.g. 36274747 (7729)).</li>
+        <li>Select your diamond package and make payment.</li>
+        <li>Receive diamonds instantly in-game.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Mastermind Esports. Trusted by thousands of gamers.
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/60123456789" class="whatsapp-float" target="_blank">
+    💬 Order on WhatsApp
+  </a>
+
+  <!-- JavaScript -->
+  <script>
+    const whatsappNumber = "60123456789"; // replace with your real number
+
+    // Tab switching
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById(btn.dataset.tab).classList.add("active");
+      });
+    });
+
+    // WhatsApp Buy Now
+    document.querySelectorAll(".buy-btn").forEach(button => {
+      button.addEventListener("click", function(e) {
+        e.preventDefault();
+        const card = this.closest(".card");
+        const pkg = card.getAttribute("data-package");
+        const price = card.getAttribute("data-price");
+        const message = `Hi Mastermind Esports! I want to order ${pkg} (${price}).`;
+        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, "_blank");
+      });
+    });
+  </script>
+
 </body>
 </html>
