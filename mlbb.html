@@ -1,96 +1,162 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mobile Legends - Mastermind Esports</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLBB Top-Up | Mastermind Esports</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #121212;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 30px 15px;
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+    }
+
+    header {
+      background: url('mlbb-banner.jpg') center/cover no-repeat;
+      height: 60vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
     }
-    h1 {
-      color: #ff6ec7;
-      font-size: 2.2em;
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
     }
-    .button {
-      background-color: #ff6ec7;
-      color: #000;
-      padding: 10px 20px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 20px auto;
+
+    header h1 {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      z-index: 1;
+    }
+
+    .section {
+      padding: 3rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: #1a1a1a;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h3 {
+      margin: 1rem 0 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+
+    .card a {
       display: inline-block;
-    }
-    .logo {
-      width: 160px;
-      animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    .item {
-      background-color: #222;
-      padding: 10px;
-      margin: 8px auto;
-      max-width: 400px;
+      margin-top: 1rem;
+      padding: 10px 20px;
+      background: #00ffcc;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
       border-radius: 6px;
-      display: flex;
-      justify-content: space-between;
+      transition: background 0.3s ease;
     }
+
+    .card a:hover {
+      background: #00e6b8;
+    }
+
+    .how-it-works {
+      background: #111;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+
+    .how-it-works ol {
+      padding-left: 1.2rem;
+    }
+
     footer {
-      margin-top: 40px;
-      font-size: 0.85em;
-      color: #777;
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <h1>Mobile Legends Diamonds</h1>
-  <img class="logo" src="https://seeklogo.com/images/M/mobile-legends-logo-417B2FC7DC-seeklogo.com.png" alt="MLBB Logo" />
-  <div class="item"><span>RM6</span><span>70 💎</span></div>
-  <div class="item"><span>RM12</span><span>140 💎</span></div>
-  <div class="item"><span>RM23</span><span>284 💎</span></div>
-  <div class="item"><span>RM30</span><span>355 💎</span></div>
-  <div class="item"><span>RM35</span><span>429 💎</span></div>
-  <div class="item"><span>RM45</span><span>565 💎</span></div>
-  <div class="item"><span>RM50</span><span>639 💎</span></div>
-  <div class="item"><span>RM55</span><span>716 💎</span></div>
-  <div class="item"><span>RM65</span><span>870 💎</span></div>
-  <div class="item"><span>RM75</span><span>1060 💎</span></div>
-  <div class="item"><span>RM80</span><span>1145 💎</span></div>
-  <div class="item"><span>RM90</span><span>1285 💎</span></div>
-  <div class="item"><span>RM100</span><span>1446 💎</span></div>
-  <div class="item"><span>RM110</span><span>1586 💎</span></div>
-  <div class="item"><span>RM115</span><span>1712 💎</span></div>
-  <div class="item"><span>RM145</span><span>2015 💎</span></div>
-  <div class="item"><span>RM155</span><span>2162 💎</span></div>
-  <div class="item"><span>RM180</span><span>2531 💎</span></div>
-  <div class="item"><span>RM200</span><span>2976 💎</span></div>
-  <div class="item"><span>RM215</span><span>3274 💎</span></div>
-  <div class="item"><span>RM230</span><span>3517 💎</span></div>
-  <div class="item"><span>RM260</span><span>4047 💎</span></div>
-  <div class="item"><span>RM300</span><span>4562 💎</span></div>
-  <div class="item"><span>RM335</span><span>5138 💎</span></div>
-  <div class="item"><span>RM360</span><span>5567 💎</span></div>
-  <div class="item"><span>RM390</span><span>6092 💎</span></div>
-  <div class="item"><span>RM430</span><span>6668 💎</span></div>
-  <div class="item"><span>RM310</span><span>4422 💎</span></div>
-  <div class="item"><span>RM490</span><span>7502 💎</span></div>
-  <div class="item"><span>RM515</span><span>8218 💎</span></div>
-  <div class="item"><span>RM600</span><span>9377 💎</span></div>
-  <div class="item"><span>RM690</span><span>10907 💎</span></div>
-  <div class="item"><span>RM810</span><span>12640 💎</span></div>
-  <br>
-  <a class="button" href="index.html">⬅️ Back to Home</a>
-  <a class="button" href="https://wa.me/60147433177">💬 Order via WhatsApp</a>
-  <footer>© 2025 Mastermind Esports</footer>
+
+  <header>
+    <h1>Mobile Legends Diamonds</h1>
+  </header>
+
+  <section class="section">
+    <h2>Choose Your Package</h2>
+    <div class="packages">
+      <div class="card">
+        <h3>86 Diamonds</h3>
+        <p>RM5.00 • Instant Delivery</p>
+        <a href="#">Buy Now</a>
+      </div>
+      <div class="card">
+        <h3>257 Diamonds</h3>
+        <p>RM15.00 • Instant Delivery</p>
+        <a href="#">Buy Now</a>
+      </div>
+      <div class="card">
+        <h3>514 Diamonds</h3>
+        <p>RM30.00 • Instant Delivery</p>
+        <a href="#">Buy Now</a>
+      </div>
+      <div class="card">
+        <h3>1080 Diamonds</h3>
+        <p>RM60.00 • Instant Delivery</p>
+        <a href="#">Buy Now</a>
+      </div>
+    </div>
+
+    <div class="how-it-works">
+      <h2>How It Works</h2>
+      <ol>
+        <li>Enter your MLBB ID and Zone.</li>
+        <li>Select your package and make payment.</li>
+        <li>Receive diamonds instantly in-game.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Mastermind Esports. Trusted by thousands of gamers.
+  </footer>
+
 </body>
 </html>
