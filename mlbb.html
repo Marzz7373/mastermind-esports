@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MLBB Top-Up | Mastermind Esports</title>
+  <title>Mobile Legends Top-Up | Mastermind Esports</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -77,6 +77,9 @@
       font-size: 0.95rem;
       color: #ccc;
     }
+    .card p strong {
+      color: #00ffcc;
+    }
 
     .card a {
       display: inline-block;
@@ -111,6 +114,27 @@
       font-size: 0.9rem;
       color: #888;
     }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: #fff;
+      font-weight: bold;
+      padding: 12px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, background 0.3s ease;
+      z-index: 999;
+    }
+
+    .whatsapp-float:hover {
+      background: #20b954;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -120,43 +144,62 @@
   </header>
 
   <section class="section">
-    <h2>Choose Your Package</h2>
+    <h2>Choose Your Diamond Package</h2>
     <div class="packages">
-      <div class="card">
-        <h3>86 Diamonds</h3>
-        <p>RM5.00 • Instant Delivery</p>
-        <a href="#">Buy Now</a>
-      </div>
-      <div class="card">
-        <h3>257 Diamonds</h3>
-        <p>RM15.00 • Instant Delivery</p>
-        <a href="#">Buy Now</a>
-      </div>
-      <div class="card">
-        <h3>514 Diamonds</h3>
-        <p>RM30.00 • Instant Delivery</p>
-        <a href="#">Buy Now</a>
-      </div>
-      <div class="card">
-        <h3>1080 Diamonds</h3>
-        <p>RM60.00 • Instant Delivery</p>
-        <a href="#">Buy Now</a>
-      </div>
-    </div>
-
-    <div class="how-it-works">
-      <h2>How It Works</h2>
-      <ol>
-        <li>Enter your MLBB ID and Zone.</li>
-        <li>Select your package and make payment.</li>
-        <li>Receive diamonds instantly in-game.</li>
-      </ol>
+      <div class="card"><h3>70 💎</h3><p><strong>RM6</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>140 💎</h3><p><strong>RM12</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>284 💎</h3><p><strong>RM23</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>355 💎</h3><p><strong>RM30</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>429 💎</h3><p><strong>RM35</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>565 💎</h3><p><strong>RM45</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>639 💎</h3><p><strong>RM50</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>716 💎</h3><p><strong>RM55</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>870 💎</h3><p><strong>RM65</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>1060 💎</h3><p><strong>RM75</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>1145 💎</h3><p><strong>RM80</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>1285 💎</h3><p><strong>RM90</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>1446 💎</h3><p><strong>RM100</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>1586 💎</h3><p><strong>RM110</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>1712 💎</h3><p><strong>RM115</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>2015 💎</h3><p><strong>RM145</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>2162 💎</h3><p><strong>RM155</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>2531 💎</h3><p><strong>RM180</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>2976 💎</h3><p><strong>RM200</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>3274 💎</h3><p><strong>RM215</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>3517 💎</h3><p><strong>RM230</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>4047 💎</h3><p><strong>RM260</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>4562 💎</h3><p><strong>RM300</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>5138 💎</h3><p><strong>RM335</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>5567 💎</h3><p><strong>RM360</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>6092 💎</h3><p><strong>RM390</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>6668 💎</h3><p><strong>RM430</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>4422 💎</h3><p><strong>RM310</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>7502 💎</h3><p><strong>RM490</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>8218 💎</h3><p><strong>RM515</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>9377 💎</h3><p><strong>RM600</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>10907 💎</h3><p><strong>RM690</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
+      <div class="card"><h3>12640 💎</h3><p><strong>RM810</strong> • Instant Delivery</p><a href="#">Buy Now</a></div>
     </div>
   </section>
 
+  <div class="how-it-works">
+    <h2>How It Works</h2>
+    <ol>
+      <li>Enter your MLBB ID and Zone (e.g. 36274747 (7729)).</li>
+      <li>Select your diamond package and make payment.</li>
+      <li>Receive diamonds instantly in-game.</li>
+    </ol>
+  </div>
+
   <footer>
-    &copy; 2025 Mastermind Esports. Trusted by thousands of gamers.
+    &copy; 2020 Mastermind Esports. Trusted by thousands of gamers.
   </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/60147433177?text=Hi%20Mastermind%20Esports!%20I%20want%20to%20order%20MLBB%20Diamonds." 
+     class="whatsapp-float" target="_blank">
+    💬 Order on WhatsApp
+  </a>
 
 </body>
 </html>
