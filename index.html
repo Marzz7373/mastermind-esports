@@ -209,7 +209,48 @@
       transform: scale(1.05);
       box-shadow: 0 8px 20px rgba(0, 255, 204, 0.3);
     }
-    
+    .promo-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+  animation: pulse 2s infinite;
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #64748b;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.promo-card {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(238, 90, 111, 0.05) 100%);
+  border: 2px solid rgba(255, 107, 107, 0.3);
+}
+
+.promo-card:hover {
+  border-color: rgba(255, 107, 107, 0.6);
+  box-shadow: 0 12px 40px rgba(255, 107, 107, 0.25);
+}    
     .how {
       background: linear-gradient(135deg, rgba(26, 31, 58, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
       border: 1px solid rgba(148, 163, 184, 0.1);
@@ -343,6 +384,8 @@
 <div class="tabs">
   <button class="tab-btn" onclick="showTab('pubg', this)">🎮 PUBG UC</button>
   <button class="tab-btn inactive" onclick="showTab('mlbb', this)">💎 Mobile Legends</button>
+  <button class="tab-btn inactive" onclick="showTab('promo-pubg', this)">🔥 PROMO PUBG</button>
+  <button class="tab-btn inactive" onclick="showTab('promo-mlbb', this)">⚡ PROMO MLBB</button>
 </div>
 
 <div id="pubg" class="section active">
@@ -434,7 +477,77 @@
     </ol>
   </div>
 </div>
+<div id="promo-pubg" class="section">
+  <h2>🔥 PROMO PUBG UC - Limited Time Offers!</h2>
+  <div class="packages">
+    <div class="card promo-card">
+      <div class="promo-badge">HOT DEAL</div>
+      <h3>1,800 UC</h3>
+      <div class="old-price">RM103</div>
+      <div class="price">RM90</div>
+      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 1,800 UC (RM90)" class="buy-btn">Buy Now</a>
+    </div>
+    <div class="card promo-card">
+      <div class="promo-badge">BEST VALUE</div>
+      <h3>3,850 UC</h3>
+      <div class="old-price">RM200</div>
+      <div class="price">RM170</div>
+      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 3,850 UC (RM170)" class="buy-btn">Buy Now</a>
+    </div>
+    <div class="card promo-card">
+      <div class="promo-badge">MEGA SALE</div>
+      <h3>8,100 UC</h3>
+      <div class="old-price">RM390</div>
+      <div class="price">RM325</div>
+      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 8,100 UC (RM325)" class="buy-btn">Buy Now</a>
+    </div>
+  </div>
+  <div class="how">
+    <h3>⏰ Limited Time Promo!</h3>
+    <ol>
+      <li>These special prices are available for a limited time only</li>
+      <li>Enter your PUBG Player ID when ordering</li>
+      <li>Select your promo package and make payment</li>
+      <li>Receive UC instantly in-game</li>
+    </ol>
+  </div>
+</div>
 
+<div id="promo-mlbb" class="section">
+  <h2>⚡ PROMO Mobile Legends - Special Discounts!</h2>
+  <div class="packages">
+    <div class="card promo-card">
+      <div class="promo-badge">HOT DEAL</div>
+      <h3>1446 💎</h3>
+      <div class="old-price">RM100</div>
+      <div class="price">RM88</div>
+      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 1446 Diamonds (RM88)" class="buy-btn">Buy Now</a>
+    </div>
+    <div class="card promo-card">
+      <div class="promo-badge">BEST VALUE</div>
+      <h3>2976 💎</h3>
+      <div class="old-price">RM200</div>
+      <div class="price">RM185</div>
+      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 2976 Diamonds (RM185)" class="buy-btn">Buy Now</a>
+    </div>
+    <div class="card promo-card">
+      <div class="promo-badge">MEGA SALE</div>
+      <h3>6092 💎</h3>
+      <div class="old-price">RM390</div>
+      <div class="price">RM365</div>
+      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 6092 Diamonds (RM365)" class="buy-btn">Buy Now</a>
+    </div>
+  </div>
+  <div class="how">
+    <h3>⏰ Limited Time Promo!</h3>
+    <ol>
+      <li>These special prices are available for a limited time only</li>
+      <li>Enter your MLBB ID and Zone (e.g. 36274747 (7729))</li>
+      <li>Select your promo package and make payment</li>
+      <li>Receive diamonds instantly in-game</li>
+    </ol>
+  </div>
+</div>
 <footer>
   &copy; 2020-2025 Mastermind Esports. All rights reserved.
 </footer>
