@@ -1,177 +1,319 @@
+The code is in the artifact above! You can copy it by clicking the copy button in the top-right corner of the code window. Let me also provide it here in a text block for you:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mastermind Esports E-Shop</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {margin:0;background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;}
+    * {box-sizing:border-box;}
+    body {margin:0;background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden;}
+    
     header {
-      background:url('banner.jpg') center/cover no-repeat;
+      background:linear-gradient(135deg, #1a1a2e 0%, #0f3460 50%, #16213e 100%);
       height:70vh;display:flex;align-items:center;justify-content:center;position:relative;text-align:center;
+      overflow:hidden;
     }
-    header::after {content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.6),#0a0a0a);}
-    header h1 {position:relative;font-family:'Playfair Display',serif;font-size:3rem;letter-spacing:2px;z-index:1;}
+    header::before {
+      content:"";position:absolute;width:200%;height:200%;
+      background:radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 70%);
+      animation:rotate 20s linear infinite;
+    }
+    @keyframes rotate {from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+    header h1 {
+      position:relative;font-family:'Playfair Display',serif;font-size:clamp(2rem, 6vw, 3.5rem);
+      letter-spacing:2px;z-index:1;text-shadow:0 0 30px rgba(0,255,204,0.5);
+      animation:glow 3s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%,100% {text-shadow:0 0 20px rgba(0,255,204,0.5),0 0 40px rgba(0,255,204,0.3);}
+      50% {text-shadow:0 0 30px rgba(0,255,204,0.8),0 0 60px rgba(0,255,204,0.5);}
+    }
+    header p {position:relative;z-index:1;font-size:1.2rem;margin-top:1rem;opacity:0.9;}
 
-    .tabs {display:flex;justify-content:center;margin:2rem 0;position:sticky;top:0;background:#0a0a0a;z-index:10;padding:0.5rem;}
-    .tab-btn {background:#1a1a1a;color:#fff;border:none;padding:12px 24px;margin:0 10px;cursor:pointer;font-weight:bold;border-radius:6px;transition:all 0.3s;}
-    .tab-btn.active,.tab-btn:hover {background:#00ffcc;color:#000;box-shadow:0 0 15px rgba(0,255,204,0.6);}
+    .tabs {
+      display:flex;justify-content:center;align-items:center;flex-wrap:wrap;
+      margin:2rem auto;position:sticky;top:0;background:rgba(10,10,10,0.95);
+      backdrop-filter:blur(10px);z-index:100;padding:1rem;gap:10px;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+    .tab-btn {
+      background:rgba(255,255,255,0.05);color:#fff;border:2px solid rgba(0,255,204,0.3);
+      padding:12px 28px;cursor:pointer;font-weight:600;border-radius:8px;
+      transition:all 0.3s;font-size:1rem;
+    }
+    .tab-btn.active {
+      background:linear-gradient(135deg,#00ffcc,#00bfff);color:#000;
+      border-color:transparent;box-shadow:0 0 20px rgba(0,255,204,0.6);
+      transform:translateY(-2px);
+    }
+    .tab-btn:hover:not(.active) {
+      background:rgba(0,255,204,0.1);border-color:#00ffcc;
+      transform:translateY(-2px);
+    }
 
-    .section {display:none;max-width:1100px;margin:auto;padding:2rem;animation:fadeIn 0.6s ease;}
+    .controls {
+      max-width:1100px;margin:2rem auto 1rem;padding:0 2rem;
+      display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    }
+    .search-box {
+      flex:1;min-width:250px;position:relative;
+    }
+    .search-box input {
+      width:100%;padding:12px 40px 12px 16px;background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:#fff;
+      font-size:1rem;transition:all 0.3s;
+    }
+    .search-box input:focus {
+      outline:none;border-color:#00ffcc;box-shadow:0 0 15px rgba(0,255,204,0.3);
+      background:rgba(255,255,255,0.08);
+    }
+    .search-box::after {
+      content:"🔍";position:absolute;right:12px;top:50%;transform:translateY(-50%);
+    }
+    .sort-btn {
+      padding:12px 20px;background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.2);border-radius:8px;
+      color:#fff;cursor:pointer;transition:all 0.3s;font-weight:600;
+    }
+    .sort-btn:hover {background:rgba(0,255,204,0.1);border-color:#00ffcc;}
+
+    .section {display:none;max-width:1200px;margin:auto;padding:2rem;animation:fadeIn 0.6s ease;}
     .section.active {display:block;}
-    @keyframes fadeIn {from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeIn {from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
-    .packages {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;}
-    .card {
-      background:rgba(255,255,255,0.05);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,0.1);
-      border-radius:12px;
-      padding:1.5rem;
-      text-align:center;
-      box-shadow:0 0 15px rgba(0,255,204,0.1);
-      transition:transform 0.3s, box-shadow 0.3s;
+    .section-header {text-align:center;margin-bottom:2rem;}
+    .section-header h2 {font-size:2.5rem;margin-bottom:0.5rem;color:#00ffcc;}
+    .section-header p {opacity:0.8;font-size:1.1rem;}
+
+    .packages {
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:1.5rem;padding:1rem 0;
     }
-    .card:hover {transform:translateY(-5px) scale(1.03);box-shadow:0 0 25px rgba(0,255,204,0.5);}
-    .card h3 {margin:0.5rem 0;font-size:1.3rem;}
-    .card p strong {color:#00ffcc;}
+    .card {
+      background:rgba(255,255,255,0.03);backdrop-filter:blur(15px);
+      border:1px solid rgba(255,255,255,0.1);border-radius:16px;
+      padding:1.8rem 1.5rem;text-align:center;
+      box-shadow:0 8px 32px rgba(0,0,0,0.3);
+      transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position:relative;overflow:hidden;
+    }
+    .card::before {
+      content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+      background:radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 70%);
+      opacity:0;transition:opacity 0.4s;
+    }
+    .card:hover::before {opacity:1;}
+    .card:hover {
+      transform:translateY(-8px) scale(1.03);
+      box-shadow:0 12px 40px rgba(0,255,204,0.4);
+      border-color:rgba(0,255,204,0.5);
+    }
+    .card.popular {border-color:#00ffcc;background:rgba(0,255,204,0.05);}
+    .card.popular::after {
+      content:"⭐ POPULAR";position:absolute;top:10px;right:-30px;
+      background:linear-gradient(135deg,#ffd700,#ffed4e);color:#000;
+      padding:4px 35px;font-size:0.7rem;font-weight:bold;
+      transform:rotate(45deg);box-shadow:0 2px 10px rgba(0,0,0,0.3);
+    }
+    .card h3 {margin:0.5rem 0;font-size:1.5rem;position:relative;z-index:1;}
+    .card p {margin:1rem 0;position:relative;z-index:1;}
+    .card p strong {color:#00ffcc;font-size:1.8rem;font-weight:700;}
 
     .buy-btn {
-      display:inline-block;margin-top:1rem;padding:10px 20px;
-      background:linear-gradient(90deg,#00ffcc,#00bfff);
-      color:#000;font-weight:bold;text-decoration:none;border-radius:6px;
-      animation:pulse 2s infinite;transition:transform 0.3s;
+      display:inline-block;margin-top:1rem;padding:12px 28px;
+      background:linear-gradient(135deg,#00ffcc,#00bfff);
+      color:#000;font-weight:700;text-decoration:none;border-radius:8px;
+      transition:all 0.3s;position:relative;z-index:1;
+      box-shadow:0 4px 15px rgba(0,255,204,0.3);
     }
-    .buy-btn:hover {transform:scale(1.05);}
-    @keyframes pulse {
-      0%,100% {box-shadow:0 0 10px #00ffcc;}
-      50% {box-shadow:0 0 20px #00bfff;}
+    .buy-btn:hover {
+      transform:scale(1.05);box-shadow:0 6px 25px rgba(0,255,204,0.5);
+      background:linear-gradient(135deg,#00bfff,#00ffcc);
     }
+    .buy-btn:active {transform:scale(0.98);}
 
-    .how-it-works {background:#111;border-radius:10px;padding:2rem;margin-top:3rem;}
-    .how-it-works h2 {margin-bottom:1rem;}
-    .how-it-works ol {padding-left:1.2rem;}
+    .how-it-works {
+      background:linear-gradient(135deg, rgba(0,255,204,0.05), rgba(0,191,255,0.05));
+      border-radius:16px;padding:2.5rem;margin-top:3rem;
+      border:1px solid rgba(0,255,204,0.2);
+    }
+    .how-it-works h2 {margin-bottom:1.5rem;font-size:2rem;color:#00ffcc;}
+    .how-it-works ol {padding-left:1.5rem;line-height:2;}
+    .how-it-works li {margin:1rem 0;font-size:1.1rem;}
 
-    footer {text-align:center;padding:2rem;font-size:0.9rem;color:#888;}
+    footer {
+      text-align:center;padding:3rem 2rem;font-size:0.95rem;color:#888;
+      border-top:1px solid rgba(255,255,255,0.1);margin-top:4rem;
+    }
 
     .whatsapp-float {
-      position:fixed;bottom:20px;right:20px;
-      background:#25D366;color:#fff;font-weight:bold;
-      padding:12px 18px;border-radius:50px;text-decoration:none;
-      box-shadow:0 4px 10px rgba(0,0,0,0.3);
-      transition:transform 0.3s,background 0.3s;z-index:999;
+      position:fixed;bottom:25px;right:25px;
+      background:linear-gradient(135deg,#25D366,#20b954);
+      color:#fff;font-weight:700;padding:14px 22px;border-radius:50px;
+      text-decoration:none;box-shadow:0 6px 20px rgba(37,211,102,0.4);
+      transition:all 0.3s;z-index:999;
+      display:flex;align-items:center;gap:8px;
     }
-    .whatsapp-float:hover {background:#20b954;transform:scale(1.05);}
+    .whatsapp-float:hover {
+      transform:scale(1.08) translateY(-3px);
+      box-shadow:0 8px 30px rgba(37,211,102,0.6);
+    }
+
+    .no-results {
+      text-align:center;padding:4rem 2rem;opacity:0.7;
+    }
+    .no-results h3 {font-size:2rem;margin-bottom:1rem;}
+
+    @media(max-width:768px) {
+      header {height:50vh;}
+      header h1 {font-size:2rem;}
+      .packages {grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;}
+      .card {padding:1.5rem 1rem;}
+      .controls {flex-direction:column;}
+      .search-box {width:100%;}
+    }
   </style>
 </head>
 <body>
 
-<header><h1>Mastermind Esports Top-Up</h1></header>
+<header>
+  <div>
+    <h1>Mastermind Esports E-shop</h1>
+    <p>Fast, Secure & Instant Delivery</p>
+  </div>
+</header>
 
 <div class="tabs">
-  <button class="tab-btn active" data-tab="pubg">PUBG UC</button>
-  <button class="tab-btn" data-tab="mlbb">MLBB Diamonds</button>
+  <button class="tab-btn active" data-tab="pubg">🎮 PUBG UC</button>
+  <button class="tab-btn" data-tab="mlbb">💎 MLBB Diamonds</button>
 </div>
 
 <section id="pubg" class="section active">
-  <h2>PUBG UC Packages</h2>
-  <div class="packages">
-<div class="card" data-package="325 UC" data-price="RM22"><h3>325 UC</h3><p><strong>RM22</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="660 UC" data-price="RM43"><h3>660 UC</h3><p><strong>RM43</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="1,320 UC" data-price="RM85"><h3>1,320 UC</h3><p><strong>RM85</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="1,800 UC" data-price="RM103"><h3>1,800 UC</h3><p><strong>RM103</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="2,125 UC" data-price="RM125"><h3>2,125 UC</h3><p><strong>RM125</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="2,460 UC" data-price="RM145"><h3>2,460 UC</h3><p><strong>RM145</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="2,760 UC" data-price="RM166"><h3>2,760 UC</h3><p><strong>RM166</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="3,850 UC" data-price="RM200"><h3>3,850 UC</h3><p><strong>RM200</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="4,510 UC" data-price="RM241"><h3>4,510 UC</h3><p><strong>RM241</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="5,170 UC" data-price="RM282"><h3>5,170 UC</h3><p><strong>RM282</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="5,650 UC" data-price="RM300"><h3>5,650 UC</h3><p><strong>RM300</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="8,100 UC" data-price="RM390"><h3>8,100 UC</h3><p><strong>RM390</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="8,400 UC" data-price="RM413"><h3>8,400 UC</h3><p><strong>RM413</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="9,060 UC" data-price="RM454"><h3>9,060 UC</h3><p><strong>RM454</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="9,900 UC" data-price="RM490"><h3>9,900 UC</h3><p><strong>RM490</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="10,200 UC" data-price="RM512"><h3>10,200 UC</h3><p><strong>RM512</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="10,560 UC" data-price="RM531"><h3>10,560 UC</h3><p><strong>RM531</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="10,860 UC" data-price="RM552"><h3>10,860 UC</h3><p><strong>RM552</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="11,950 UC" data-price="RM586"><h3>11,950 UC</h3><p><strong>RM586</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="12,250 UC" data-price="RM608"><h3>12,250 UC</h3><p><strong>RM608</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="12,910 UC" data-price="RM649"><h3>12,910 UC</h3><p><strong>RM649</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="13,750 UC" data-price="RM685"><h3>13,750 UC</h3><p><strong>RM685</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="16,200 UC" data-price="RM777"><h3>16,200 UC</h3><p><strong>RM777</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="18,000 UC" data-price="RM875"><h3>18,000 UC</h3><p><strong>RM875</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="20,050 UC" data-price="RM974"><h3>20,050 UC</h3><p><strong>RM974</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="25,850 UC" data-price="RM1,250"><h3>25,850 UC</h3><p><strong>RM1,250</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="32,400 UC" data-price="RM1,550"><h3>32,400 UC</h3><p><strong>RM1,550</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="40,000 UC" data-price="RM1,900"><h3>40,000 UC</h3><p><strong>RM1,900</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="52,000 UC" data-price="RM2,450"><h3>52,000 UC</h3><p><strong>RM2,450</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="105,300 UC" data-price="RM5,013"><h3>105,300 UC</h3><p><strong>RM5,013</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-
+  <div class="section-header">
+    <h2>PUBG UC Packages</h2>
+    <p>Choose your perfect UC package and dominate the battlefield</p>
   </div>
+  
+  <div class="controls">
+    <div class="search-box">
+      <input type="text" id="pubg-search" placeholder="Search UC packages...">
+    </div>
+    <button class="sort-btn" data-section="pubg">Sort by Price</button>
+  </div>
+
+  <div class="packages" id="pubg-packages">
+<div class="card popular" data-package="325 UC" data-price="22"><h3>325 UC</h3><p><strong>RM22</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card popular" data-package="660 UC" data-price="43"><h3>660 UC</h3><p><strong>RM43</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card popular" data-package="1,320 UC" data-price="85"><h3>1,320 UC</h3><p><strong>RM85</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1,800 UC" data-price="103"><h3>1,800 UC</h3><p><strong>RM103</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2,125 UC" data-price="125"><h3>2,125 UC</h3><p><strong>RM125</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2,460 UC" data-price="145"><h3>2,460 UC</h3><p><strong>RM145</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2,760 UC" data-price="166"><h3>2,760 UC</h3><p><strong>RM166</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card popular" data-package="3,850 UC" data-price="200"><h3>3,850 UC</h3><p><strong>RM200</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="4,510 UC" data-price="241"><h3>4,510 UC</h3><p><strong>RM241</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="5,170 UC" data-price="282"><h3>5,170 UC</h3><p><strong>RM282</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="5,650 UC" data-price="300"><h3>5,650 UC</h3><p><strong>RM300</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="8,100 UC" data-price="390"><h3>8,100 UC</h3><p><strong>RM390</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="8,400 UC" data-price="413"><h3>8,400 UC</h3><p><strong>RM413</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="9,060 UC" data-price="454"><h3>9,060 UC</h3><p><strong>RM454</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="9,900 UC" data-price="490"><h3>9,900 UC</h3><p><strong>RM490</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="10,200 UC" data-price="512"><h3>10,200 UC</h3><p><strong>RM512</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="10,560 UC" data-price="531"><h3>10,560 UC</h3><p><strong>RM531</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="10,860 UC" data-price="552"><h3>10,860 UC</h3><p><strong>RM552</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="11,950 UC" data-price="586"><h3>11,950 UC</h3><p><strong>RM586</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="12,250 UC" data-price="608"><h3>12,250 UC</h3><p><strong>RM608</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="12,910 UC" data-price="649"><h3>12,910 UC</h3><p><strong>RM649</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="13,750 UC" data-price="685"><h3>13,750 UC</h3><p><strong>RM685</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="16,200 UC" data-price="777"><h3>16,200 UC</h3><p><strong>RM777</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="18,000 UC" data-price="875"><h3>18,000 UC</h3><p><strong>RM875</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="20,050 UC" data-price="974"><h3>20,050 UC</h3><p><strong>RM974</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="25,850 UC" data-price="1250"><h3>25,850 UC</h3><p><strong>RM1,250</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="32,400 UC" data-price="1550"><h3>32,400 UC</h3><p><strong>RM1,550</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="40,000 UC" data-price="1900"><h3>40,000 UC</h3><p><strong>RM1,900</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="52,000 UC" data-price="2450"><h3>52,000 UC</h3><p><strong>RM2,450</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="105,300 UC" data-price="5013"><h3>105,300 UC</h3><p><strong>RM5,013</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+  </div>
+
   <div class="how-it-works">
     <h2>How It Works</h2>
     <ol>
-      <li>Enter your PUBG Player ID.</li>
-      <li>Select your UC package and make payment.</li>
-      <li>Receive UC instantly in-game.</li>
+      <li>📱 Enter your PUBG Player ID</li>
+      <li>💳 Select your UC package and make payment</li>
+      <li>⚡ Receive UC instantly in-game</li>
     </ol>
   </div>
 </section>
 
 <section id="mlbb" class="section">
-  <h2>MLBB Diamond Packages</h2>
-  <div class="packages">
-<div class="card" data-package="70 💎" data-price="RM6"><h3>70 💎</h3><p><strong>RM6</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="140 💎" data-price="RM12"><h3>140 💎</h3><p><strong>RM12</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="284 💎" data-price="RM23"><h3>284 💎</h3><p><strong>RM23</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="355 💎" data-price="RM30"><h3>355 💎</h3><p><strong>RM30</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="429 💎" data-price="RM35"><h3>429 💎</h3><p><strong>RM35</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="565 💎" data-price="RM45"><h3>565 💎</h3><p><strong>RM45</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="639 💎" data-price="RM50"><h3>639 💎</h3><p><strong>RM50</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="716 💎" data-price="RM55"><h3>716 💎</h3><p><strong>RM55</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="870 💎" data-price="RM65"><h3>870 💎</h3><p><strong>RM65</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="1060 💎" data-price="RM75"><h3>1060 💎</h3><p><strong>RM75</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="1145 💎" data-price="RM80"><h3>1145 💎</h3><p><strong>RM80</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="1285 💎" data-price="RM90"><h3>1285 💎</h3><p><strong>RM90</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="1446 💎" data-price="RM100"><h3>1446 💎</h3><p><strong>RM100</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="1586 💎" data-price="RM110"><h3>1586 💎</h3><p><strong>RM110</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="1712 💎" data-price="RM115"><h3>1712 💎</h3><p><strong>RM115</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="2015 💎" data-price="RM145"><h3>2015 💎</h3><p><strong>RM145</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="2162 💎" data-price="RM155"><h3>2162 💎</h3><p><strong>RM155</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="2531 💎" data-price="RM180"><h3>2531 💎</h3><p><strong>RM180</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="2976 💎" data-price="RM200"><h3>2976 💎</h3><p><strong>RM200</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="3274 💎" data-price="RM215"><h3>3274 💎</h3><p><strong>RM215</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="3517 💎" data-price="RM230"><h3>3517 💎</h3><p><strong>RM230</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="4047 💎" data-price="RM260"><h3>4047 💎</h3><p><strong>RM260</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="4562 💎" data-price="RM300"><h3>4562 💎</h3><p><strong>RM300</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="5138 💎" data-price="RM335"><h3>5138 💎</h3><p><strong>RM335</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="5567 💎" data-price="RM360"><h3>5567 💎</h3><p><strong>RM360</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="6092 💎" data-price="RM390"><h3>6092 💎</h3><p><strong>RM390</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="6668 💎" data-price="RM430"><h3>6668 💎</h3><p><strong>RM430</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="7502 💎" data-price="RM490"><h3>7502 💎</h3><p><strong>RM490</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="8218 💎" data-price="RM515"><h3>8218 💎</h3><p><strong>RM515</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="9377 💎" data-price="RM600"><h3>9377 💎</h3><p><strong>RM600</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="10907 💎" data-price="RM690"><h3>10907 💎</h3><p><strong>RM690</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-<div class="card" data-package="12640 💎" data-price="RM810"><h3>12640 💎</h3><p><strong>RM810</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
-
+  <div class="section-header">
+    <h2>MLBB Diamond Packages</h2>
+    <p>Power up your heroes with instant diamond top-up</p>
   </div>
+  
+  <div class="controls">
+    <div class="search-box">
+      <input type="text" id="mlbb-search" placeholder="Search diamond packages...">
+    </div>
+    <button class="sort-btn" data-section="mlbb">Sort by Price</button>
+  </div>
+
+  <div class="packages" id="mlbb-packages">
+<div class="card popular" data-package="70 💎" data-price="6"><h3>70 💎</h3><p><strong>RM6</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card popular" data-package="140 💎" data-price="12"><h3>140 💎</h3><p><strong>RM12</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card popular" data-package="284 💎" data-price="23"><h3>284 💎</h3><p><strong>RM23</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="355 💎" data-price="30"><h3>355 💎</h3><p><strong>RM30</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="429 💎" data-price="35"><h3>429 💎</h3><p><strong>RM35</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="565 💎" data-price="45"><h3>565 💎</h3><p><strong>RM45</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="639 💎" data-price="50"><h3>639 💎</h3><p><strong>RM50</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="716 💎" data-price="55"><h3>716 💎</h3><p><strong>RM55</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="870 💎" data-price="65"><h3>870 💎</h3><p><strong>RM65</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1060 💎" data-price="75"><h3>1060 💎</h3><p><strong>RM75</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1145 💎" data-price="80"><h3>1145 💎</h3><p><strong>RM80</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1285 💎" data-price="90"><h3>1285 💎</h3><p><strong>RM90</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card popular" data-package="1446 💎" data-price="100"><h3>1446 💎</h3><p><strong>RM100</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1586 💎" data-price="110"><h3>1586 💎</h3><p><strong>RM110</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="1712 💎" data-price="115"><h3>1712 💎</h3><p><strong>RM115</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2015 💎" data-price="145"><h3>2015 💎</h3><p><strong>RM145</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2162 💎" data-price="155"><h3>2162 💎</h3><p><strong>RM155</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2531 💎" data-price="180"><h3>2531 💎</h3><p><strong>RM180</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="2976 💎" data-price="200"><h3>2976 💎</h3><p><strong>RM200</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="3274 💎" data-price="215"><h3>3274 💎</h3><p><strong>RM215</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="3517 💎" data-price="230"><h3>3517 💎</h3><p><strong>RM230</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="4047 💎" data-price="260"><h3>4047 💎</h3><p><strong>RM260</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="4562 💎" data-price="300"><h3>4562 💎</h3><p><strong>RM300</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="5138 💎" data-price="335"><h3>5138 💎</h3><p><strong>RM335</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="5567 💎" data-price="360"><h3>5567 💎</h3><p><strong>RM360</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="6092 💎" data-price="390"><h3>6092 💎</h3><p><strong>RM390</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="6668 💎" data-price="430"><h3>6668 💎</h3><p><strong>RM430</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="7502 💎" data-price="490"><h3>7502 💎</h3><p><strong>RM490</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="8218 💎" data-price="515"><h3>8218 💎</h3><p><strong>RM515</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="9377 💎" data-price="600"><h3>9377 💎</h3><p><strong>RM600</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="10907 💎" data-price="690"><h3>10907 💎</h3><p><strong>RM690</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+<div class="card" data-package="12640 💎" data-price="810"><h3>12640 💎</h3><p><strong>RM810</strong></p><a href="#" class="buy-btn">Buy Now</a></div>
+  </div>
+
   <div class="how-it-works">
     <h2>How It Works</h2>
     <ol>
-      <li>Enter your MLBB ID and Zone (e.g. 36274747 (7729)).</li>
-      <li>Select your diamond package and make payment.</li>
-      <li>Receive diamonds instantly in-game.</li>
+      <li>🎯 Enter your MLBB ID and Zone (e.g. 36274747 (7729))</li>
+      <li>💳 Select your diamond package and make payment</li>
+      <li>⚡ Receive diamonds instantly in-game</li>
     </ol>
   </div>
 </section>
 
-<footer>&copy; 2020 Mastermind Esports. Trusted by thousands of gamers.</footer>
+<footer>&copy; 2025 Mastermind Esports. Trusted by thousands of gamers worldwide.</footer>
 
-<a href="https://wa.me/60147433177" class="whatsapp-float" target="_blank">💬 Order on WhatsApp</a>
+<a href="https://wa.me/60147433177" class="whatsapp-float" target="_blank">
+  <span>💬</span> Order on WhatsApp
+</a>
 
 <script>
-  const whatsappNumber = "60147433177"; // replace with your number
+  const whatsappNumber = "60147433177";
 
   // Tab switching
   document.querySelectorAll(".tab-btn").forEach(btn=>{
@@ -190,9 +332,69 @@
       const card=e.target.closest(".card");
       const pkg=card.dataset.package;
       const price=card.dataset.price;
-      const msg=`Hi Mastermind Esports! I want to order ${pkg} (${price}).`;
+      const msg=`Hi Mastermind Esports! I want to order ${pkg} (RM${price}).`;
       window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`,"_blank");
     }
+  });
+
+  // Search functionality
+  function setupSearch(inputId, containerId) {
+    const input = document.getElementById(inputId);
+    const container = document.getElementById(containerId);
+    const cards = Array.from(container.querySelectorAll('.card'));
+    
+    input.addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      let visibleCount = 0;
+      
+      cards.forEach(card => {
+        const pkg = card.dataset.package.toLowerCase();
+        const price = card.dataset.price;
+        if (pkg.includes(searchTerm) || price.includes(searchTerm)) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      // Show no results message
+      let noResults = container.parentElement.querySelector('.no-results');
+      if (visibleCount === 0) {
+        if (!noResults) {
+          noResults = document.createElement('div');​​​​​​​​​​​​​​​​
+          noResults.className = 'no-results';
+          noResults.innerHTML = '<h3>No packages found</h3><p>Try a different search term</p>';
+          container.after(noResults);
+        }
+        noResults.style.display = 'block';
+      } else if (noResults) {
+        noResults.style.display = 'none';
+      }
+    });
+  }
+
+  setupSearch('pubg-search', 'pubg-packages');
+  setupSearch('mlbb-search', 'mlbb-packages');
+
+  // Sort functionality
+  document.querySelectorAll('.sort-btn').forEach(btn => {
+    let ascending = true;
+    btn.addEventListener('click', function() {
+      const section = this.dataset.section;
+      const container = document.getElementById(`${section}-packages`);
+      const cards = Array.from(container.querySelectorAll('.card'));
+      
+      cards.sort((a, b) => {
+        const priceA = parseFloat(a.dataset.price);
+        const priceB = parseFloat(b.dataset.price);
+        return ascending ? priceA - priceB : priceB - priceA;
+      });
+      
+      cards.forEach(card => container.appendChild(card));
+      ascending = !ascending;
+      this.textContent = ascending ? 'Sort by Price ↑' : 'Sort by Price ↓';
+    });
   });
 </script>
 
