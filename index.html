@@ -528,6 +528,14 @@
         position: relative;
     }
 
+    .modal-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 15px 0;
+        border: 1px solid #00ffcc;
+    }
+
     .close-btn {
         position: absolute;
         top: 10px;
@@ -663,10 +671,10 @@
 <div class="trust-bar">
   <p>Secure & Instant Payment Accepted:</p>
   <div class="payment-logos">
-    <img src="https://via.placeholder.com/80x30/255D57/ffffff?text=DUITNOW" alt="DuitNow Accepted" class="payment-icon">
-    <img src="https://via.placeholder.com/80x30/CC0000/ffffff?text=TNG" alt="TNG Accepted" class="payment-icon">
-    <img src="https://via.placeholder.com/80x30/004073/ffffff?text=MAYBANK" alt="Maybank Accepted" class="payment-icon">
-    <img src="https://via.placeholder.com/80x30/0080FF/ffffff?text=BOOST" alt="Boost Accepted" class="payment-icon">
+    <img src="uploaded:image.png-a1142890-8a05-458c-96a5-74ee2900445d" alt="DuitNow Accepted" class="payment-icon">
+    <img src="uploaded:image.png-b9ded7dd-2ac0-463c-9774-c95e446aaa95" alt="TNG Accepted" class="payment-icon">
+    <img src="uploaded:image.png-d8ccea13-2a9f-4cde-8438-2fdcc7ae27fa" alt="Maybank Accepted" class="payment-icon">
+    <img src="uploaded:image.png-1f6662f3-e59d-49c1-bb2a-448552b5eb4d" alt="Boost Accepted" class="payment-icon"> 
   </div>
 </div>
 
@@ -940,7 +948,7 @@ function initiateWhatsAppOrder(game, packageValue, price) {
     if (idInput) {
         idInput.style.borderColor = '#ff6b6b'; 
         setTimeout(() => {
-            idInput.style.borderColor = '#00ffcc'; 
+            idInput.style.borderColor = '#334155'; // Reset to original color
         }, 800);
         idInput.focus();
     }
@@ -955,7 +963,7 @@ function initiateWhatsAppOrder(game, packageValue, price) {
   window.open(whatsappLink, '_blank');
 }
 
-// === ID GUIDE MODAL FUNCTIONS ===
+// === ID GUIDE MODAL FUNCTIONS - NOW USING YOUR UPLOADED FILES ===
 function showIDGuide(game) {
     const modal = document.getElementById('id-guide-modal');
     const title = document.getElementById('guide-title');
@@ -965,11 +973,13 @@ function showIDGuide(game) {
     if (game === 'pubg') {
         title.textContent = "How to Find Your PUBG Player ID";
         description.innerHTML = "Your **PUBG Player ID** is a 9-10 digit number found directly under your in-game name in the lobby screen. **Tap your avatar** to view your Profile where it is clearly displayed.";
-        image.src = "https://via.placeholder.com/400x200/222244/00ffcc?text=PUBG+ID+Location+Image+Here"; 
+        // Assuming two of the images are for the ID guides (e.g., image 1 for PUBG)
+        image.src = "uploaded:image.png-d8ccea13-2a9f-4cde-8438-2fdcc7ae27fa"; 
     } else if (game === 'mlbb') {
         title.textContent = "How to Find Your Mobile Legends ID & Zone";
         description.innerHTML = "Your **MLBB ID** is the first set of numbers, and the **Zone ID** is the number in parentheses (e.g., 36274747(7729)). Both are located at the bottom-right of your profile photo in the lobby. **Please copy the entire number, including the parentheses.**";
-        image.src = "https://via.placeholder.com/400x200/222244/00ffcc?text=MLBB+ID%2FZone+Location+Image+Here";
+        // Assuming another image is for the MLBB guide (e.g., image 2 for MLBB)
+        image.src = "uploaded:image.png-a1142890-8a05-458c-96a5-74ee2900445d";
     }
 
     modal.style.display = 'flex';
