@@ -56,6 +56,46 @@
       font-weight: 500;
       letter-spacing: 0.5px;
     }
+
+    /* ⚡ NEW: Trust Bar Styles */
+    .trust-bar {
+      background: rgba(15, 23, 42, 0.5);
+      padding: 0.75rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(0, 255, 204, 0.1);
+      margin-bottom: 0px; /* Connects nicely with the header */
+    }
+    
+    .trust-bar p {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .payment-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .payment-logos img {
+      height: 24px; 
+      opacity: 0.7;
+      filter: grayscale(100%) brightness(1.8); /* Make them white/light in the dark theme */
+      transition: all 0.3s;
+    }
+    
+    .payment-logos img:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+    }
+    /* ⚡ END NEW: Trust Bar Styles */
     
     .tabs {
       display: flex;
@@ -190,8 +230,9 @@
       position: relative;
     }
     
+    /* ⚡ MODIFIED: Buy button color changed to WhatsApp green */
     .card .buy-btn {
-      background: linear-gradient(135deg, #00ffcc 0%, #00d4aa 100%);
+      background: linear-gradient(135deg, #25D366 0%, #20ba5a 100%);
       color: #0a0e27;
       border: none;
       padding: 0.875rem 2rem;
@@ -207,8 +248,16 @@
     
     .card .buy-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 255, 204, 0.3);
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); /* Shadow color updated */
     }
+
+    .card .buy-btn:after {
+      content: " (WhatsApp)";
+      font-size: 0.8em;
+      opacity: 0.8;
+    }
+    /* ⚡ END MODIFIED */
+    
     .promo-badge {
       position: absolute;
       top: 15px;
@@ -221,43 +270,62 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-  animation: pulse 2s infinite;
-  z-index: 1;
-}
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+      animation: pulse 2s infinite;
+      z-index: 1;
+    }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
+    /* ⚡ NEW: Best Seller Badge Style */
+    .best-value-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, #f7d04a 0%, #e6a800 100%); /* Gold/Yellow color */
+      color: #1a1f3a; 
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(247, 208, 74, 0.4);
+      z-index: 1;
+    }
+    /* ⚡ END NEW */
 
-.old-price {
-  text-decoration: line-through;
-  color: #64748b;
-  font-size: 1.125rem;
-  margin-bottom: 0.5rem;
-}
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
 
-.promo-card {
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(238, 90, 111, 0.05) 100%);
-  border: 2px solid rgba(255, 107, 107, 0.3);
-}
+    .old-price {
+      text-decoration: line-through;
+      color: #64748b;
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+    }
 
-.promo-card:hover {
-  border-color: rgba(255, 107, 107, 0.6);
-  box-shadow: 0 12px 40px rgba(255, 107, 107, 0.25);
-}
+    .promo-card {
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(238, 90, 111, 0.05) 100%);
+      border: 2px solid rgba(255, 107, 107, 0.3);
+    }
 
-/* ⚡ FIX APPLIED HERE: Create space for the badge */
-.promo-card h3 {
-  margin-top: 35px; 
-}
-/* ⚡ END OF FIX */
+    .promo-card:hover {
+      border-color: rgba(255, 107, 107, 0.6);
+      box-shadow: 0 12px 40px rgba(255, 107, 107, 0.25);
+    }
     
+    /* ⚡ FIX & FEATURE: Ensure content is pushed down for badges */
+    .promo-card h3,
+    .card.featured h3 {
+      margin-top: 35px; /* Creates space for the absolutely positioned badge */
+    }
+    /* ⚡ END FIX & FEATURE */
+
     .how {
       background: linear-gradient(135deg, rgba(26, 31, 58, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
       border: 1px solid rgba(148, 163, 184, 0.1);
@@ -364,6 +432,10 @@
         padding: 0.875rem 1.5rem;
         font-size: 0.9375rem;
       }
+      
+      .payment-logos img {
+        height: 20px; /* Smaller logos on mobile */
+      }
     }
     
     @media (max-width: 480px) {
@@ -388,6 +460,15 @@
   <p>Fast, Secure & Instant Delivery • Premium Gaming Top-Up Service</p>
 </header>
 
+<div class="trust-bar">
+  <p>Secure & Instant Payment Accepted:</p>
+  <div class="payment-logos">
+    <img src="https://via.placeholder.com/80x24/0A0E27/FFFFFF?text=DUITNOW" alt="DuitNow">
+    <img src="https://via.placeholder.com/80x24/0A0E27/FFFFFF?text=TNG" alt="Touch 'n Go">
+    <img src="https://via.placeholder.com/80x24/0A0E27/FFFFFF?text=MAYBANK" alt="Maybank2u">
+    <img src="https://via.placeholder.com/80x24/0A0E27/FFFFFF?text=BOOST" alt="Boost">
+  </div>
+</div>
 <div class="tabs">
   <button class="tab-btn" onclick="showTab('pubg', this)">🎮 PUBG UC</button>
   <button class="tab-btn inactive" onclick="showTab('mlbb', this)">💎 Mobile Legends</button>
@@ -404,7 +485,12 @@
     <div class="card"><h3>1,800 UC</h3><div class="price">RM103</div><a href="https://wa.me/60147433177?text=Hi! I want 1,800 UC (RM103)" class="buy-btn">Buy Now</a></div>
     <div class="card"><h3>2,125 UC</h3><div class="price">RM125</div><a href="https://wa.me/60147433177?text=Hi! I want 2,125 UC (RM125)" class="buy-btn">Buy Now</a></div>
     <div class="card"><h3>2,460 UC</h3><div class="price">RM145</div><a href="https://wa.me/60147433177?text=Hi! I want 2,460 UC (RM145)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>2,760 UC</h3><div class="price">RM166</div><a href="https://wa.me/60147433177?text=Hi! I want 2,760 UC (RM166)" class="buy-btn">Buy Now</a></div>
+    <div class="card featured">
+      <div class="best-value-badge">BEST SELLER</div>
+      <h3>2,760 UC</h3>
+      <div class="price">RM166</div>
+      <a href="https://wa.me/60147433177?text=Hi! I want 2,760 UC (RM166)" class="buy-btn">Buy Now</a>
+    </div>
     <div class="card"><h3>3,850 UC</h3><div class="price">RM200</div><a href="https://wa.me/60147433177?text=Hi! I want 3,850 UC (RM200)" class="buy-btn">Buy Now</a></div>
     <div class="card"><h3>4,510 UC</h3><div class="price">RM241</div><a href="https://wa.me/60147433177?text=Hi! I want 4,510 UC (RM241)" class="buy-btn">Buy Now</a></div>
     <div class="card"><h3>5,170 UC</h3><div class="price">RM282</div><a href="https://wa.me/60147433177?text=Hi! I want 5,170 UC (RM282)" class="buy-btn">Buy Now</a></div>
@@ -584,6 +670,17 @@ function showTab(tabName, clickedButton) {
   if (clickedButton) {
     clickedButton.classList.remove('inactive');
   }
+}
+
+// Automatically switch to the promo tab if the URL contains a hash, for better sharing
+window.onload = function() {
+    const hash = window.location.hash.substring(1);
+    if (hash && document.getElementById(hash)) {
+        const tabButton = document.querySelector(`.tabs button[onclick*="'${hash}'"]`);
+        if (tabButton) {
+            showTab(hash, tabButton);
+        }
+    }
 }
 </script>
 
