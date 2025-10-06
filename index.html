@@ -7,7 +7,7 @@
   <meta name="description" content="Malaysia's fastest and most secure top-up service for PUBG UC and Mobile Legends Diamonds. Instant delivery via WhatsApp.">
   <meta name="keywords" content="pubg uc, mlbb diamonds, top up malaysia, topup game murah, pubg mobile top up">
   <meta name="author" content="Mastermind Esports">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
     /* BASE & UTILITY STYLES */
     * {
@@ -25,7 +25,7 @@
     
     header {
       background: linear-gradient(135deg, #1a1f3a 0%, #0f172a 100%);
-      padding: 4rem 2rem;
+      padding: 4rem 2rem 2rem 2rem;
       text-align: center;
       border-bottom: 1px solid rgba(0, 255, 204, 0.1);
       position: relative;
@@ -45,7 +45,7 @@
     
     header h1 {
       font-size: 2.75rem;
-      font-weight: 700;
+      font-weight: 900; 
       margin-bottom: 0.75rem;
       background: linear-gradient(135deg, #00ffcc 0%, #00d4aa 100%);
       -webkit-background-clip: text;
@@ -53,12 +53,24 @@
       background-clip: text;
       position: relative;
     }
-    
+
+    header h1 .header-icon {
+        font-size: 1.1em; 
+        margin-right: 10px;
+        color: #00ffcc; 
+    }
+
     header p {
       font-size: 1.125rem;
       color: #94a3b8;
       font-weight: 500;
       letter-spacing: 0.5px;
+      margin-top: 1rem;
+    }
+
+    header p .promise-highlight {
+        color: #ffc107;
+        font-weight: 700;
     }
 
     /* Trust Bar Styles */
@@ -86,13 +98,16 @@
       gap: 1.5rem;
       margin-top: 0.5rem;
     }
-    
-    .payment-logos span { 
-        color: #00ffcc; 
-        font-weight: 700; 
-        font-size: 0.9rem;
-        padding: 0 5px;
-        opacity: 0.8;
+
+    .payment-logos img {
+        height: 25px; 
+        width: auto;
+        opacity: 0.9;
+        filter: grayscale(80%); 
+        transition: filter 0.3s;
+    }
+    .payment-logos img:hover {
+        filter: none; 
     }
 
     /* Loyalty Banner Style (NOT STICKY) */
@@ -108,89 +123,21 @@
         z-index: 101; 
     }
 
-    /* Tabs */
-    .tabs {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1.5rem 2rem;
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0; 
-      z-index: 100;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    
-    .tab-btn {
-      background: linear-gradient(135deg, #00ffcc 0%, #00d4aa 100%);
-      color: #0a0e27;
-      border: none;
-      padding: 0.875rem 2rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
-      white-space: nowrap; 
-    }
-    
-    .tab-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(0, 255, 204, 0.3);
-    }
-    
-    .tab-btn.inactive {
-      background: transparent;
-      color: #94a3b8;
-      border: 2px solid rgba(148, 163, 184, 0.2);
-      box-shadow: none;
-    }
-    
-    .tab-btn.inactive:hover {
-      border-color: rgba(0, 255, 204, 0.4);
-      color: #00ffcc;
-      transform: translateY(-2px);
-    }
-    
-    .section {
-      display: none;
-      padding: 3rem 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    
-    .section.active {
-      display: block;
-      animation: fadeIn 0.4s ease;
-    }
-    
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Order Form Styles */
-    .order-form-container {
+    /* Order Form Styles (Moved to be sticky above tabs) */
+    .order-form-sticky-wrapper {
         background: #1a1f3a;
-        padding: 2rem;
-        border-radius: 12px;
-        margin-bottom: 3rem;
-        border: 1px solid rgba(0, 255, 204, 0.1);
+        padding: 1rem 2rem;
+        border-bottom: 1px solid rgba(0, 255, 204, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 102;
     }
-
-    .order-form-container p {
+    
+    .order-form-sticky-wrapper p {
         color: #00ffcc;
         font-weight: 600;
         font-size: 1.125rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
         text-align: center;
     }
 
@@ -198,7 +145,7 @@
         display: flex;
         gap: 1rem;
         max-width: 600px;
-        margin: 0 auto 1.5rem auto;
+        margin: 0 auto 0 auto;
     }
 
     .id-input-group input {
@@ -238,24 +185,85 @@
         background: #475569;
     }
 
-    .timer-text {
-        text-align: center;
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #ff6b6b;
-        margin-bottom: 2rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .timer-text span {
-        color: #fff;
-        background: #ff6b6b;
-        padding: 0.2rem 0.6rem;
-        border-radius: 4px;
-        margin-left: 10px;
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.5rem 2rem;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 100px; /* Adjusted to be below the sticky input wrapper */
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     
+    .tab-btn {
+      background: linear-gradient(135deg, #00ffcc 0%, #00d4aa 100%);
+      color: #0a0e27;
+      border: none;
+      padding: 0.875rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
+      white-space: nowrap; 
+    }
+    
+    .tab-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 255, 204, 0.3);
+    }
+    .tab-btn:active {
+        transform: scale(0.98); 
+        opacity: 0.9;
+    }
+
+    .tab-btn.inactive {
+      background: transparent;
+      color: #94a3b8;
+      border: 2px solid rgba(148, 163, 184, 0.2);
+      box-shadow: none;
+    }
+    
+    .tab-btn.inactive:hover {
+      border-color: rgba(0, 255, 204, 0.4);
+      color: #00ffcc;
+      transform: translateY(-2px);
+    }
+    
+    .tab-btn:not(.inactive) {
+        border-bottom: 3px solid #00ffcc; 
+        transform: none; 
+    }
+
+    .section {
+      display: none;
+      padding: 3rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .section.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Packages & Cards */
     .section h2 {
       text-align: center;
       color: #00ffcc;
@@ -299,10 +307,11 @@
     
     .card .price {
       color: #00ffcc;
-      font-size: 1.75rem;
-      font-weight: 700;
+      font-size: 2.25rem;
+      font-weight: 900;
       margin: 1.25rem 0;
-      letter-spacing: -0.5px;
+      letter-spacing: -1px;
+      line-height: 1; 
       position: relative;
     }
     
@@ -322,14 +331,16 @@
       font-size: 1rem; 
       position: relative;
     }
+
+    .card .buy-btn:active {
+        background: #1baa55; 
+        transform: scale(0.98); 
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
     
     .card .buy-btn:hover {
       transform: scale(1.05);
       box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
-    }
-
-    .card .buy-btn:after {
-      content: none;
     }
     
     .best-value-badge, .promo-badge {
@@ -351,7 +362,7 @@
       box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
       animation: pulse 2s infinite;
     }
-
+    
     .best-value-badge {
       background: linear-gradient(135deg, #f7d04a 0%, #e6a800 100%); 
       color: #1a1f3a; 
@@ -367,11 +378,37 @@
       }
     }
 
+    .high-demand-bar {
+        position: relative;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        margin: 0.5rem 0 1rem;
+    }
+    .high-demand-bar p {
+        position: absolute;
+        top: -18px; 
+        left: 0;
+        width: 100%;
+        text-align: left;
+        font-size: 0.75rem;
+        color: #ffc107; 
+        font-weight: 600;
+    }
+    .bar-fill {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, #ffc107, #ff6b6b);
+        border-radius: 5px;
+        transition: width 0.5s;
+    }
+    
     .old-price {
       text-decoration: line-through;
       color: #64748b;
-      font-size: 1.125rem;
+      font-size: 1rem; 
       margin-bottom: 0.5rem;
+      font-weight: 400;
     }
 
     .promo-card {
@@ -440,11 +477,29 @@
         font-weight: 500;
     }
 
+    /* Footer Trust Summary */
+    .final-trust-summary {
+        text-align: center;
+        padding: 1.5rem 2rem;
+        background: #1a1f3a;
+        border-top: 1px solid rgba(0, 255, 204, 0.1);
+        color: #00ffcc;
+        font-weight: 600;
+        font-size: 0.95rem;
+        display: flex;
+        justify-content: center;
+        gap: 15px; 
+    }
+    
+    .final-trust-summary span:nth-child(even) {
+        color: #64748b; 
+    }
+
     footer {
       text-align: center;
       padding: 3rem 2rem;
       color: #64748b;
-      margin-top: 4rem;
+      margin-top: 0;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       font-size: 0.9375rem;
     }
@@ -483,8 +538,8 @@
         font-size: 1.5rem;
         cursor: pointer;
     }
-
-    /* ⚡ FINAL: Floating WhatsApp Button Style with Base64 SVG */
+    
+    /* Floating WhatsApp Button Style with Base64 SVG */
     .wa-btn {
       position: fixed;
       bottom: 20px;
@@ -501,7 +556,7 @@
       display: flex;
       align-items: center;
       transition: all 0.3s;
-      padding-left: 15px; /* Adjust padding for icon */
+      padding-left: 15px; 
     }
 
     .wa-btn:hover {
@@ -520,7 +575,6 @@
         background-repeat: no-repeat;
         background-size: contain;
     }
-    /* ⚡ END FINAL */
     
     /* === MOBILE SPECIFIC ADJUSTMENTS (max-width: 768px) === */
     @media (max-width: 768px) {
@@ -529,20 +583,19 @@
         padding: 2rem 1rem;
       }
       
+      .order-form-sticky-wrapper {
+          padding: 0.5rem 1rem 1rem 1rem;
+          top: 0; 
+      }
+
       /* Tabs: Force full width and stack */
       .tabs {
         flex-direction: column;
         padding: 1rem;
         gap: 0.75rem;
-        top: 0;
+        top: 100px; 
       }
       
-      .tab-btn {
-        width: 100%; 
-        padding: 0.8rem 1.5rem;
-        font-size: 0.9375rem;
-      }
-
       /* Order Form Inputs: Stack the ID and Zone inputs */
       .id-input-group {
         flex-direction: column;
@@ -570,7 +623,16 @@
       }
       
       .card .price {
-        font-size: 1.5rem;
+        font-size: 1.75rem; 
+      }
+      
+      /* Footer Trust Summary */
+      .final-trust-summary {
+          flex-direction: column;
+          gap: 5px;
+      }
+      .final-trust-summary span:nth-child(even) {
+          display: none; 
       }
       
       .loyalty-banner {
@@ -590,25 +652,43 @@
 <body>
 
 <header>
-  <h1>Mastermind Esports</h1>
-  <p>Fast, Secure & Instant Delivery • Premium Gaming Top-Up Service</p>
+  <h1><span class="header-icon">⚡</span> Mastermind Esports</h1>
+  <p>
+    <span class="promise-highlight">✅ INSTANT Delivery & Secure Payment</span>
+    <br>
+    Malaysia's Premium Top-Up Service for PUBG and MLBB.
+  </p>
 </header>
 
 <div class="trust-bar">
   <p>Secure & Instant Payment Accepted:</p>
   <div class="payment-logos">
-    <span>DUITNOW</span>
-    <span>|</span>
-    <span>TNG</span>
-    <span>|</span>
-    <span>MAYBANK</span>
-    <span>|</span>
-    <span>BOOST</span>
+    <img src="https://via.placeholder.com/80x30/255D57/ffffff?text=DUITNOW" alt="DuitNow Accepted" class="payment-icon">
+    <img src="https://via.placeholder.com/80x30/CC0000/ffffff?text=TNG" alt="TNG Accepted" class="payment-icon">
+    <img src="https://via.placeholder.com/80x30/004073/ffffff?text=MAYBANK" alt="Maybank Accepted" class="payment-icon">
+    <img src="https://via.placeholder.com/80x30/0080FF/ffffff?text=BOOST" alt="Boost Accepted" class="payment-icon">
   </div>
 </div>
 
 <div class="loyalty-banner">
     ✨ **LOYALTY BONUS:** Get RM5 OFF on your 5th Top-Up! Ask us for your Digital Loyalty Card on WhatsApp!
+</div>
+
+<div class="order-form-sticky-wrapper">
+    <div id="pubg-input-group" style="display: block;">
+        <p>STEP 1: Enter your **PUBG Player ID** below.</p>
+        <div class="id-input-group">
+            <input type="text" id="pubg-id" placeholder="Enter PUBG Player ID (e.g. 523456789)" required>
+            <button onclick="showIDGuide('pubg')" class="guide-btn">? ID Guide</button>
+        </div>
+    </div>
+    <div id="mlbb-input-group" style="display: none;">
+        <p>STEP 1: Enter your **Mobile Legends ID and Zone** (e.g. 36274747 (7729))</p>
+        <div class="id-input-group">
+            <input type="text" id="mlbb-id" placeholder="MLBB ID (Zone) e.g. 36274747(7729)" required>
+            <button onclick="showIDGuide('mlbb')" class="guide-btn">? ID Guide</button>
+        </div>
+    </div>
 </div>
 
 <div class="tabs">
@@ -621,14 +701,6 @@
 <div id="pubg" class="section active">
   <h2>PUBG UC Packages</h2>
   
-  <div class="order-form-container" data-game="PUBG">
-    <p>STEP 1: Enter your PUBG Player ID below.</p>
-    <div class="id-input-group">
-        <input type="text" id="pubg-id" placeholder="Enter PUBG Player ID (e.g. 523456789)" required>
-        <button onclick="showIDGuide('pubg')" class="guide-btn">? ID Guide</button>
-    </div>
-  </div>
-
   <div class="packages">
     <div class="card"><h3>325 UC</h3><div class="price">RM22</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '325 UC', 'RM22')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>660 UC</h3><div class="price">RM43</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '660 UC', 'RM43')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
@@ -636,6 +708,7 @@
     <div class="card"><h3>1,800 UC</h3><div class="price">RM103</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '1,800 UC', 'RM103')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>2,125 UC</h3><div class="price">RM125</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '2,125 UC', 'RM125')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>2,460 UC</h3><div class="price">RM145</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '2,460 UC', 'RM145')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    
     <div class="card featured">
       <div class="best-value-badge">BEST SELLER</div>
       <h3>2,760 UC</h3>
@@ -643,10 +716,15 @@
           BEST VALUE
       </div>
       <div class="price">RM166</div>
+      <div class="high-demand-bar">
+          <p>Selling FAST! Only 12 left this hour.</p>
+          <span class="bar-fill" style="width: 75%;"></span>
+      </div>
       <button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '2,760 UC', 'RM166')">
           <span style="margin-right: 5px;">✅</span> Order Instantly
       </button>
     </div>
+    
     <div class="card"><h3>3,850 UC</h3><div class="price">RM200</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '3,850 UC', 'RM200')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>4,510 UC</h3><div class="price">RM241</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '4,510 UC', 'RM241')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>5,170 UC</h3><div class="price">RM282</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '5,170 UC', 'RM282')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
@@ -678,12 +756,12 @@
     <div class="card"><h3>81,000 UC</h3><div class="price">RM3,850</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '81,000 UC', 'RM3,850')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>97,200 UC</h3><div class="price">RM4,622</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '97,200 UC', 'RM4,622')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>105,300 UC</h3><div class="price">RM5,013</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '105,300 UC', 'RM5,013')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
-  </div>
+    </div>
   <div class="how">
     <h3>How It Works</h3>
     <ol>
-      <li>**Enter your PUBG Player ID** in the box above.</li>
-      <li>Click **"✅ Order Instantly"** on your desired package.</li>
+      <li>**Enter your PUBG Player ID** in the **sticky box above** (Step 1).</li>
+      <li>Click **"✅ Order Instantly"** on your desired package (Step 2).</li>
       <li>Your order will be pre-filled! Send the message and receive UC instantly in-game.</li>
     </ol>
   </div>
@@ -691,14 +769,6 @@
 
 <div id="mlbb" class="section">
   <h2>Mobile Legends Diamond Packages</h2>
-  
-  <div class="order-form-container" data-game="MLBB">
-    <p>STEP 1: Enter your Mobile Legends ID and Zone (e.g. 36274747 (7729))</p>
-    <div class="id-input-group">
-        <input type="text" id="mlbb-id" placeholder="MLBB ID (Zone) e.g. 36274747(7729)" required>
-        <button onclick="showIDGuide('mlbb')" class="guide-btn">? ID Guide</button>
-    </div>
-  </div>
   
   <div class="packages">
     <div class="card"><h3>70 💎</h3><div class="price">RM6</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '70 Diamonds', 'RM6')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
@@ -734,12 +804,12 @@
     <div class="card"><h3>9377 💎</h3><div class="price">RM600</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '9377 Diamonds', 'RM600')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>10907 💎</h3><div class="price">RM690</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '10907 Diamonds', 'RM690')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>12640 💎</h3><div class="price">RM810</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '12640 Diamonds', 'RM810')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
-  </div>
+    </div>
   <div class="how">
     <h3>How It Works</h3>
     <ol>
-      <li>**Enter your MLBB ID and Zone** in the boxes above (e.g. 36274747(7729)).</li>
-      <li>Click **"✅ Order Instantly"** on your desired package.</li>
+      <li>**Enter your MLBB ID and Zone** in the **sticky box above** (Step 1).</li>
+      <li>Click **"✅ Order Instantly"** on your desired package (Step 2).</li>
       <li>Your order will be pre-filled! Send the message and receive diamonds instantly in-game.</li>
     </ol>
   </div>
@@ -756,7 +826,7 @@
   <div class="how">
     <h3>⏰ Limited Time Promo!</h3>
     <ol>
-      <li>Ensure your **PUBG Player ID** is entered in the box under the main 'PUBG UC' tab.</li>
+      <li>Ensure your **PUBG Player ID** is entered in the sticky box above.</li>
       <li>Click **"✅ Order Instantly"** on your desired promo package.</li>
       <li>These special prices are available for a limited time only!</li>
     </ol>
@@ -774,7 +844,7 @@
   <div class="how">
     <h3>⏰ Limited Time Promo!</h3>
     <ol>
-      <li>Ensure your **MLBB ID and Zone** is entered in the box under the main 'Mobile Legends' tab.</li>
+      <li>Ensure your **MLBB ID and Zone** is entered in the sticky box above.</li>
       <li>Click **"✅ Order Instantly"** on your desired promo package.</li>
       <li>These special prices are available for a limited time only!</li>
     </ol>
@@ -790,14 +860,12 @@
     </div>
 </div>
 
-<div id="id-guide-modal" class="modal-overlay" onclick="closeIDGuide(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <button class="close-btn" onclick="closeIDGuide()">×</button>
-        <h3 id="guide-title">How to Find Your Player ID</h3>
-        <p id="guide-description"></p>
-        <img id="guide-image" src="" alt="Game ID Location Guide">
-        <p class="final-note" style="font-size: 0.9em; color: #94a3b8;">*Please double-check your ID before ordering. We are not responsible for incorrect user input.</p>
-    </div>
+<div class="final-trust-summary">
+    <span>✅ SECURE PAYMENT</span>
+    <span>|</span>
+    <span>⚡ INSTANT DELIVERY</span>
+    <span>|</span>
+    <span>🇲🇾 100% MALAYSIAN SERVICE</span>
 </div>
 
 <footer>
@@ -812,53 +880,76 @@
   Chat on WhatsApp
 </a>
 
+<div id="id-guide-modal" class="modal-overlay" onclick="closeIDGuide(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="close-btn" onclick="closeIDGuide()">×</button>
+        <h3 id="guide-title">How to Find Your Player ID</h3>
+        <p id="guide-description"></p>
+        <img id="guide-image" src="" alt="Game ID Location Guide">
+        <p class="final-note" style="font-size: 0.9em; color: #94a3b8;">*Please double-check your ID before ordering. We are not responsible for incorrect user input.</p>
+    </div>
+</div>
+
 <script>
 const WHATSAPP_NUMBER = '60147433177';
-const ID_ALERT_MESSAGE = "Please enter your Player ID before clicking 'Buy Now' to proceed with the order.";
+const ID_ALERT_MESSAGE = "Please enter your Player ID before clicking 'Order Instantly'.";
 
-// === TAB MANAGEMENT ===
+// === TAB MANAGEMENT (UPDATED for Sticky Input) ===
 function showTab(tabName, clickedButton) {
+  // Show/Hide sections
   var sections = document.querySelectorAll('.section');
-  for (var i = 0; i < sections.length; i++) {
-    sections[i].classList.remove('active');
-  }
-  
-  var buttons = document.querySelectorAll('.tab-btn');
-  for (var i = 0; i < buttons.length; i++) {
-    buttons[i].classList.add('inactive');
-  }
-  
+  sections.forEach(s => s.classList.remove('active'));
   document.getElementById(tabName).classList.add('active');
   
+  // Update button active state
+  var buttons = document.querySelectorAll('.tab-btn');
+  buttons.forEach(b => b.classList.add('inactive'));
   if (clickedButton) {
     clickedButton.classList.remove('inactive');
   }
+
+  // Show/Hide the correct ID input box
+  document.getElementById('pubg-input-group').style.display = 'none';
+  document.getElementById('mlbb-input-group').style.display = 'none';
+
+  if (tabName.includes('pubg')) {
+      document.getElementById('pubg-input-group').style.display = 'block';
+      document.getElementById('pubg-id').focus();
+  } else if (tabName.includes('mlbb')) {
+      document.getElementById('mlbb-input-group').style.display = 'block';
+      document.getElementById('mlbb-id').focus();
+  }
 }
 
-// === WHATSAPP ORDER FUNCTION ===
+// === WHATSAPP ORDER FUNCTION (UPDATED for better error feedback) ===
 function initiateWhatsAppOrder(game, packageValue, price) {
-  let id, message;
+  let id, message, idInput;
   
-  if (game === 'pubg' || game.startsWith('promo-pubg')) {
-    id = document.getElementById('pubg-id').value.trim();
-    if (!id) {
-      alert(ID_ALERT_MESSAGE);
-      document.getElementById('pubg-id').focus();
-      return;
-    }
-    message = `Hi! I'd like to purchase ${packageValue} (${price}). My PUBG Player ID is: ${id}. Please confirm and send the payment details.`;
-
-  } else if (game === 'mlbb' || game.startsWith('promo-mlbb')) {
-    // ⚡ FINAL: Only one field for MLBB ID (36274747(7729))
-    id = document.getElementById('mlbb-id').value.trim();
-    
-    if (!id) {
-      alert(ID_ALERT_MESSAGE);
-      document.getElementById('mlbb-id').focus();
-      return;
-    }
-    message = `Hi! I'd like to purchase ${packageValue} (${price}). My MLBB ID is: ${id}. Please confirm and send the payment details.`;
+  if (game.includes('pubg')) {
+    idInput = document.getElementById('pubg-id');
+  } else if (game.includes('mlbb')) {
+    idInput = document.getElementById('mlbb-id');
   }
+
+  id = idInput ? idInput.value.trim() : '';
+
+  if (!id) {
+    alert(ID_ALERT_MESSAGE);
+    
+    // Flash the border red for feedback
+    if (idInput) {
+        idInput.style.borderColor = '#ff6b6b'; 
+        setTimeout(() => {
+            idInput.style.borderColor = '#00ffcc'; 
+        }, 800);
+        idInput.focus();
+    }
+    return;
+  }
+  
+  // Construct the message based on the game
+  const gameName = game.includes('pubg') ? 'PUBG Player ID' : 'MLBB ID';
+  message = `Hi! I'd like to purchase ${packageValue} (${price}). My ${gameName} is: ${id}. Please confirm and send the payment details.`;
 
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(whatsappLink, '_blank');
@@ -874,12 +965,10 @@ function showIDGuide(game) {
     if (game === 'pubg') {
         title.textContent = "How to Find Your PUBG Player ID";
         description.innerHTML = "Your **PUBG Player ID** is a 9-10 digit number found directly under your in-game name in the lobby screen. **Tap your avatar** to view your Profile where it is clearly displayed.";
-        // NOTE: Replace this placeholder with a direct link to an image guide you upload
         image.src = "https://via.placeholder.com/400x200/222244/00ffcc?text=PUBG+ID+Location+Image+Here"; 
     } else if (game === 'mlbb') {
         title.textContent = "How to Find Your Mobile Legends ID & Zone";
         description.innerHTML = "Your **MLBB ID** is the first set of numbers, and the **Zone ID** is the number in parentheses (e.g., 36274747(7729)). Both are located at the bottom-right of your profile photo in the lobby. **Please copy the entire number, including the parentheses.**";
-        // NOTE: Replace this placeholder with a direct link to an image guide you upload
         image.src = "https://via.placeholder.com/400x200/222244/00ffcc?text=MLBB+ID%2FZone+Location+Image+Here";
     }
 
@@ -902,14 +991,12 @@ function updateTimer() {
     const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
     const timeRemaining = tomorrow - now;
 
-    // Calculate time components
     const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
     const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
     const timerDisplay = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-    // Update both timer elements
     if (document.getElementById('pubg-timer')) {
       document.getElementById('pubg-timer').textContent = timerDisplay;
     }
@@ -917,7 +1004,6 @@ function updateTimer() {
       document.getElementById('mlbb-timer').textContent = timerDisplay;
     }
 
-    // If timer expires, reload the page to refresh the deals/timer
     if (timeRemaining < 0) {
         clearInterval(timerInterval);
         location.reload();
@@ -936,7 +1022,6 @@ window.onload = function() {
         showTab(targetTab, tabButton);
     }
     
-    // Start the countdown timer
     updateTimer(); 
     timerInterval = setInterval(updateTimer, 1000);
 }
