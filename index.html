@@ -8,23 +8,18 @@
   <meta name="keywords" content="pubg uc, mlbb diamonds, top up malaysia, topup game murah, pubg mobile top up">
   <meta name="author" content="Mastermind Esports">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-  
-  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UuKhmE2zIeUI1smJ.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/DuitNow_QR_logo.svg/100px-DuitNow_QR_logo.svg.png" as="image">
-  <link rel="icon" type="image/png" href="/favicon.png"> 
-
   <style>
-    /* === NEW THEME VARIABLES === */
+    /* === NEW THEME VARIABLES (from previous update) === */
     :root {
-      --color-dark-bg: #0C0F2C; 
+      --color-dark-bg: #0C0F2C; /* Deep Space Blue */
       --color-mid-bg: #14183A;
       --color-light-bg: #1F244A;
-      --color-primary-accent: #FFB300; 
-      --color-secondary-accent: #FF6600; 
+      --color-primary-accent: #FFB300; /* Vibrant Gold/Orange */
+      --color-secondary-accent: #FF6600; /* Deep Orange for highlights */
       --color-text-light: #E0E4F3;
       --color-text-muted: #9AA4BF;
       --color-border-subtle: rgba(255, 179, 0, 0.15); 
-      --color-success: #00ffcc; 
+      --color-success: #00ffcc; /* For checkmarks/delivery */
     }
 
     /* BASE & UTILITY STYLES */
@@ -138,11 +133,6 @@
         box-shadow: 0 4px 15px rgba(0, 170, 255, 0.3);
         margin-bottom: 0px;
         z-index: 101; 
-        /* ADDED FOR WELCOME BACK BANNER */
-        position: fixed; 
-        top: 0;
-        left: 0;
-        width: 100%;
     }
 
     /* Order Form Styles */
@@ -381,12 +371,42 @@
       box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
     }
 
+    .high-demand-bar {
+        position: relative;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        margin: 0.5rem 0 1rem;
+    }
+    .high-demand-bar p {
+        position: absolute;
+        top: -18px; 
+        left: 0;
+        width: 100%;
+        text-align: left;
+        font-size: 0.75rem;
+        color: var(--color-primary-accent); 
+        font-weight: 600;
+    }
+    .bar-fill {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, #FFD700, #FF6600);
+        border-radius: 5px;
+        transition: width 0.5s;
+    }
+    
     .old-price {
       text-decoration: line-through;
       color: var(--color-text-muted);
       font-size: 1rem; 
       margin-bottom: 0.5rem;
       font-weight: 400;
+    }
+
+    .promo-card {
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(238, 90, 111, 0.05) 100%);
+      border: 2px solid rgba(255, 107, 107, 0.3);
     }
 
     .how {
@@ -403,6 +423,39 @@
       color: var(--color-text-light);
     }
     
+    .testimonials {
+        padding: 4rem 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .testimonials h3 {
+        color: var(--color-text-muted);
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+    }
+
+    .testimonial-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .testimonial-card {
+        background: var(--color-mid-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--color-border-subtle);
+        text-align: left;
+    }
+
+    .testimonial-card p:first-child {
+        color: var(--color-primary-accent);
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
     .final-trust-summary {
         text-align: center;
         padding: 1.5rem 2rem;
@@ -416,7 +469,65 @@
         gap: 15px; 
     }
     
-    /* Floating WhatsApp Button (Standard Desktop) */
+    .final-trust-summary span:nth-child(even) {
+        color: var(--color-text-muted); 
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--color-text-muted);
+      margin-top: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.9375rem;
+    }
+    
+    /* MODAL STYLES (for ID Guide) */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none; 
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: var(--color-light-bg);
+        padding: 2rem;
+        border-radius: 10px;
+        max-width: 90%;
+        width: 500px;
+        position: relative;
+        border: 2px solid var(--color-primary-accent);
+    }
+    .modal-content h3 {
+        color: var(--color-primary-accent);
+        margin-top: 0;
+    }
+    .modal-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 1rem 0;
+        border-radius: 8px;
+        border: 1px solid var(--color-border-subtle);
+    }
+    .modal-content .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        color: var(--color-text-muted);
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    /* Floating WhatsApp Button */
     .wa-btn {
         position: fixed;
         bottom: 20px;
@@ -432,59 +543,27 @@
         display: flex;
         align-items: center;
         transition: transform 0.2s;
-        transform: scale(1); 
-        animation: wa-pulse 1.5s infinite; 
+        transform: scale(1); /* Initial state */
+        animation: wa-pulse 1.5s infinite; /* Add a gentle pulse */
     }
     .wa-btn:hover {
         transform: scale(1.05);
-        animation: none; 
+        animation: none; /* Stop pulse on hover */
     }
     .wa-btn::before {
         content: '💬'; 
         margin-right: 8px;
         font-size: 1.2em;
     }
-    
+    /* Add this new keyframe animation to your <style> block */
     @keyframes wa-pulse {
         0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
         70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
         100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
-    /* ADVANCED: Mobile Sticky Footer */
-    .mobile-sticky-footer {
-        display: none; /* Hidden by default */
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: var(--color-mid-bg); 
-        border-top: 2px solid var(--color-primary-accent);
-        padding: 10px;
-        z-index: 999;
-    }
-    .mobile-sticky-footer a {
-        display: block;
-        background: #25D366;
-        color: var(--color-dark-bg);
-        padding: 12px;
-        border-radius: 8px;
-        text-align: center;
-        font-weight: 700;
-        text-decoration: none;
-        font-size: 1.1rem;
-    }
-
     /* === MOBILE SPECIFIC ADJUSTMENTS (max-width: 768px) === */
     @media (max-width: 768px) {
-      /* Show sticky footer on mobile, hide floating button */
-      .mobile-sticky-footer {
-          display: block;
-      }
-      .wa-btn {
-          display: none !important; 
-      }
-      
       .section {
         padding: 2rem 1rem;
       }
@@ -533,26 +612,32 @@
   <p>Secure & Instant Payment Accepted:</p>
   <div class="payment-logos">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/DuitNow_QR_logo.svg/100px-DuitNow_QR_logo.svg.png" alt="DuitNow QR Accepted" class="payment-icon">
+    
     <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Touch_%27n_Go_eWallet_Logo.svg/100px-Touch_%27n_Go_eWallet_Logo.svg.png" alt="Touch 'n Go eWallet Accepted" class="payment-icon">
+    
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/GrabPay_logo.svg/100px-GrabPay_logo.svg.png" alt="GrabPay Accepted" class="payment-icon">
+    
     <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/57/Financial_Process_Exchange_logo.svg/100px-Financial_Process_Exchange_logo.svg.png" alt="FPX Accepted" class="payment-icon">
   </div>
 </div>
 
-<div class="loyalty-banner" style="position: static;">
+<div class="loyalty-banner">
     ✨ **LOYALTY BONUS:** Get RM5 OFF on your 5th Top-Up! Ask us for your Digital Loyalty Card on WhatsApp!
 </div>
 
 <div class="order-form-sticky-wrapper">
-    <div id="id-input-wrapper">
-        <p id="id-prompt">STEP 1: Enter your **PUBG Player ID** below.</p>
+    <div id="pubg-input-group" style="display: block;">
+        <p>STEP 1: Enter your **PUBG Player ID** below.</p>
         <div class="id-input-group">
-            <input type="text" id="universal-player-id-input" 
-                   placeholder="Enter PUBG ID or MLBB ID(Zone)" 
-                   required 
-                   oninput="handleUniversalInput(this)"
-                   onfocus="handleUniversalInput(this)">
-            <button id="guide-button" onclick="showIDGuide(window.currentActiveTab)" class="guide-btn">? ID Guide</button>
+            <input type="text" id="pubg-id" placeholder="Enter PUBG Player ID (e.g. 523456789)" required oninput="saveID('pubg')">
+            <button onclick="showIDGuide('pubg')" class="guide-btn">? ID Guide</button>
+        </div>
+    </div>
+    <div id="mlbb-input-group" style="display: none;">
+        <p>STEP 1: Enter your **Mobile Legends ID and Zone** (e.g. 36274747 (7729))</p>
+        <div class="id-input-group">
+            <input type="text" id="mlbb-id" placeholder="MLBB ID (Zone) e.g. 36274747(7729)" required oninput="saveID('mlbb')">
+            <button onclick="showIDGuide('mlbb')" class="guide-btn">? ID Guide</button>
         </div>
     </div>
 </div>
@@ -560,6 +645,8 @@
 <div class="tabs">
   <button class="tab-btn" onclick="showTab('pubg', this)">🎮 PUBG UC</button>
   <button class="tab-btn inactive" onclick="showTab('mlbb', this)">💎 Mobile Legends</button>
+  <button class="tab-btn inactive" onclick="showTab('promo-pubg', this)">⚡ Limited Time UC Deals</button>
+  <button class="tab-btn inactive" onclick="showTab('promo-mlbb', this)">⚡ Limited Time Diamond Deals</button>
 </div>
 
 <div id="pubg" class="section active">
@@ -572,18 +659,54 @@
     <div class="card"><h3>1,800 UC</h3><div class="price">RM103</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '1,800 UC', 'RM103')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>2,125 UC</h3><div class="price">RM125</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '2,125 UC', 'RM125')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>2,460 UC</h3><div class="price">RM145</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '2,460 UC', 'RM145')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
-    <div class="card">
-        <div class="best-value-badge">BEST SELLER</div>
-        <h3>2,760 UC</h3>
-        <div class="price">RM166</div>
-        <button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '2,760 UC', 'RM166')"><span style="margin-right: 5px;">✅</span> Order Instantly</button>
+    
+    <div class="card featured">
+      <div class="best-value-badge">BEST SELLER</div>
+      <h3>2,760 UC</h3>
+      <div style="font-size: 0.9em; color: var(--color-primary-accent); font-weight: 500; margin-bottom: -10px;">
+          BEST VALUE
+      </div>
+      <div class="price">RM166</div>
+      <div class="high-demand-bar">
+          <p>Selling FAST! Only 12 left this hour.</p>
+          <span class="bar-fill" style="width: 75%;"></span>
+      </div>
+      <button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '2,760 UC', 'RM166')">
+          <span style="margin-right: 5px;">✅</span> Order Instantly
+      </button>
     </div>
+    
     <div class="card"><h3>3,850 UC</h3><div class="price">RM200</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '3,850 UC', 'RM200')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>4,510 UC</h3><div class="price">RM241</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '4,510 UC', 'RM241')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>5,170 UC</h3><div class="price">RM282</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '5,170 UC', 'RM282')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>5,650 UC</h3><div class="price">RM300</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '5,650 UC', 'RM300')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>8,100 UC</h3><div class="price">RM390</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '8,100 UC', 'RM390')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>8,400 UC</h3><div class="price">RM413</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '8,400 UC', 'RM413')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>9,060 UC</h3><div class="price">RM454</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '9,060 UC', 'RM454')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>9,900 UC</h3><div class="price">RM490</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '9,900 UC', 'RM490')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>10,200 UC</h3><div class="price">RM512</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '10,200 UC', 'RM512')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>10,560 UC</h3><div class="price">RM531</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '10,560 UC', 'RM531')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>10,860 UC</h3><div class="price">RM552</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '10,860 UC', 'RM552')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>11,950 UC</h3><div class="price">RM586</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '11,950 UC', 'RM586')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>12,250 UC</h3><div class="price">RM608</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '12,250 UC', 'RM608')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>12,910 UC</h3><div class="price">RM649</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '12,910 UC', 'RM649')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>13,750 UC</h3><div class="price">RM685</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '13,750 UC', 'RM685')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>16,200 UC</h3><div class="price">RM777</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '16,200 UC', 'RM777')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>18,000 UC</h3><div class="price">RM875</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '18,000 UC', 'RM875')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>20,050 UC</h3><div class="price">RM974</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '20,050 UC', 'RM974')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>24,300 UC</h3><div class="price">RM1,164</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '24,300 UC', 'RM1,164')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>32,400 UC</h3><div class="price">RM1,549</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '32,400 UC', 'RM1,549')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>40,500 UC</h3><div class="price">RM1,935</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '40,500 UC', 'RM1,935')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>44,350 UC</h3><div class="price">RM2,127</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '44,350 UC', 'RM2,127')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>48,600 UC</h3><div class="price">RM2,316</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '48,600 UC', 'RM2,316')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>50,400 UC</h3><div class="price">RM2,418</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '50,400 UC', 'RM2,418')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>56,700 UC</h3><div class="price">RM2,702</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '56,700 UC', 'RM2,702')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>60,550 UC</h3><div class="price">RM2,899</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '60,550 UC', 'RM2,899')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>64,800 UC</h3><div class="price">RM3,088</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '64,800 UC', 'RM3,088')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>72,900 UC</h3><div class="price">RM3,474</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '72,900 UC', 'RM3,474')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>81,000 UC</h3><div class="price">RM3,850</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '81,000 UC', 'RM3,850')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>97,200 UC</h3><div class="price">RM4,622</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '97,200 UC', 'RM4,622')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>105,300 UC</h3><div class="price">RM5,013</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '105,300 UC', 'RM5,013')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     </div>
   <div class="how">
     <h3>How It Works</h3>
@@ -605,18 +728,32 @@
     <div class="card"><h3>355 💎</h3><div class="price">RM30</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '355 Diamonds', 'RM30')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>429 💎</h3><div class="price">RM35</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '429 Diamonds', 'RM35')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>565 💎</h3><div class="price">RM45</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '565 Diamonds', 'RM45')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
-    <div class="card">
-        <div class="best-value-badge">BEST SELLER</div>
-        <h3>870 💎</h3>
-        <div class="price">RM65</div>
-        <button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '870 Diamonds', 'RM65')"><span style="margin-right: 5px;">✅</span> Order Instantly</button>
-    </div>
+    <div class="card"><h3>639 💎</h3><div class="price">RM50</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '639 Diamonds', 'RM50')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>716 💎</h3><div class="price">RM55</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '716 Diamonds', 'RM55')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>870 💎</h3><div class="price">RM65</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '870 Diamonds', 'RM65')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>1060 💎</h3><div class="price">RM75</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1060 Diamonds', 'RM75')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>1145 💎</h3><div class="price">RM80</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1145 Diamonds', 'RM80')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>1285 💎</h3><div class="price">RM90</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1285 Diamonds', 'RM90')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>1446 💎</h3><div class="price">RM100</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1446 Diamonds', 'RM100')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>1586 💎</h3><div class="price">RM110</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1586 Diamonds', 'RM110')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>1712 💎</h3><div class="price">RM115</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1712 Diamonds', 'RM115')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>2015 💎</h3><div class="price">RM145</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '2015 Diamonds', 'RM145')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>2162 💎</h3><div class="price">RM155</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '2162 Diamonds', 'RM155')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>2531 💎</h3><div class="price">RM180</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '2531 Diamonds', 'RM180')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>2976 💎</h3><div class="price">RM200</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '2976 Diamonds', 'RM200')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>3274 💎</h3><div class="price">RM215</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '3274 Diamonds', 'RM215')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>3517 💎</h3><div class="price">RM230</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '3517 Diamonds', 'RM230')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>4047 💎</h3><div class="price">RM260</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '4047 Diamonds', 'RM260')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>4562 💎</h3><div class="price">RM300</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '4562 Diamonds', 'RM300')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>5138 💎</h3><div class="price">RM335</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '5138 Diamonds', 'RM335')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>5567 💎</h3><div class="price">RM360</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '5567 Diamonds', 'RM360')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>6092 💎</h3><div class="price">RM390</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '6092 Diamonds', 'RM390')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>6668 💎</h3><div class="price">RM430</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '6668 Diamonds', 'RM430')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>4422 💎</h3><div class="price">RM310</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '4422 Diamonds', 'RM310')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>7502 💎</h3><div class="price">RM490</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '7502 Diamonds', 'RM490')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>8218 💎</h3><div class="price">RM515</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '8218 Diamonds', 'RM515')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>9377 💎</h3><div class="price">RM600</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '9377 Diamonds', 'RM600')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card"><h3>10907 💎</h3><div class="price">RM690</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '10907 Diamonds', 'RM690')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     <div class="card"><h3>12640 💎</h3><div class="price">RM810</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '12640 Diamonds', 'RM810')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
     </div>
   <div class="how">
@@ -625,6 +762,42 @@
       <li>**Enter your MLBB ID and Zone** in the **sticky box above** (Step 1). *Your ID is saved for next time!*</li>
       <li>Click **"✅ Order Instantly"** on your desired package (Step 2).</li>
       <li>Your order will be pre-filled! Send the message and receive diamonds instantly in-game.</li>
+    </ol>
+  </div>
+</div>
+
+<div id="promo-pubg" class="section">
+  <h2>⚡ Limited Time UC Deals</h2>
+  <p class="timer-text">Deal ends in: <span id="pubg-timer"></span></p>
+  <div class="packages">
+    <div class="card promo-card"><div class="promo-badge">HOT DEAL</div><h3>1,800 UC</h3><div class="old-price">RM103</div><div class="price">RM90</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', 'PROMO 1,800 UC', 'RM90')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card promo-card"><div class="promo-badge">BEST VALUE</div><h3>3,850 UC</h3><div class="old-price">RM200</div><div class="price">RM170</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', 'PROMO 3,850 UC', 'RM170')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card promo-card"><div class="promo-badge">MEGA SALE</div><h3>8,100 UC</h3><div class="old-price">RM390</div><div class="price">RM325</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', 'PROMO 8,100 UC', 'RM325')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+  </div>
+  <div class="how">
+    <h3>⏰ Limited Time Promo!</h3>
+    <ol>
+      <li>Ensure your **PUBG Player ID** is entered in the sticky box above.</li>
+      <li>Click **"✅ Order Instantly"** on your desired promo package.</li>
+      <li>These special prices are available for a limited time only!</li>
+    </ol>
+  </div>
+</div>
+
+<div id="promo-mlbb" class="section">
+  <h2>⚡ Limited Time Diamond Deals</h2>
+  <p class="timer-text">Deal ends in: <span id="mlbb-timer"></span></p>
+  <div class="packages">
+    <div class="card promo-card"><div class="promo-badge">HOT DEAL</div><h3>1446 💎</h3><div class="old-price">RM100</div><div class="price">RM88</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', 'PROMO 1446 Diamonds', 'RM88')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card promo-card"><div class="promo-badge">BEST VALUE</div><h3>2976 💎</h3><div class="old-price">RM200</div><div class="price">RM185</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', 'PROMO 2976 Diamonds', 'RM185')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+    <div class="card promo-card"><div class="promo-badge">MEGA SALE</div><h3>6092 💎</h3><div class="old-price">RM390</div><div class="price">RM365</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', 'PROMO 6092 Diamonds', 'RM365')"><span style="margin-right: 5px;">✅</span> Order Instantly</button></div>
+  </div>
+  <div class="how">
+    <h3>⏰ Limited Time Promo!</h3>
+    <ol>
+      <li>Ensure your **MLBB ID and Zone** is entered in the sticky box above.</li>
+      <li>Click **"✅ Order Instantly"** on your desired promo package.</li>
+      <li>These special prices are available for a limited time only!</li>
     </ol>
   </div>
 </div>
@@ -641,6 +814,14 @@
             <li>**100% Secure:** We only require your **Player ID**—never your password or login details.</li>
             <li>**Local Support:** Dedicated Malaysian WhatsApp support ready to help with any issue.</li>
         </ul>
+    </div>
+</div>
+<div class="testimonials">
+    <h3>Trusted by thousands of Malaysian Gamers</h3>
+    <div class="testimonial-cards">
+        <div class="testimonial-card"><p>⭐⭐⭐⭐⭐</p><p>"Super fast! Got my UC in under 5 minutes. Highly recommended and reliable."</p><span>— Afiq M. (PUBG)</span></div>
+        <div class="testimonial-card"><p>⭐⭐⭐⭐⭐</p><p>"The best price I could find for MLBB diamonds, and the WhatsApp service was excellent."</p><span>— Li H. (Mobile Legends)</span></div>
+        <div class="testimonial-card"><p>⭐⭐⭐⭐⭐</p><p>"Smooth transaction, zero hassle. Will definitely top up here again for my next skin."</p><span>— Syafiq Z. (Returning Customer)</span></div>
     </div>
 </div>
 
@@ -664,12 +845,6 @@
   Chat on WhatsApp
 </a>
 
-<div class="mobile-sticky-footer">
-    <a href="https://wa.me/60147433177?text=Hi%21%20I%20want%20to%20order%20the%20best%20deal%20for%20today.">
-        ORDER NOW ON WHATSAPP (Fastest Delivery!)
-    </a>
-</div>
-
 <div id="id-guide-modal" class="modal-overlay" onclick="closeIDGuide(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
         <button class="close-btn" onclick="closeIDGuide()">×</button>
@@ -683,118 +858,99 @@
 <script>
 const WHATSAPP_NUMBER = '60147433177';
 const ID_ALERT_MESSAGE = "Please enter your Player ID before clicking 'Order Instantly'.";
-window.currentActiveTab = 'pubg'; // Global variable to track the active tab/game
 
-// --- ID PERSISTENCE & USER RECOGNITION (ADVANCED) ---
+// --- NEW FUNCTIONS FOR ID PERSISTENCE ---
 
 function saveID(game) {
-    const inputElement = document.getElementById('universal-player-id-input');
+    const inputElement = document.getElementById(`${game}-id`);
     if (inputElement && inputElement.value.trim()) {
         localStorage.setItem(`mastermind_${game}_id`, inputElement.value.trim());
     }
 }
 
 function loadID() {
-    const inputElement = document.getElementById('universal-player-id-input');
     const pubgID = localStorage.getItem('mastermind_pubg_id');
     const mlbbID = localStorage.getItem('mastermind_mlbb_id');
     
-    // Default to the PUBG ID if available
     if (pubgID) {
-        inputElement.value = pubgID;
-        showWelcomeBackBanner('PUBG');
-        window.currentActiveTab = 'pubg';
-    } else if (mlbbID) {
-        inputElement.value = mlbbID;
-        showWelcomeBackBanner('MLBB');
-        window.currentActiveTab = 'mlbb';
+        document.getElementById('pubg-id').value = pubgID;
+    }
+    if (mlbbID) {
+        document.getElementById('mlbb-id').value = mlbbID;
     }
 }
 
-function showWelcomeBackBanner(game) {
-    const banner = document.createElement('div');
-    banner.className = 'loyalty-banner'; 
-    banner.textContent = `👋 Welcome back! We loaded your last used ${game} Player ID.`;
-    banner.style.position = 'fixed';
-    banner.style.top = '0';
-    document.body.prepend(banner);
-    
-    setTimeout(() => banner.remove(), 5000); 
-}
-
-// --- ADVANCED: UNIVERSAL INPUT HANDLER ---
-function handleUniversalInput(inputElement) {
-    const value = inputElement.value.trim();
-
-    // 1. Check for PUBG format (9-11 digits)
-    if (/^\d{9,11}$/.test(value)) {
-        if (window.currentActiveTab !== 'pubg') {
-            showTab('pubg', document.querySelector(`.tabs button[onclick*="'pubg'"]`));
-        }
-        saveID('pubg');
-    // 2. Check for MLBB format (ID(ZONE))
-    } else if (/^\d+\s*\(\s*\d+\s*\)$/.test(value)) {
-         if (window.currentActiveTab !== 'mlbb') {
-            showTab('mlbb', document.querySelector(`.tabs button[onclick*="'mlbb'"]`));
-        }
-        saveID('mlbb');
-    } else {
-        // If not recognized, just save the partial input to the currently active tab
-        saveID(window.currentActiveTab);
-    }
-}
-
-
-// --- CORE LOGIC (Modified for Advanced Setup) ---
+// --- CORE LOGIC (Modified to include validation and saveID) ---
 
 function showTab(tabName, clickedButton) {
-  window.currentActiveTab = tabName; 
-  const idInput = document.getElementById('universal-player-id-input');
-  const guideBtn = document.getElementById('guide-button');
-  const prompt = document.getElementById('id-prompt');
-
-  // 1. Switch Sections
   var sections = document.querySelectorAll('.section');
   sections.forEach(s => s.classList.remove('active'));
-  document.getElementById(tabName).classList.add('active');
   
-  // 2. Switch Buttons
+  // Find the target section by ID and activate it
+  const targetSection = document.getElementById(tabName);
+  if (targetSection) {
+      targetSection.classList.add('active');
+  } else {
+      // Fallback for missing sections (e.g., if "promo-pubg" is deleted)
+      document.getElementById('pubg').classList.add('active');
+  }
+
   var buttons = document.querySelectorAll('.tab-btn');
   buttons.forEach(b => b.classList.add('inactive'));
-  clickedButton.classList.remove('inactive');
-
-  // 3. Update Input Prompt and Placeholder
-  if (tabName === 'pubg') {
-    prompt.innerHTML = 'STEP 1: Enter your **PUBG Player ID** below.';
-    idInput.placeholder = 'Enter PUBG Player ID (e.g. 523456789)';
-  } else if (tabName === 'mlbb') {
-    prompt.innerHTML = 'STEP 1: Enter your **Mobile Legends ID and Zone** (e.g. 36274747 (7729))';
-    idInput.placeholder = 'MLBB ID (Zone) e.g. 36274747(7729)';
+  
+  // Ensure the clicked button and its corresponding tab button are correctly styled
+  if (clickedButton) {
+    // If the button clicked is the one corresponding to the tab being shown, style it active
+    clickedButton.classList.remove('inactive');
+  } else {
+    // This runs on page load, so find the button corresponding to the active tab
+    const tabButtonSelector = `.tabs button[onclick*="'${tabName}'"]`;
+    const activeBtn = document.querySelector(tabButtonSelector);
+    if (activeBtn) {
+        activeBtn.classList.remove('inactive');
+    }
   }
-  
-  // 4. Load Saved ID for the new tab
-  const savedID = localStorage.getItem(`mastermind_${tabName}_id`);
-  idInput.value = savedID || '';
-  
-  // 5. Update Guide Button
-  guideBtn.setAttribute('onclick', `showIDGuide('${tabName}')`);
-  idInput.focus();
+
+
+  document.getElementById('pubg-input-group').style.display = 'none';
+  document.getElementById('mlbb-input-group').style.display = 'none';
+
+  if (tabName.includes('pubg')) {
+      document.getElementById('pubg-input-group').style.display = 'block';
+      document.getElementById('pubg-id').focus();
+  } else if (tabName.includes('mlbb')) {
+      document.getElementById('mlbb-input-group').style.display = 'block';
+      document.getElementById('mlbb-id').focus();
+  }
 }
 
 function initiateWhatsAppOrder(game, packageValue, price) {
-  const idInput = document.getElementById('universal-player-id-input');
-  const id = idInput ? idInput.value.trim() : '';
+  let id, message, idInput;
+  
+  if (game.includes('pubg')) {
+    idInput = document.getElementById('pubg-id');
+  } else if (game.includes('mlbb')) {
+    idInput = document.getElementById('mlbb-id');
+  }
+
+  id = idInput ? idInput.value.trim() : '';
 
   if (!id) {
     alert(ID_ALERT_MESSAGE);
-    idInput.focus();
-    idInput.style.borderColor = '#ff6b6b'; 
-    setTimeout(() => { idInput.style.borderColor = '#334155'; }, 800);
+    
+    if (idInput) {
+        idInput.style.borderColor = '#ff6b6b'; 
+        setTimeout(() => {
+            idInput.style.borderColor = '#334155'; 
+        }, 800);
+        idInput.focus();
+    }
     return;
   }
   
-  // --- VALIDATION LOGIC ---
-  if (game === 'pubg') {
+  // --- ADDED VALIDATION LOGIC ---
+  if (game.includes('pubg')) {
+      // PUBG IDs are usually 9-11 digits
       if (!/^\d{9,11}$/.test(id) || id.length > 11) {
           alert("Please enter a valid PUBG Player ID (usually 9 to 11 digits, numbers only). Check the ID Guide.");
           idInput.focus();
@@ -803,7 +959,8 @@ function initiateWhatsAppOrder(game, packageValue, price) {
           return;
       }
   }
-  if (game === 'mlbb') {
+  if (game.includes('mlbb')) {
+      // MLBB IDs must be in the format: ID(ZONE)
       if (!/^\d+\s*\(\s*\d+\s*\)$/.test(id)) {
           alert("Please enter your MLBB ID in the correct format: ID(ZONE). Example: 12345678(1234). Check the ID Guide.");
           idInput.focus();
@@ -812,17 +969,18 @@ function initiateWhatsAppOrder(game, packageValue, price) {
           return;
       }
   }
-  
-  saveID(game);
+  // --- END ADDED LOGIC ---
 
-  const gameName = game === 'pubg' ? 'PUBG Player ID' : 'MLBB ID';
+
+  // Save ID on successful click for future visits
+  saveID(game.includes('pubg') ? 'pubg' : 'mlbb');
+
+  const gameName = game.includes('pubg') ? 'PUBG Player ID' : 'MLBB ID';
   message = `Hi! I'd like to purchase ${packageValue} (${price}). My ${gameName} is: ${id}. Please confirm and send the payment details.`;
 
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(whatsappLink, '_blank');
 }
-
-// --- ID GUIDE MODAL FUNCTIONS ---
 
 function showIDGuide(game) {
     const modal = document.getElementById('id-guide-modal');
@@ -830,14 +988,15 @@ function showIDGuide(game) {
     const description = document.getElementById('guide-description');
     const image = document.getElementById('guide-image');
 
-    // NOTE: Ensure your images folder exists with the correct files
     if (game === 'pubg') {
         title.textContent = "How to Find Your PUBG Player ID";
-        description.innerHTML = "Your **PUBG Player ID** is a 9-10 digit number found directly under your in-game name in the lobby screen. *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Avatar/Profile > ID</span>*";
+        description.innerHTML = "Your **PUBG Player ID** is a 9-10 digit number found directly under your in-game name in the lobby screen. **Tap your avatar** to view your Profile where it is clearly displayed. *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Avatar/Profile > ID</span>*";
+        // NOTE: Make sure to place an image named 'pubg-id-guide.jpg' inside an 'images' folder
         image.src = "./images/pubg-id-guide.jpg"; 
     } else if (game === 'mlbb') {
         title.textContent = "How to Find Your Mobile Legends ID & Zone";
-        description.innerHTML = "Your **MLBB ID** is the first set of numbers, and the **Zone ID** is the number in parentheses. **Please copy the entire number, including the parentheses.** *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Profile > ID(Zone)</span>*";
+        description.innerHTML = "Your **MLBB ID** is the first set of numbers, and the **Zone ID** is the number in parentheses (e.g., 36274747(7729)). Both are located at the bottom-right of your profile photo in the lobby. **Please copy the entire number, including the parentheses.** *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Profile > ID(Zone)</span>*";
+        // NOTE: Make sure to place an image named 'mlbb-id-guide.jpg' inside an 'images' folder
         image.src = "./images/mlbb-id-guide.jpg";
     }
 
@@ -853,21 +1012,51 @@ function closeIDGuide(event) {
     document.body.style.overflow = 'auto'; 
 }
 
+function updateTimer() {
+    const now = new Date();
+    // Set timer to reset every midnight (24 hours from now)
+    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); 
+    const timeRemaining = tomorrow - now;
 
+    const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
+    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+    const timerDisplay = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+    if (document.getElementById('pubg-timer')) {
+      document.getElementById('pubg-timer').textContent = timerDisplay;
+    }
+    if (document.getElementById('mlbb-timer')) {
+      document.getElementById('mlbb-timer').textContent = timerDisplay;
+    }
+
+    if (timeRemaining < 0) {
+        clearInterval(timerInterval);
+        location.reload();
+    }
+}
+
+let timerInterval;
 window.onload = function() {
     loadID(); 
     
-    // Ensure the tab matches the loaded ID, or defaults to PUBG
-    const targetTab = window.location.hash.substring(1) || window.currentActiveTab || 'pubg';
-    window.currentActiveTab = targetTab;
+    const hash = window.location.hash.substring(1);
+    const defaultTab = 'pubg';
+    const targetTab = hash && document.getElementById(hash) ? hash : defaultTab;
     
+    // Call showTab, ensuring the correct button is passed/selected
     const tabButton = document.querySelector(`.tabs button[onclick*="'${targetTab}'"]`);
-    
+    showTab(targetTab, tabButton);
+
+    // Ensure the initial tab button is highlighted on load
     if (tabButton) {
-        showTab(targetTab, tabButton);
-    } else {
-        showTab('pubg', document.querySelector(`.tabs button[onclick*="'pubg'"]`));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.add('inactive'));
+        tabButton.classList.remove('inactive');
     }
+    
+    updateTimer(); 
+    timerInterval = setInterval(updateTimer, 1000);
 }
 </script>
 
