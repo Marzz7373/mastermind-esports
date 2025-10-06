@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mastermind Esports - Professional Gaming Top-Up Service</title>
+  <title>Mastermind Esports - Malaysia's Fastest PUBG UC & MLBB Diamond Top-Up</title>
+  <meta name="description" content="Malaysia's fastest and most secure top-up service for PUBG UC and Mobile Legends Diamonds. Instant delivery via WhatsApp.">
+  <meta name="keywords" content="pubg uc, mlbb diamonds, top up malaysia, topup game murah, pubg mobile top up">
+  <meta name="author" content="Mastermind Esports">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -57,14 +60,14 @@
       letter-spacing: 0.5px;
     }
 
-    /* ⚡ NEW: Trust Bar Styles */
+    /* Trust Bar Styles */
     .trust-bar {
       background: rgba(15, 23, 42, 0.5);
       padding: 0.75rem 2rem;
       text-align: center;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       border-bottom: 1px solid rgba(0, 255, 204, 0.1);
-      margin-bottom: 0px; /* Connects nicely with the header */
+      margin-bottom: 0px; 
     }
     
     .trust-bar p {
@@ -87,7 +90,7 @@
     .payment-logos img {
       height: 24px; 
       opacity: 0.7;
-      filter: grayscale(100%) brightness(1.8); /* Make them white/light in the dark theme */
+      filter: grayscale(100%) brightness(1.8);
       transition: all 0.3s;
     }
     
@@ -95,7 +98,6 @@
       opacity: 1;
       filter: grayscale(0%);
     }
-    /* ⚡ END NEW: Trust Bar Styles */
     
     .tabs {
       display: flex;
@@ -164,10 +166,55 @@
       }
     }
     
+    /* Order Form Styles */
+    .order-form-container {
+        background: #1a1f3a;
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 3rem;
+        border: 1px solid rgba(0, 255, 204, 0.1);
+    }
+
+    .order-form-container p {
+        color: #00ffcc;
+        font-weight: 600;
+        font-size: 1.125rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .id-input-group {
+        display: flex;
+        gap: 1rem;
+        max-width: 600px;
+        margin: 0 auto 1.5rem auto;
+    }
+
+    .id-input-group input {
+        width: 100%;
+        padding: 1rem 1.25rem;
+        background: #0f172a;
+        border: 1px solid #334155;
+        color: #e4e6eb;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+    
+    .id-input-group input:focus {
+        border-color: #00ffcc;
+        outline: none;
+    }
+
+    .id-input-group input::placeholder {
+        color: #64748b;
+    }
+    /* End Order Form Styles */
+    
     .section h2 {
       text-align: center;
       color: #00ffcc;
-      margin-bottom: 3rem;
+      margin-bottom: 1.5rem;
       font-size: 2.25rem;
       font-weight: 700;
       letter-spacing: -0.5px;
@@ -230,9 +277,9 @@
       position: relative;
     }
     
-    /* ⚡ MODIFIED: Buy button color changed to WhatsApp green */
+    /* MODIFIED: Buy button color changed to WhatsApp green */
     .card .buy-btn {
-      background: linear-gradient(135deg, #25D366 0%, #20ba5a 100%);
+      background: linear-gradient(135deg, #25D366 0%, #20ba5a 100%); 
       color: #0a0e27;
       border: none;
       padding: 0.875rem 2rem;
@@ -248,7 +295,7 @@
     
     .card .buy-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); /* Shadow color updated */
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
     }
 
     .card .buy-btn:after {
@@ -256,7 +303,7 @@
       font-size: 0.8em;
       opacity: 0.8;
     }
-    /* ⚡ END MODIFIED */
+    /* END MODIFIED */
     
     .promo-badge {
       position: absolute;
@@ -275,12 +322,11 @@
       z-index: 1;
     }
 
-    /* ⚡ NEW: Best Seller Badge Style */
     .best-value-badge {
       position: absolute;
       top: 15px;
       right: 15px;
-      background: linear-gradient(135deg, #f7d04a 0%, #e6a800 100%); /* Gold/Yellow color */
+      background: linear-gradient(135deg, #f7d04a 0%, #e6a800 100%); 
       color: #1a1f3a; 
       padding: 0.4rem 0.8rem;
       border-radius: 20px;
@@ -291,7 +337,6 @@
       box-shadow: 0 4px 15px rgba(247, 208, 74, 0.4);
       z-index: 1;
     }
-    /* ⚡ END NEW */
 
     @keyframes pulse {
       0%, 100% {
@@ -319,12 +364,55 @@
       box-shadow: 0 12px 40px rgba(255, 107, 107, 0.25);
     }
     
-    /* ⚡ FIX & FEATURE: Ensure content is pushed down for badges */
     .promo-card h3,
     .card.featured h3 {
-      margin-top: 35px; /* Creates space for the absolutely positioned badge */
+      margin-top: 35px;
     }
-    /* ⚡ END FIX & FEATURE */
+
+    /* Testimonial Section Styles */
+    .testimonials {
+        padding: 3rem 2rem;
+        background: #0f172a;
+        border-radius: 12px;
+        max-width: 1200px;
+        margin: 3rem auto 0 auto;
+        text-align: center;
+        border: 1px solid rgba(148, 163, 184, 0.1);
+    }
+    .testimonials h3 {
+        color: #e4e6eb;
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .testimonial-cards {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .testimonial-card {
+        background: #1a1f3a;
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: left;
+        flex: 1 1 300px;
+        max-width: 350px;
+        min-height: 150px;
+        border-left: 4px solid #00ffcc;
+    }
+    .testimonial-card p {
+        font-style: italic;
+        color: #cbd5e1;
+        margin-bottom: 1rem;
+    }
+    .testimonial-card span {
+        font-weight: 600;
+        color: #94a3b8;
+        font-size: 0.9rem;
+        display: block;
+        margin-top: 0.5rem;
+    }
+    /* End Testimonial Styles */
 
     .how {
       background: linear-gradient(135deg, rgba(26, 31, 58, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
@@ -434,7 +522,16 @@
       }
       
       .payment-logos img {
-        height: 20px; /* Smaller logos on mobile */
+        height: 20px; 
+      }
+      
+      .id-input-group {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      
+      .testimonial-card {
+        flex-basis: 100%;
       }
     }
     
@@ -469,187 +566,242 @@
     <img src="https://via.placeholder.com/80x24/0A0E27/FFFFFF?text=BOOST" alt="Boost">
   </div>
 </div>
+
 <div class="tabs">
   <button class="tab-btn" onclick="showTab('pubg', this)">🎮 PUBG UC</button>
   <button class="tab-btn inactive" onclick="showTab('mlbb', this)">💎 Mobile Legends</button>
-  <button class="tab-btn inactive" onclick="showTab('promo-pubg', this)">🔥 PROMO PUBG</button>
-  <button class="tab-btn inactive" onclick="showTab('promo-mlbb', this)">⚡ PROMO MLBB</button>
+  <button class="tab-btn inactive" onclick="showTab('promo-pubg', this)">⚡ Limited Time UC Deals</button>
+  <button class="tab-btn inactive" onclick="showTab('promo-mlbb', this)">⚡ Limited Time Diamond Deals</button>
 </div>
 
 <div id="pubg" class="section active">
   <h2>PUBG UC Packages</h2>
+  
+  <div class="order-form-container" data-game="PUBG">
+    <p>STEP 1: Enter your PUBG Player ID below.</p>
+    <div class="id-input-group">
+        <input type="text" id="pubg-id" placeholder="Enter PUBG Player ID (e.g. 523456789)" required>
+    </div>
+  </div>
+
   <div class="packages">
-    <div class="card"><h3>325 UC</h3><div class="price">RM22</div><a href="https://wa.me/60147433177?text=Hi! I want 325 UC (RM22)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>660 UC</h3><div class="price">RM43</div><a href="https://wa.me/60147433177?text=Hi! I want 660 UC (RM43)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>1,320 UC</h3><div class="price">RM85</div><a href="https://wa.me/60147433177?text=Hi! I want 1,320 UC (RM85)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>1,800 UC</h3><div class="price">RM103</div><a href="https://wa.me/60147433177?text=Hi! I want 1,800 UC (RM103)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>2,125 UC</h3><div class="price">RM125</div><a href="https://wa.me/60147433177?text=Hi! I want 2,125 UC (RM125)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>2,460 UC</h3><div class="price">RM145</div><a href="https://wa.me/60147433177?text=Hi! I want 2,460 UC (RM145)" class="buy-btn">Buy Now</a></div>
+    <div class="card"><h3>325 UC</h3><div class="price">RM22</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '325 UC', 'RM22')">Buy Now</button></div>
+    <div class="card"><h3>660 UC</h3><div class="price">RM43</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '660 UC', 'RM43')">Buy Now</button></div>
+    <div class="card"><h3>1,320 UC</h3><div class="price">RM85</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '1,320 UC', 'RM85')">Buy Now</button></div>
+    <div class="card"><h3>1,800 UC</h3><div class="price">RM103</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '1,800 UC', 'RM103')">Buy Now</button></div>
+    <div class="card"><h3>2,125 UC</h3><div class="price">RM125</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '2,125 UC', 'RM125')">Buy Now</button></div>
+    <div class="card"><h3>2,460 UC</h3><div class="price">RM145</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '2,460 UC', 'RM145')">Buy Now</button></div>
+    
     <div class="card featured">
       <div class="best-value-badge">BEST SELLER</div>
       <h3>2,760 UC</h3>
       <div class="price">RM166</div>
-      <a href="https://wa.me/60147433177?text=Hi! I want 2,760 UC (RM166)" class="buy-btn">Buy Now</a>
+      <button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '2,760 UC', 'RM166')">Buy Now</button>
     </div>
-    <div class="card"><h3>3,850 UC</h3><div class="price">RM200</div><a href="https://wa.me/60147433177?text=Hi! I want 3,850 UC (RM200)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>4,510 UC</h3><div class="price">RM241</div><a href="https://wa.me/60147433177?text=Hi! I want 4,510 UC (RM241)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>5,170 UC</h3><div class="price">RM282</div><a href="https://wa.me/60147433177?text=Hi! I want 5,170 UC (RM282)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>5,650 UC</h3><div class="price">RM300</div><a href="https://wa.me/60147433177?text=Hi! I want 5,650 UC (RM300)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>8,100 UC</h3><div class="price">RM390</div><a href="https://wa.me/60147433177?text=Hi! I want 8,100 UC (RM390)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>8,400 UC</h3><div class="price">RM413</div><a href="https://wa.me/60147433177?text=Hi! I want 8,400 UC (RM413)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>9,060 UC</h3><div class="price">RM454</div><a href="https://wa.me/60147433177?text=Hi! I want 9,060 UC (RM454)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>9,900 UC</h3><div class="price">RM490</div><a href="https://wa.me/60147433177?text=Hi! I want 9,900 UC (RM490)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>10,200 UC</h3><div class="price">RM512</div><a href="https://wa.me/60147433177?text=Hi! I want 10,200 UC (RM512)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>10,560 UC</h3><div class="price">RM531</div><a href="https://wa.me/60147433177?text=Hi! I want 10,560 UC (RM531)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>10,860 UC</h3><div class="price">RM552</div><a href="https://wa.me/60147433177?text=Hi! I want 10,860 UC (RM552)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>11,950 UC</h3><div class="price">RM586</div><a href="https://wa.me/60147433177?text=Hi! I want 11,950 UC (RM586)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>12,250 UC</h3><div class="price">RM608</div><a href="https://wa.me/60147433177?text=Hi! I want 12,250 UC (RM608)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>12,910 UC</h3><div class="price">RM649</div><a href="https://wa.me/60147433177?text=Hi! I want 12,910 UC (RM649)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>13,750 UC</h3><div class="price">RM685</div><a href="https://wa.me/60147433177?text=Hi! I want 13,750 UC (RM685)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>16,200 UC</h3><div class="price">RM777</div><a href="https://wa.me/60147433177?text=Hi! I want 16,200 UC (RM777)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>18,000 UC</h3><div class="price">RM875</div><a href="https://wa.me/60147433177?text=Hi! I want 18,000 UC (RM875)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>20,050 UC</h3><div class="price">RM974</div><a href="https://wa.me/60147433177?text=Hi! I want 20,050 UC (RM974)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>25,850 UC</h3><div class="price">RM1,250</div><a href="https://wa.me/60147433177?text=Hi! I want 25,850 UC (RM1,250)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>32,400 UC</h3><div class="price">RM1,550</div><a href="https://wa.me/60147433177?text=Hi! I want 32,400 UC (RM1,550)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>40,000 UC</h3><div class="price">RM1,900</div><a href="https://wa.me/60147433177?text=Hi! I want 40,000 UC (RM1,900)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>52,000 UC</h3><div class="price">RM2,450</div><a href="https://wa.me/60147433177?text=Hi! I want 52,000 UC (RM2,450)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>105,300 UC</h3><div class="price">RM5,013</div><a href="https://wa.me/60147433177?text=Hi! I want 105,300 UC (RM5,013)" class="buy-btn">Buy Now</a></div>
+    
+    <div class="card"><h3>3,850 UC</h3><div class="price">RM200</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '3,850 UC', 'RM200')">Buy Now</button></div>
+    <div class="card"><h3>4,510 UC</h3><div class="price">RM241</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '4,510 UC', 'RM241')">Buy Now</button></div>
+    <div class="card"><h3>5,170 UC</h3><div class="price">RM282</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '5,170 UC', 'RM282')">Buy Now</button></div>
+    <div class="card"><h3>5,650 UC</h3><div class="price">RM300</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '5,650 UC', 'RM300')">Buy Now</button></div>
+
+    <div class="card"><h3>8,100 UC</h3><div class="price">RM390</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '8,100 UC', 'RM390')">Buy Now</button></div>
+    <div class="card"><h3>8,400 UC</h3><div class="price">RM413</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '8,400 UC', 'RM413')">Buy Now</button></div>
+    <div class="card"><h3>9,060 UC</h3><div class="price">RM454</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '9,060 UC', 'RM454')">Buy Now</button></div>
+    <div class="card"><h3>9,900 UC</h3><div class="price">RM490</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '9,900 UC', 'RM490')">Buy Now</button></div>
+    <div class="card"><h3>10,200 UC</h3><div class="price">RM512</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '10,200 UC', 'RM512')">Buy Now</button></div>
+    <div class="card"><h3>10,560 UC</h3><div class="price">RM531</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '10,560 UC', 'RM531')">Buy Now</button></div>
+    <div class="card"><h3>10,860 UC</h3><div class="price">RM552</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '10,860 UC', 'RM552')">Buy Now</button></div>
+    <div class="card"><h3>11,950 UC</h3><div class="price">RM586</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '11,950 UC', 'RM586')">Buy Now</button></div>
+    <div class="card"><h3>12,250 UC</h3><div class="price">RM608</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '12,250 UC', 'RM608')">Buy Now</button></div>
+    <div class="card"><h3>12,910 UC</h3><div class="price">RM649</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '12,910 UC', 'RM649')">Buy Now</button></div>
+    <div class="card"><h3>13,750 UC</h3><div class="price">RM685</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '13,750 UC', 'RM685')">Buy Now</button></div>
+    <div class="card"><h3>16,200 UC</h3><div class="price">RM777</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '16,200 UC', 'RM777')">Buy Now</button></div>
+    <div class="card"><h3>18,000 UC</h3><div class="price">RM875</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '18,000 UC', 'RM875')">Buy Now</button></div>
+
+    <div class="card"><h3>20,050 UC</h3><div class="price">RM974</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '20,050 UC', 'RM974')">Buy Now</button></div>
+    <div class="card"><h3>24,300 UC</h3><div class="price">RM1,164</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '24,300 UC', 'RM1,164')">Buy Now</button></div>
+    <div class="card"><h3>32,400 UC</h3><div class="price">RM1,549</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '32,400 UC', 'RM1,549')">Buy Now</button></div>
+    <div class="card"><h3>40,500 UC</h3><div class="price">RM1,935</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '40,500 UC', 'RM1,935')">Buy Now</button></div>
+    <div class="card"><h3>44,350 UC</h3><div class="price">RM2,127</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '44,350 UC', 'RM2,127')">Buy Now</button></div>
+    <div class="card"><h3>48,600 UC</h3><div class="price">RM2,316</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '48,600 UC', 'RM2,316')">Buy Now</button></div>
+    <div class="card"><h3>50,400 UC</h3><div class="price">RM2,418</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '50,400 UC', 'RM2,418')">Buy Now</button></div>
+    <div class="card"><h3>56,700 UC</h3><div class="price">RM2,702</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '56,700 UC', 'RM2,702')">Buy Now</button></div>
+    <div class="card"><h3>60,550 UC</h3><div class="price">RM2,899</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '60,550 UC', 'RM2,899')">Buy Now</button></div>
+    <div class="card"><h3>64,800 UC</h3><div class="price">RM3,088</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '64,800 UC', 'RM3,088')">Buy Now</button></div>
+    <div class="card"><h3>72,900 UC</h3><div class="price">RM3,474</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '72,900 UC', 'RM3,474')">Buy Now</button></div>
+    <div class="card"><h3>81,000 UC</h3><div class="price">RM3,850</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '81,000 UC', 'RM3,850')">Buy Now</button></div>
+    <div class="card"><h3>97,200 UC</h3><div class="price">RM4,622</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '97,200 UC', 'RM4,622')">Buy Now</button></div>
+    <div class="card"><h3>105,300 UC</h3><div class="price">RM5,013</div><button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', '105,300 UC', 'RM5,013')">Buy Now</button></div>
   </div>
   <div class="how">
     <h3>How It Works</h3>
     <ol>
-      <li>Enter your PUBG Player ID</li>
-      <li>Select your UC package and make payment</li>
-      <li>Receive UC instantly in-game</li>
+      <li>**Enter your PUBG Player ID** in the box above.</li>
+      <li>Click **"Buy Now (WhatsApp)"** on your desired package.</li>
+      <li>Your order will be pre-filled! Send the message and receive UC instantly in-game.</li>
     </ol>
   </div>
 </div>
 
 <div id="mlbb" class="section">
   <h2>Mobile Legends Diamond Packages</h2>
+  
+  <div class="order-form-container" data-game="MLBB">
+    <p>STEP 1: Enter your Mobile Legends ID and Zone below.</p>
+    <div class="id-input-group">
+        <input type="text" id="mlbb-id" placeholder="MLBB ID (e.g. 36274747)" required>
+        <input type="text" id="mlbb-zone" placeholder="MLBB Zone (e.g. 7729)" required>
+    </div>
+  </div>
+  
   <div class="packages">
-    <div class="card"><h3>70 💎</h3><div class="price">RM6</div><a href="https://wa.me/60147433177?text=Hi! I want 70 Diamonds (RM6)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>140 💎</h3><div class="price">RM12</div><a href="https://wa.me/60147433177?text=Hi! I want 140 Diamonds (RM12)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>284 💎</h3><div class="price">RM23</div><a href="https://wa.me/60147433177?text=Hi! I want 284 Diamonds (RM23)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>355 💎</h3><div class="price">RM30</div><a href="https://wa.me/60147433177?text=Hi! I want 355 Diamonds (RM30)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>429 💎</h3><div class="price">RM35</div><a href="https://wa.me/60147433177?text=Hi! I want 429 Diamonds (RM35)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>565 💎</h3><div class="price">RM45</div><a href="https://wa.me/60147433177?text=Hi! I want 565 Diamonds (RM45)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>639 💎</h3><div class="price">RM50</div><a href="https://wa.me/60147433177?text=Hi! I want 639 Diamonds (RM50)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>716 💎</h3><div class="price">RM55</div><a href="https://wa.me/60147433177?text=Hi! I want 716 Diamonds (RM55)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>870 💎</h3><div class="price">RM65</div><a href="https://wa.me/60147433177?text=Hi! I want 870 Diamonds (RM65)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>1060 💎</h3><div class="price">RM75</div><a href="https://wa.me/60147433177?text=Hi! I want 1060 Diamonds (RM75)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>1145 💎</h3><div class="price">RM80</div><a href="https://wa.me/60147433177?text=Hi! I want 1145 Diamonds (RM80)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>1285 💎</h3><div class="price">RM90</div><a href="https://wa.me/60147433177?text=Hi! I want 1285 Diamonds (RM90)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>1446 💎</h3><div class="price">RM100</div><a href="https://wa.me/60147433177?text=Hi! I want 1446 Diamonds (RM100)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>1586 💎</h3><div class="price">RM110</div><a href="https://wa.me/60147433177?text=Hi! I want 1586 Diamonds (RM110)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>1712 💎</h3><div class="price">RM115</div><a href="https://wa.me/60147433177?text=Hi! I want 1712 Diamonds (RM115)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>2015 💎</h3><div class="price">RM145</div><a href="https://wa.me/60147433177?text=Hi! I want 2015 Diamonds (RM145)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>2162 💎</h3><div class="price">RM155</div><a href="https://wa.me/60147433177?text=Hi! I want 2162 Diamonds (RM155)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>2531 💎</h3><div class="price">RM180</div><a href="https://wa.me/60147433177?text=Hi! I want 2531 Diamonds (RM180)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>2976 💎</h3><div class="price">RM200</div><a href="https://wa.me/60147433177?text=Hi! I want 2976 Diamonds (RM200)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>3274 💎</h3><div class="price">RM215</div><a href="https://wa.me/60147433177?text=Hi! I want 3274 Diamonds (RM215)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>3517 💎</h3><div class="price">RM230</div><a href="https://wa.me/60147433177?text=Hi! I want 3517 Diamonds (RM230)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>4047 💎</h3><div class="price">RM260</div><a href="https://wa.me/60147433177?text=Hi! I want 4047 Diamonds (RM260)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>4562 💎</h3><div class="price">RM300</div><a href="https://wa.me/60147433177?text=Hi! I want 4562 Diamonds (RM300)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>5138 💎</h3><div class="price">RM335</div><a href="https://wa.me/60147433177?text=Hi! I want 5138 Diamonds (RM335)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>5567 💎</h3><div class="price">RM360</div><a href="https://wa.me/60147433177?text=Hi! I want 5567 Diamonds (RM360)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>6092 💎</h3><div class="price">RM390</div><a href="https://wa.me/60147433177?text=Hi! I want 6092 Diamonds (RM390)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>6668 💎</h3><div class="price">RM430</div><a href="https://wa.me/60147433177?text=Hi! I want 6668 Diamonds (RM430)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>7502 💎</h3><div class="price">RM490</div><a href="https://wa.me/60147433177?text=Hi! I want 7502 Diamonds (RM490)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>8218 💎</h3><div class="price">RM515</div><a href="https://wa.me/60147433177?text=Hi! I want 8218 Diamonds (RM515)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>9377 💎</h3><div class="price">RM600</div><a href="https://wa.me/60147433177?text=Hi! I want 9377 Diamonds (RM600)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>10907 💎</h3><div class="price">RM690</div><a href="https://wa.me/60147433177?text=Hi! I want 10907 Diamonds (RM690)" class="buy-btn">Buy Now</a></div>
-    <div class="card"><h3>12640 💎</h3><div class="price">RM810</div><a href="https://wa.me/60147433177?text=Hi! I want 12640 Diamonds (RM810)" class="buy-btn">Buy Now</a></div>
+    <div class="card"><h3>70 💎</h3><div class="price">RM6</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '70 Diamonds', 'RM6')">Buy Now</button></div>
+    <div class="card"><h3>140 💎</h3><div class="price">RM12</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '140 Diamonds', 'RM12')">Buy Now</button></div>
+    <div class="card"><h3>284 💎</h3><div class="price">RM23</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '284 Diamonds', 'RM23')">Buy Now</button></div>
+    <div class="card"><h3>355 💎</h3><div class="price">RM30</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '355 Diamonds', 'RM30')">Buy Now</button></div>
+    <div class="card"><h3>429 💎</h3><div class="price">RM35</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '429 Diamonds', 'RM35')">Buy Now</button></div>
+    <div class="card"><h3>565 💎</h3><div class="price">RM45</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '565 Diamonds', 'RM45')">Buy Now</button></div>
+    <div class="card"><h3>639 💎</h3><div class="price">RM50</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '639 Diamonds', 'RM50')">Buy Now</button></div>
+    <div class="card"><h3>716 💎</h3><div class="price">RM55</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '716 Diamonds', 'RM55')">Buy Now</button></div>
+    <div class="card"><h3>870 💎</h3><div class="price">RM65</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '870 Diamonds', 'RM65')">Buy Now</button></div>
+    <div class="card"><h3>1060 💎</h3><div class="price">RM75</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1060 Diamonds', 'RM75')">Buy Now</button></div>
+    <div class="card"><h3>1145 💎</h3><div class="price">RM80</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1145 Diamonds', 'RM80')">Buy Now</button></div>
+    <div class="card"><h3>1285 💎</h3><div class="price">RM90</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1285 Diamonds', 'RM90')">Buy Now</button></div>
+    <div class="card"><h3>1446 💎</h3><div class="price">RM100</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1446 Diamonds', 'RM100')">Buy Now</button></div>
+    <div class="card"><h3>1586 💎</h3><div class="price">RM110</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1586 Diamonds', 'RM110')">Buy Now</button></div>
+    <div class="card"><h3>1712 💎</h3><div class="price">RM115</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '1712 Diamonds', 'RM115')">Buy Now</button></div>
+    <div class="card"><h3>2015 💎</h3><div class="price">RM145</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '2015 Diamonds', 'RM145')">Buy Now</button></div>
+    <div class="card"><h3>2162 💎</h3><div class="price">RM155</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '2162 Diamonds', 'RM155')">Buy Now</button></div>
+    <div class="card"><h3>2531 💎</h3><div class="price">RM180</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '2531 Diamonds', 'RM180')">Buy Now</button></div>
+    <div class="card"><h3>2976 💎</h3><div class="price">RM200</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '2976 Diamonds', 'RM200')">Buy Now</button></div>
+    <div class="card"><h3>3274 💎</h3><div class="price">RM215</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '3274 Diamonds', 'RM215')">Buy Now</button></div>
+    <div class="card"><h3>3517 💎</h3><div class="price">RM230</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '3517 Diamonds', 'RM230')">Buy Now</button></div>
+    <div class="card"><h3>4047 💎</h3><div class="price">RM260</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '4047 Diamonds', 'RM260')">Buy Now</button></div>
+    <div class="card"><h3>4562 💎</h3><div class="price">RM300</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '4562 Diamonds', 'RM300')">Buy Now</button></div>
+    <div class="card"><h3>5138 💎</h3><div class="price">RM335</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '5138 Diamonds', 'RM335')">Buy Now</button></div>
+    <div class="card"><h3>5567 💎</h3><div class="price">RM360</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '5567 Diamonds', 'RM360')">Buy Now</button></div>
+    <div class="card"><h3>6092 💎</h3><div class="price">RM390</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '6092 Diamonds', 'RM390')">Buy Now</button></div>
+    <div class="card"><h3>6668 💎</h3><div class="price">RM430</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '6668 Diamonds', 'RM430')">Buy Now</button></div>
+    <div class="card"><h3>4422 💎</h3><div class="price">RM310</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '4422 Diamonds', 'RM310')">Buy Now</button></div>
+    <div class="card"><h3>7502 💎</h3><div class="price">RM490</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '7502 Diamonds', 'RM490')">Buy Now</button></div>
+    <div class="card"><h3>8218 💎</h3><div class="price">RM515</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '8218 Diamonds', 'RM515')">Buy Now</button></div>
+    <div class="card"><h3>9377 💎</h3><div class="price">RM600</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '9377 Diamonds', 'RM600')">Buy Now</button></div>
+    <div class="card"><h3>10907 💎</h3><div class="price">RM690</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '10907 Diamonds', 'RM690')">Buy Now</button></div>
+    <div class="card"><h3>12640 💎</h3><div class="price">RM810</div><button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', '12640 Diamonds', 'RM810')">Buy Now</button></div>
   </div>
   <div class="how">
     <h3>How It Works</h3>
     <ol>
-      <li>Enter your MLBB ID and Zone (e.g. 36274747 (7729))</li>
-      <li>Select your diamond package and make payment</li>
-      <li>Receive diamonds instantly in-game</li>
+      <li>**Enter your MLBB ID and Zone** in the boxes above (e.g. 36274747 (7729)).</li>
+      <li>Click **"Buy Now (WhatsApp)"** on your desired package.</li>
+      <li>Your order will be pre-filled! Send the message and receive diamonds instantly in-game.</li>
     </ol>
   </div>
 </div>
+
 <div id="promo-pubg" class="section">
-  <h2>🔥 PROMO PUBG UC - Limited Time Offers!</h2>
+  <h2>⚡ Limited Time UC Deals</h2>
   <div class="packages">
     <div class="card promo-card">
       <div class="promo-badge">HOT DEAL</div>
       <h3>1,800 UC</h3>
       <div class="old-price">RM103</div>
       <div class="price">RM90</div>
-      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 1,800 UC (RM90)" class="buy-btn">Buy Now</a>
+      <button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', 'PROMO 1,800 UC', 'RM90')">Buy Now</button>
     </div>
     <div class="card promo-card">
       <div class="promo-badge">BEST VALUE</div>
       <h3>3,850 UC</h3>
       <div class="old-price">RM200</div>
       <div class="price">RM170</div>
-      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 3,850 UC (RM170)" class="buy-btn">Buy Now</a>
+      <button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', 'PROMO 3,850 UC', 'RM170')">Buy Now</button>
     </div>
     <div class="card promo-card">
       <div class="promo-badge">MEGA SALE</div>
       <h3>8,100 UC</h3>
       <div class="old-price">RM390</div>
       <div class="price">RM325</div>
-      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 8,100 UC (RM325)" class="buy-btn">Buy Now</a>
+      <button class="buy-btn" onclick="initiateWhatsAppOrder('pubg', 'PROMO 8,100 UC', 'RM325')">Buy Now</button>
     </div>
   </div>
   <div class="how">
     <h3>⏰ Limited Time Promo!</h3>
     <ol>
-      <li>These special prices are available for a limited time only</li>
-      <li>Enter your PUBG Player ID when ordering</li>
-      <li>Select your promo package and make payment</li>
-      <li>Receive UC instantly in-game</li>
+      <li>Ensure your **PUBG Player ID** is entered in the box under the main 'PUBG UC' tab.</li>
+      <li>Click **"Buy Now (WhatsApp)"** on your desired promo package.</li>
+      <li>These special prices are available for a limited time only!</li>
     </ol>
   </div>
 </div>
 
 <div id="promo-mlbb" class="section">
-  <h2>⚡ PROMO Mobile Legends - Special Discounts!</h2>
+  <h2>⚡ Limited Time Diamond Deals</h2>
   <div class="packages">
     <div class="card promo-card">
       <div class="promo-badge">HOT DEAL</div>
       <h3>1446 💎</h3>
       <div class="old-price">RM100</div>
       <div class="price">RM88</div>
-      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 1446 Diamonds (RM88)" class="buy-btn">Buy Now</a>
+      <button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', 'PROMO 1446 Diamonds', 'RM88')">Buy Now</button>
     </div>
     <div class="card promo-card">
       <div class="promo-badge">BEST VALUE</div>
       <h3>2976 💎</h3>
       <div class="old-price">RM200</div>
       <div class="price">RM185</div>
-      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 2976 Diamonds (RM185)" class="buy-btn">Buy Now</a>
+      <button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', 'PROMO 2976 Diamonds', 'RM185')">Buy Now</button>
     </div>
     <div class="card promo-card">
       <div class="promo-badge">MEGA SALE</div>
       <h3>6092 💎</h3>
       <div class="old-price">RM390</div>
       <div class="price">RM365</div>
-      <a href="https://wa.me/60147433177?text=Hi! I want PROMO 6092 Diamonds (RM365)" class="buy-btn">Buy Now</a>
+      <button class="buy-btn" onclick="initiateWhatsAppOrder('mlbb', 'PROMO 6092 Diamonds', 'RM365')">Buy Now</button>
     </div>
   </div>
   <div class="how">
     <h3>⏰ Limited Time Promo!</h3>
     <ol>
-      <li>These special prices are available for a limited time only</li>
-      <li>Enter your MLBB ID and Zone (e.g. 36274747 (7729))</li>
-      <li>Select your promo package and make payment</li>
-      <li>Receive diamonds instantly in-game</li>
+      <li>Ensure your **MLBB ID and Zone** are entered in the boxes under the main 'Mobile Legends' tab.</li>
+      <li>Click **"Buy Now (WhatsApp)"** on your desired promo package.</li>
+      <li>These special prices are available for a limited time only!</li>
     </ol>
   </div>
+</div>
+
+<div class="testimonials">
+    <h3>Trusted by thousands of Malaysian Gamers</h3>
+    <div class="testimonial-cards">
+        <div class="testimonial-card">
+            <p>⭐⭐⭐⭐⭐</p>
+            <p>"Super fast! Got my UC in under 5 minutes. Highly recommended and reliable."</p>
+            <span>— Afiq M. (PUBG)</span>
+        </div>
+        <div class="testimonial-card">
+            <p>⭐⭐⭐⭐⭐</p>
+            <p>"The best price I could find for MLBB diamonds, and the WhatsApp service was excellent."</p>
+            <span>— Li H. (Mobile Legends)</span>
+        </div>
+        <div class="testimonial-card">
+            <p>⭐⭐⭐⭐⭐</p>
+            <p>"Smooth transaction, zero hassle. Will definitely top up here again for my next skin."</p>
+            <span>— Syafiq Z. (Returning Customer)</span>
+        </div>
+    </div>
 </div>
 <footer>
   &copy; 2020-2025 Mastermind Esports. All rights reserved.
 </footer>
 
-<a href="https://wa.me/60147433177" class="wa-btn">
+<a href="https://wa.me/60147433177?text=Hi%21%20I%20have%20a%20general%20question%20about%20top-ups." class="wa-btn">
   💬 Chat on WhatsApp
 </a>
 
 <script>
+const WHATSAPP_NUMBER = '60147433177';
+const ID_ALERT_MESSAGE = "Please enter your Player ID before clicking 'Buy Now' to proceed with the order.";
+const MLBB_ID_ZONE_ALERT = "Please enter both your MLBB ID AND Zone before clicking 'Buy Now' to proceed with the order.";
+
 function showTab(tabName, clickedButton) {
   // Hide all sections
   var sections = document.querySelectorAll('.section');
@@ -672,14 +824,49 @@ function showTab(tabName, clickedButton) {
   }
 }
 
-// Automatically switch to the promo tab if the URL contains a hash, for better sharing
+// Function to handle form data and initiate WhatsApp order
+function initiateWhatsAppOrder(game, packageValue, price) {
+  let id, zone, message;
+  
+  if (game === 'pubg') {
+    id = document.getElementById('pubg-id').value.trim();
+    if (!id) {
+      alert(ID_ALERT_MESSAGE);
+      document.getElementById('pubg-id').focus();
+      return;
+    }
+    // Message for PUBG (only needs ID)
+    message = `Hi! I'd like to purchase ${packageValue} (${price}). My PUBG Player ID is: ${id}. Please confirm and send the payment details.`;
+
+  } else if (game === 'mlbb') {
+    id = document.getElementById('mlbb-id').value.trim();
+    zone = document.getElementById('mlbb-zone').value.trim();
+    
+    if (!id || !zone) {
+      alert(MLBB_ID_ZONE_ALERT);
+      if (!id) document.getElementById('mlbb-id').focus();
+      else if (!zone) document.getElementById('mlbb-zone').focus();
+      return;
+    }
+    // Message for MLBB (needs ID and Zone)
+    message = `Hi! I'd like to purchase ${packageValue} (${price}). My MLBB ID is: ${id} (${zone}). Please confirm and send the payment details.`;
+  }
+
+  // URL encode the message and open the link
+  const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  
+  window.open(whatsappLink, '_blank');
+}
+
+// Ensure the correct tab is active on load
 window.onload = function() {
     const hash = window.location.hash.substring(1);
-    if (hash && document.getElementById(hash)) {
-        const tabButton = document.querySelector(`.tabs button[onclick*="'${hash}'"]`);
-        if (tabButton) {
-            showTab(hash, tabButton);
-        }
+    const defaultTab = 'pubg';
+    const targetTab = hash && document.getElementById(hash) ? hash : defaultTab;
+    
+    const tabButton = document.querySelector(`.tabs button[onclick*="'${targetTab}'"]`);
+    if (tabButton) {
+        showTab(targetTab, tabButton);
     }
 }
 </script>
