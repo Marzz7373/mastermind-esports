@@ -543,14 +543,23 @@
         display: flex;
         align-items: center;
         transition: transform 0.2s;
+        transform: scale(1); /* Initial state */
+        animation: wa-pulse 1.5s infinite; /* Add a gentle pulse */
     }
     .wa-btn:hover {
         transform: scale(1.05);
+        animation: none; /* Stop pulse on hover */
     }
     .wa-btn::before {
         content: '💬'; 
         margin-right: 8px;
         font-size: 1.2em;
+    }
+    /* Add this new keyframe animation to your <style> block */
+    @keyframes wa-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
     /* === MOBILE SPECIFIC ADJUSTMENTS (max-width: 768px) === */
@@ -602,10 +611,13 @@
 <div class="trust-bar">
   <p>Secure & Instant Payment Accepted:</p>
   <div class="payment-logos">
-    <img src="uploaded:image.png-a1142890-8a05-458c-96a5-74ee2900445d" alt="DuitNow Accepted" class="payment-icon">
-    <img src="uploaded:image.png-b9ded7dd-2ac0-463c-9774-c95e446aaa95" alt="TNG Accepted" class="payment-icon">
-    <img src="uploaded:image.png-d8ccea13-2a9f-4cde-8438-2fdcc7ae27fa" alt="Maybank Accepted" class="payment-icon">
-    <img src="uploaded:image.png-1f6662f3-e59d-49c1-bb2a-448552b5eb4d" alt="Boost Accepted" class="payment-icon"> 
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/DuitNow_QR_logo.svg/100px-DuitNow_QR_logo.svg.png" alt="DuitNow QR Accepted" class="payment-icon">
+    
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Touch_%27n_Go_eWallet_Logo.svg/100px-Touch_%27n_Go_eWallet_Logo.svg.png" alt="Touch 'n Go eWallet Accepted" class="payment-icon">
+    
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/GrabPay_logo.svg/100px-GrabPay_logo.svg.png" alt="GrabPay Accepted" class="payment-icon">
+    
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/57/Financial_Process_Exchange_logo.svg/100px-Financial_Process_Exchange_logo.svg.png" alt="FPX Accepted" class="payment-icon">
   </div>
 </div>
 
@@ -790,6 +802,20 @@
   </div>
 </div>
 
+<div class="section" style="display: block; padding-top: 0;">
+    <div class="how" style="margin-top: 1rem;">
+        <h2 style="margin-top: 0; margin-bottom: 1.5rem; color: var(--color-text-light);">Why Choose Mastermind Esports?</h2>
+        <p style="margin-bottom: 1.5rem; color: var(--color-text-muted);">
+            Mastermind Esports is dedicated to providing Malaysian gamers with the best value and quickest top-up service. Unlike other services, we offer:<br>
+        </p>
+        <ul style="list-style-type: '⚡ '; padding-left: 2rem; color: var(--color-text-light); line-height: 2;">
+            <li>**Instant Delivery Guarantee:** Most orders completed in under 5 minutes.</li>
+            <li>**Cheapest Price:** Our packages are consistently lower than in-game stores.</li>
+            <li>**100% Secure:** We only require your **Player ID**—never your password or login details.</li>
+            <li>**Local Support:** Dedicated Malaysian WhatsApp support ready to help with any issue.</li>
+        </ul>
+    </div>
+</div>
 <div class="testimonials">
     <h3>Trusted by thousands of Malaysian Gamers</h3>
     <div class="testimonial-cards">
@@ -824,7 +850,7 @@
         <button class="close-btn" onclick="closeIDGuide()">×</button>
         <h3 id="guide-title">How to Find Your Player ID</h3>
         <p id="guide-description"></p>
-        <img id="guide-image" src="" alt="Game ID Location Guide">
+        <img id="guide-image" src="" alt="Game ID Location Guide"> 
         <p class="final-note" style="font-size: 0.9em; color: var(--color-text-muted);">*Please double-check your ID before ordering. We are not responsible for incorrect user input.</p>
     </div>
 </div>
@@ -854,18 +880,37 @@ function loadID() {
     }
 }
 
-// --- CORE LOGIC (Modified to call saveID) ---
+// --- CORE LOGIC (Modified to include validation and saveID) ---
 
 function showTab(tabName, clickedButton) {
   var sections = document.querySelectorAll('.section');
   sections.forEach(s => s.classList.remove('active'));
-  document.getElementById(tabName).classList.add('active');
   
+  // Find the target section by ID and activate it
+  const targetSection = document.getElementById(tabName);
+  if (targetSection) {
+      targetSection.classList.add('active');
+  } else {
+      // Fallback for missing sections (e.g., if "promo-pubg" is deleted)
+      document.getElementById('pubg').classList.add('active');
+  }
+
   var buttons = document.querySelectorAll('.tab-btn');
   buttons.forEach(b => b.classList.add('inactive'));
+  
+  // Ensure the clicked button and its corresponding tab button are correctly styled
   if (clickedButton) {
+    // If the button clicked is the one corresponding to the tab being shown, style it active
     clickedButton.classList.remove('inactive');
+  } else {
+    // This runs on page load, so find the button corresponding to the active tab
+    const tabButtonSelector = `.tabs button[onclick*="'${tabName}'"]`;
+    const activeBtn = document.querySelector(tabButtonSelector);
+    if (activeBtn) {
+        activeBtn.classList.remove('inactive');
+    }
   }
+
 
   document.getElementById('pubg-input-group').style.display = 'none';
   document.getElementById('mlbb-input-group').style.display = 'none';
@@ -903,6 +948,30 @@ function initiateWhatsAppOrder(game, packageValue, price) {
     return;
   }
   
+  // --- ADDED VALIDATION LOGIC ---
+  if (game.includes('pubg')) {
+      // PUBG IDs are usually 9-11 digits
+      if (!/^\d{9,11}$/.test(id) || id.length > 11) {
+          alert("Please enter a valid PUBG Player ID (usually 9 to 11 digits, numbers only). Check the ID Guide.");
+          idInput.focus();
+          idInput.style.borderColor = '#ff6b6b'; 
+          setTimeout(() => { idInput.style.borderColor = '#334155'; }, 800);
+          return;
+      }
+  }
+  if (game.includes('mlbb')) {
+      // MLBB IDs must be in the format: ID(ZONE)
+      if (!/^\d+\s*\(\s*\d+\s*\)$/.test(id)) {
+          alert("Please enter your MLBB ID in the correct format: ID(ZONE). Example: 12345678(1234). Check the ID Guide.");
+          idInput.focus();
+          idInput.style.borderColor = '#ff6b6b'; 
+          setTimeout(() => { idInput.style.borderColor = '#334155'; }, 800);
+          return;
+      }
+  }
+  // --- END ADDED LOGIC ---
+
+
   // Save ID on successful click for future visits
   saveID(game.includes('pubg') ? 'pubg' : 'mlbb');
 
@@ -921,12 +990,14 @@ function showIDGuide(game) {
 
     if (game === 'pubg') {
         title.textContent = "How to Find Your PUBG Player ID";
-        description.innerHTML = "Your **PUBG Player ID** is a 9-10 digit number found directly under your in-game name in the lobby screen. **Tap your avatar** to view your Profile where it is clearly displayed.";
-        image.src = "uploaded:image.png-d8ccea13-2a9f-4cde-8438-2fdcc7ae27fa"; 
+        description.innerHTML = "Your **PUBG Player ID** is a 9-10 digit number found directly under your in-game name in the lobby screen. **Tap your avatar** to view your Profile where it is clearly displayed. *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Avatar/Profile > ID</span>*";
+        // NOTE: Make sure to place an image named 'pubg-id-guide.jpg' inside an 'images' folder
+        image.src = "./images/pubg-id-guide.jpg"; 
     } else if (game === 'mlbb') {
         title.textContent = "How to Find Your Mobile Legends ID & Zone";
-        description.innerHTML = "Your **MLBB ID** is the first set of numbers, and the **Zone ID** is the number in parentheses (e.g., 36274747(7729)). Both are located at the bottom-right of your profile photo in the lobby. **Please copy the entire number, including the parentheses.**";
-        image.src = "uploaded:image.png-a1142890-8a05-458c-96a5-74ee2900445d";
+        description.innerHTML = "Your **MLBB ID** is the first set of numbers, and the **Zone ID** is the number in parentheses (e.g., 36274747(7729)). Both are located at the bottom-right of your profile photo in the lobby. **Please copy the entire number, including the parentheses.** *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Profile > ID(Zone)</span>*";
+        // NOTE: Make sure to place an image named 'mlbb-id-guide.jpg' inside an 'images' folder
+        image.src = "./images/mlbb-id-guide.jpg";
     }
 
     modal.style.display = 'flex';
@@ -943,7 +1014,8 @@ function closeIDGuide(event) {
 
 function updateTimer() {
     const now = new Date();
-    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+    // Set timer to reset every midnight (24 hours from now)
+    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); 
     const timeRemaining = tomorrow - now;
 
     const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
@@ -967,15 +1039,20 @@ function updateTimer() {
 
 let timerInterval;
 window.onload = function() {
-    loadID(); // *** NEW: Load saved IDs on every page load ***
+    loadID(); 
     
     const hash = window.location.hash.substring(1);
     const defaultTab = 'pubg';
     const targetTab = hash && document.getElementById(hash) ? hash : defaultTab;
     
+    // Call showTab, ensuring the correct button is passed/selected
     const tabButton = document.querySelector(`.tabs button[onclick*="'${targetTab}'"]`);
+    showTab(targetTab, tabButton);
+
+    // Ensure the initial tab button is highlighted on load
     if (tabButton) {
-        showTab(targetTab, tabButton);
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.add('inactive'));
+        tabButton.classList.remove('inactive');
     }
     
     updateTimer(); 
