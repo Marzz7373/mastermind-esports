@@ -7,7 +7,7 @@
   <meta name="description" content="Malaysia's fastest and most secure top-up service for PUBG UC and Mobile Legends Diamonds. Instant delivery via WhatsApp.">
   <meta name="keywords" content="pubg uc, mlbb diamonds, top up malaysia, topup game murah, pubg mobile top up">
   <meta name="author" content="Mastermind Esports">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* BASE & UTILITY STYLES */
     * {
@@ -116,7 +116,7 @@
       background: rgba(15, 23, 42, 0.8);
       backdrop-filter: blur(10px);
       position: sticky;
-      top: 0; /* Sticking to the very top, since the banner is not sticky */
+      top: 0; /* Tabs stick to the very top */
       z-index: 100;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
@@ -447,7 +447,6 @@
         flex-direction: column;
         padding: 1rem;
         gap: 0.75rem;
-        /* Tabs stick to the top */
         top: 0;
       }
       
@@ -480,6 +479,8 @@
       
       .card h3 {
         font-size: 1.125rem;
+        /* Increase margin-bottom to clear the badge area */
+        margin-bottom: 2rem; 
       }
       
       .card .price {
@@ -488,8 +489,16 @@
       
       .loyalty-banner {
         font-size: 0.875rem;
-        /* No position: sticky here - this is the fix! */
       }
+
+      /* ⚡ FIX: Adjusted Badge Position for Mobile */
+      .best-value-badge, .promo-badge {
+        top: 8px; /* Move badge slightly down */
+        right: 8px; /* Move badge slightly inward */
+        padding: 0.2rem 0.5rem; /* Make badge slightly smaller */
+        font-size: 0.65rem;
+      }
+      /* ⚡ END FIX */
     }
   </style>
 </head>
