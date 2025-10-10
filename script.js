@@ -173,16 +173,17 @@ function generatePackageCards(containerId, data, gameType, isPromo = false) {
  * Filters the visible package cards based on the text entered in the search box.
  */
 function filterPackages() {
-    // 1. Get the current search term, convert to lowercase, and remove commas
+    // 1. Get the current search term, convert to lowercase, and remove symbols/commas
     const searchTerm = document.getElementById('package-search').value.toLowerCase().replace(/,/g, '').replace(/💎/g, '').replace(/uc/g, '').trim();
     
     // 2. Determine which game/tab is currently active
     let activeContainerId;
     const activeSection = document.querySelector('.section.active');
     if (activeSection) {
+        // If the active section is a promo section (e.g., promo-pubg), we target its package container
         activeContainerId = activeSection.id + '-packages';
     } else {
-        // Fallback to pubg if no section is explicitly active (shouldn't happen)
+        // Fallback
         activeContainerId = 'pubg-packages'; 
     }
 
@@ -231,7 +232,7 @@ function loadID() {
 }
 
 function showTab(tabName, clickedButton) {
-  // NEW: Clear the search term when switching tabs
+  // FIX: Clear the search term when switching tabs
   document.getElementById('package-search').value = '';
     
   var sections = document.querySelectorAll('.section');
