@@ -188,6 +188,44 @@ header p .promise-highlight {
     border-color: var(--color-primary-accent);
 }
 
+/* --- NEW SEARCH BAR STYLES --- */
+.search-input-group {
+    max-width: 600px;
+    margin: 1rem auto 0.5rem auto; /* Space above and below */
+    position: relative;
+}
+
+.search-input-group input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    padding-left: 40px; /* Make space for the icon */
+    background: var(--color-dark-bg);
+    border: 1px solid #334155;
+    color: var(--color-text-light);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.search-input-group input:focus {
+    border-color: var(--color-success); /* Use a different color to distinguish from ID input */
+    outline: none;
+}
+
+/* Add a magnifying glass icon using a pseudo-element for style */
+.search-input-group::before {
+    content: '🔍';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    pointer-events: none; /* Allows clicks to pass through to the input */
+    z-index: 1;
+}
+/* --- END NEW SEARCH BAR STYLES --- */
+
 /* Tabs */
 .tabs {
   display: flex;
@@ -587,5 +625,10 @@ footer {
   .packages {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 1rem;
+  }
+  
+  /* Mobile Adjustment for search bar */
+  .search-input-group {
+      margin-top: 0.75rem; 
   }
 }
