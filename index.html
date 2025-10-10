@@ -39,18 +39,22 @@
 
 <div class="order-form-sticky-wrapper">
     <div id="pubg-input-group" style="display: block;">
-        <p>STEP 1: Enter your **PUBG Player ID** below.</p>
+        <p>STEP 1: Enter your **PUBG Player ID** and click **Verify**.</p>
         <div class="id-input-group">
-            <input type="text" id="pubg-id" placeholder="Enter PUBG Player ID (e.g. 523456789)" required oninput="saveID('pubg')">
+            <input type="text" id="pubg-id" placeholder="Enter PUBG Player ID (e.g. 523456789)" required oninput="resetVerification('pubg')">
             <button onclick="showIDGuide('pubg')" class="guide-btn">? ID Guide</button>
+            <button onclick="verifyID('pubg')" class="verify-btn" id="pubg-verify-btn">Verify</button>
         </div>
+        <div class="verification-status" id="pubg-status"></div>
     </div>
     <div id="mlbb-input-group" style="display: none;">
-        <p>STEP 1: Enter your **Mobile Legends ID and Zone** (e.g. 36274747 (7729))</p>
+        <p>STEP 1: Enter your **Mobile Legends ID and Zone** and click **Verify**.</p>
         <div class="id-input-group">
-            <input type="text" id="mlbb-id" placeholder="MLBB ID (Zone) e.g. 36274747(7729)" required oninput="saveID('mlbb')">
+            <input type="text" id="mlbb-id" placeholder="MLBB ID (Zone) e.g. 36274747(7729)" required oninput="resetVerification('mlbb')">
             <button onclick="showIDGuide('mlbb')" class="guide-btn">? ID Guide</button>
+            <button onclick="verifyID('mlbb')" class="verify-btn" id="mlbb-verify-btn">Verify</button>
         </div>
+        <div class="verification-status" id="mlbb-status"></div>
     </div>
     
     <div class="search-input-group">
@@ -73,7 +77,8 @@
   <div class="how">
     <h3>How It Works</h3>
     <ol>
-      <li>**Enter your PUBG Player ID** in the **sticky box above** (Step 1). *Your ID is saved for next time!*</li>
+      <li>**Enter your PUBG Player ID** in the sticky box above (Step 1).</li>
+      <li>Click **Verify** to confirm your Player Name.</li>
       <li>Click **"✅ Order Instantly"** on your desired package (Step 2).</li>
       <li>Your order will be pre-filled! Send the message and receive UC instantly in-game.</li>
     </ol>
@@ -87,7 +92,8 @@
   <div class="how">
     <h3>How It Works</h3>
     <ol>
-      <li>**Enter your MLBB ID and Zone** in the **sticky box above** (Step 1). *Your ID is saved for next time!*</li>
+      <li>**Enter your MLBB ID and Zone** in the sticky box above (Step 1).</li>
+      <li>Click **Verify** to confirm your Player Name.</li>
       <li>Click **"✅ Order Instantly"** on your desired package (Step 2).</li>
       <li>Your order will be pre-filled! Send the message and receive diamonds instantly in-game.</li>
     </ol>
@@ -102,7 +108,7 @@
   <div class="how">
     <h3>⏰ Limited Time Promo!</h3>
     <ol>
-      <li>Ensure your **PUBG Player ID** is entered in the sticky box above.</li>
+      <li>Ensure your **PUBG Player ID** is entered and verified in the sticky box above.</li>
       <li>Click **"✅ Order Instantly"** on your desired promo package.</li>
       <li>These special prices are available for a limited time only!</li>
     </ol>
@@ -117,7 +123,7 @@
   <div class="how">
     <h3>⏰ Limited Time Promo!</h3>
     <ol>
-      <li>Ensure your **MLBB ID and Zone** is entered in the sticky box above.</li>
+      <li>Ensure your **MLBB ID and Zone** is entered and verified in the sticky box above.</li>
       <li>Click **"✅ Order Instantly"** on your desired promo package.</li>
       <li>These special prices are available for a limited time only!</li>
     </ol>
