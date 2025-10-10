@@ -166,7 +166,49 @@ function generatePackageCards(containerId, data, gameType, isPromo = false) {
 
 
 // =================================================================
-// 3. CORE LOGIC (ID, TABS, WHATSAPP, MODAL, TIMER)
+// 3. PACKAGE FILTERING LOGIC
+// =================================================================
+
+/**
+ * Filters the visible package cards based on the text entered in the search box.
+ */
+function filterPackages() {
+    // 1. Get the current search term, convert to lowercase, and remove commas
+    const searchTerm = document.getElementById('package-search').value.toLowerCase().replace(/,/g, '').replace(/💎/g, '').replace(/uc/g, '').trim();
+    
+    // 2. Determine which game/tab is currently active
+    let activeContainerId;
+    const activeSection = document.querySelector('.section.active');
+    if (activeSection) {
+        activeContainerId = activeSection.id + '-packages';
+    } else {
+        // Fallback to pubg if no section is explicitly active (shouldn't happen)
+        activeContainerId = 'pubg-packages'; 
+    }
+
+    const packageCards = document.getElementById(activeContainerId).querySelectorAll('.card');
+
+    // 3. Loop through all cards in the active section and filter
+    packageCards.forEach(card => {
+        // Get the title text (e.g., '2,760 UC' or '1446 💎')
+        const titleElement = card.querySelector('h3');
+        if (!titleElement) return;
+
+        // Clean the package title for better matching (remove text, keep numbers)
+        const packageTitle = titleElement.textContent.toLowerCase().replace(/,/g, '').replace(/💎/g, '').replace(/uc/g, '').trim();
+        
+        // If search is empty, show all. Otherwise, check if package title includes the search term
+        if (searchTerm === '' || packageTitle.includes(searchTerm)) {
+            card.style.display = 'block'; // Show the card
+        } else {
+            card.style.display = 'none'; // Hide the card
+        }
+    });
+}
+
+
+// =================================================================
+// 4. CORE LOGIC (ID, TABS, WHATSAPP, MODAL, TIMER)
 // =================================================================
 
 function saveID(game) {
@@ -189,6 +231,9 @@ function loadID() {
 }
 
 function showTab(tabName, clickedButton) {
+  // NEW: Clear the search term when switching tabs
+  document.getElementById('package-search').value = '';
+    
   var sections = document.querySelectorAll('.section');
   sections.forEach(s => s.classList.remove('active'));
   
@@ -222,6 +267,9 @@ function showTab(tabName, clickedButton) {
       document.getElementById('mlbb-input-group').style.display = 'block';
       document.getElementById('mlbb-id').focus();
   }
+  
+  // NEW: Re-run the filter logic to display all packages in the new tab
+  filterPackages(); 
 }
 
 function initiateWhatsAppOrder(game, packageValue, price) {
@@ -334,7 +382,7 @@ function updateTimer() {
 
 let timerInterval;
 window.onload = function() {
-    // 4. CALL THE GENERATION FUNCTIONS ON LOAD
+    // 5. CALL THE GENERATION FUNCTIONS ON LOAD
     generatePackageCards('pubg-packages', pubgPackages, 'pubg');
     generatePackageCards('mlbb-packages', mlbbPackages, 'mlbb');
     generatePackageCards('pubg-promo-packages', promoPackages.pubg, 'pubg', true);
