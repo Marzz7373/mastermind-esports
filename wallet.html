@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mastermind Esports Wallet</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+      color: #f0c040;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      margin-top: 60px;
+    }
+    .logo {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+    .box {
+      background: #111;
+      border: 2px solid #f0c040;
+      border-radius: 10px;
+      padding: 25px;
+      display: inline-block;
+      width: 320px;
+      box-shadow: 0 0 15px rgba(240,192,64,0.3);
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #f0c040;
+      background: #000;
+      color: #f0c040;
+      text-align: center;
+      font-size: 16px;
+    }
+    button {
+      background: #f0c040;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #ffdf70;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 15px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://mastermindesports.my/logo.png" alt="Mastermind Logo" class="logo" onerror="this.style.display='none'">
+    <h2>💳 Mastermind Esports Wallet</h2>
+    <div class="box">
+      <input type="tel" id="phone" placeholder="Enter your phone number" />
+      <button onclick="getBalance()">Check Balance</button>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const api = "https://script.google.com/macros/s/AKfycbwThsY4CW-Zt9I430Acq23USL6CgUeozXYIpkt1CCSICtAZd_U9chN8zD9pUfGtLpbk/exec";
+
+    async function getBalance() {
+      const phone = document.getElementById('phone').value.trim();
+      const resultDiv = document.getElementById('result');
+      if (!phone) {
+        resultDiv.innerHTML = "<p style='color:red;'>Please enter your phone number.</p>";
+        return;
+      }
+
+      resultDiv.innerHTML = "<p>Checking your balance...</p>";
+
+      try {
+        const response = await fetch(api, {
+          method: "POST",
+          body: JSON.stringify({ action: "getBalance", phone }),
+        });
+        const data = await response.json();
+
+        if (data.success) {
+          resultDiv.innerHTML = `
+            <h3>Welcome, ${data.name || "User"}</h3>
+            <p>💰 Current Balance: <b>RM${data.balance}</b></p>
+            <hr>
+            <p><b>Transaction History:</b><br><small>${(data.history || "-").replace(/\n/g, "<br>")}</small></p>
+          `;
+        } else {
+          resultDiv.innerHTML = `<p style="color:red;">${data.message}</p>`;
+        }
+      } catch (err) {
+        resultDiv.innerHTML = `<p style='color:red;'>Error: ${err.message}</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
