@@ -70,6 +70,7 @@
 </div>
 
 <div class="tabs">
+  <button class="tab-btn inactive" onclick="showTab('wallet', this)">💼 Wallet</button>
   <button class="tab-btn" onclick="showTab('pubg', this)">🎮 PUBG UC</button>
   <button class="tab-btn inactive" onclick="showTab('mlbb', this)">💎 Mobile Legends</button>
   <button class="tab-btn inactive" onclick="showTab('promo-pubg', this)">⚡ Limited Time UC Deals</button>
@@ -135,6 +136,11 @@
 </div>
 
 <div class="section" style="display: block; padding-top: 0;">
+  <div id="wallet" class="section" style="display: none;">
+  <h2>💼 My Wallet</h2>
+  <p>Check your balance and transaction history using your phone number.</p>
+  <iframe src="/wallet-dashboard.html" width="100%" height="600" style="border:none; border-radius: 10px;"></iframe>
+</div>
     <div class="how" style="margin-top: 1rem;">
         <h2 style="margin-top: 0; margin-bottom: 1.5rem; color: var(--color-text-light);">Why Choose Mastermind Esports?</h2>
         <p style="margin-bottom: 1.5rem; color: var(--color-text-muted);">
