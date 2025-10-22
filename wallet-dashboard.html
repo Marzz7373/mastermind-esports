@@ -4,7 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mastermind Wallet</title>
-  <style>
+  <style>.topup {
+  margin-top: 40px;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+}
+.topup h3 {
+  color: #ff0055;
+}
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -87,9 +98,52 @@
 
   <div class="result" id="result"></div>
   <div class="history" id="history"></div>
+<div class="topup" style="margin-top: 40px;">
+  <h3>💸 Request Top-Up</h3>
+  <p>Enter the amount you want to top up into your wallet.</p>
+  <input type="number" id="topup-amount" placeholder="Enter amount (e.g. 10)" />
+  <br />
+  <button onclick="requestTopUp()">Submit Top-Up Request</button>
+  <div id="topup-response" style="margin-top: 10px; color: #0f0;"></div>
+</div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // Replace with your actual WebApp URL
+function requestTopUp() {
+  const phone = document.getElementById("phone").value.trim();
+  if (isNaN(amount) || amount <= 0) {
+  alert("Please enter a valid top-up amount.");
+  return;
+}
+  const amount = document.getElementById("topup-amount").value.trim();
+  const responseBox = document.getElementById("topup-response");
+
+  if (!phone || !amount) {
+    alert("Please enter both phone number and amount.");
+    return;
+  }
+
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "requestTopUp",
+      phone,
+      amount
+    }),
+    headers: { "Content-Type": "application/json" }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === "success") {
+      responseBox.innerText = "✅ Top-up request submitted successfully!";
+    } else {
+      responseBox.innerText = "⚠️ Failed to submit request. Please try again.";
+    }
+  })
+  .catch(err => {
+    responseBox.innerText = "❌ Error connecting to server.";
+  });
+}
 
     function getBalance() {
       const phone = document.getElementById("phone").value.trim();
