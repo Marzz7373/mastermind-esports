@@ -3,60 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mastermind Wallet Dashboard</title>
+  <title>Mastermind Wallet</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #111;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d0d0d;
       color: #fff;
-      text-align: center;
-      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
     }
+
     h1 {
       color: #ff0055;
+      font-size: 28px;
+      margin-bottom: 10px;
     }
-    input, button {
-      padding: 12px;
-      margin: 10px;
+
+    p {
       font-size: 16px;
-      border-radius: 6px;
-      border: none;
+      color: #ccc;
+      margin-bottom: 20px;
+      text-align: center;
     }
+
     input {
-      width: 260px;
+      padding: 12px;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      margin-bottom: 10px;
     }
+
     button {
-      background: #ff0055;
+      padding: 12px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff0055;
       color: white;
       cursor: pointer;
     }
+
     .result, .history {
-      margin-top: 20px;
+      margin-top: 30px;
+      width: 100%;
       max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: left;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
     }
+
     .history-item {
-      border-bottom: 1px solid #444;
-      padding: 8px 0;
+      border-bottom: 1px solid #333;
+      padding: 10px 0;
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    @media screen and (max-width: 600px) {
+      button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🎮 Mastermind Wallet</h1>
+  <h1>Mastermind Wallet</h1>
   <p>Check your balance and transaction history</p>
 
   <input type="text" id="phone" placeholder="Enter phone number" />
-  <br />
-  <button onclick="getBalance()">Check Balance</button>
-  <button onclick="getHistory()">View History</button>
+  <div>
+    <button onclick="getBalance()">Check Balance</button>
+    <button onclick="getHistory()">View History</button>
+  </div>
 
   <div class="result" id="result"></div>
   <div class="history" id="history"></div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbxvB9OdTbF--CuYT9QV6gAF5tUM-W7JU2wE7no2Iztewuy2tZtkX5W5MwJeC65ypA9h7Q/exec"; // Replace with your actual WebApp URL
+    const API_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // Replace with your actual WebApp URL
 
     function getBalance() {
       const phone = document.getElementById("phone").value.trim();
@@ -109,6 +142,4 @@
     }
   </script>
 </body>
-</html>
-
 </html>
