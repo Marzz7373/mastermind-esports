@@ -1,239 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mastermind Esports - Malaysia's Fastest PUBG UC & MLBB Diamond Top-Up</title>
-  <meta name="description" content="Malaysia's fastest and most secure top-up service for PUBG UC and Mobile Legends Diamonds. Instant delivery via WhatsApp.">
-  <meta name="keywords" content="pubg uc, mlbb diamonds, top up malaysia, topup game murah, pubg mobile top up">
-  <meta name="author" content="Mastermind Esports">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-  
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5490387431056822"
-       crossorigin="anonymous"></script>
+  <title>Mastermind Esports Wallet</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0C0F2C 0%, #14183A 100%);
+      color: #E0E4F3;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+    }
 
-  <script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-  </script>
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding-top: 50px;
+    }
 
-  <link rel="stylesheet" href="style.css">
+    .wallet-box {
+      background: #1F244A;
+      border: 2px solid rgba(255, 179, 0, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .wallet-box h2 {
+      color: #FFB300;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #0C0F2C;
+      color: #E0E4F3;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: #FFB300;
+      outline: none;
+    }
+
+    button {
+      background: #FFB300;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #0C0F2C;
+      margin: 10px 5px;
+      font-size: 16px;
+      transition: all 0.3s;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #FF6600;
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      background: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      background: rgba(255, 179, 0, 0.1);
+      border: 1px solid rgba(255, 179, 0, 0.3);
+    }
+
+    .error {
+      background: rgba(255, 107, 107, 0.1);
+      border-color: rgba(255, 107, 107, 0.3);
+      color: #ff6b6b;
+    }
+
+    .success {
+      background: rgba(0, 255, 204, 0.1);
+      border-color: rgba(0, 255, 204, 0.3);
+      color: #00ffcc;
+    }
+
+    .admin-section {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 179, 0, 0.3);
+      display: none;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #FFB300;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-5490387431056822">
-  </amp-auto-ads>
+  <div class="container">
+    <div class="wallet-box">
+      <h2>💳 Mastermind Esports Wallet</h2>
 
-  <header>
-  <h1><span class="header-icon">⚡</span> Mastermind Esports</h1>
-  <p>
-    <span class="promise-highlight">✅ INSTANT Delivery & Secure Payment</span>
-    <br>
-    Malaysia's Premium Top-Up Service for PUBG and MLBB.
-  </p>
-</header>
+      <input id="phone" type="tel" placeholder="Enter your phone number (e.g., 60123456789)" />
+      <button onclick="checkBalance()" id="checkBtn">Check Balance</button>
 
-<div class="trust-bar">
-  <p>Secure & Instant Payment Accepted:</p>
-  <div class="payment-logos">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/DuitNow_QR_logo.svg/100px-DuitNow_QR_logo.svg.png" alt="DuitNow QR Accepted" class="payment-icon">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Touch_%27n_Go_eWallet_Logo.svg/100px-Touch_%27n_Go_eWallet_Logo.svg.png" alt="Touch 'n Go eWallet Accepted" class="payment-icon">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/GrabPay_logo.svg/100px-GrabPay_logo.svg.png" alt="GrabPay Accepted" class="payment-icon">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/57/Financial_Process_Exchange_logo.svg/100px-Financial_Process_Exchange_logo.svg.png" alt="FPX Accepted" class="payment-icon">
-    <div class="security-badge">🔒 SSL Secured</div>
-    <div class="security-badge">✅ Verified Seller</div>
+      <div id="result"></div>
+
+      <div id="adminSection" class="admin-section">
+        <h3 style="color: #FFB300; margin-bottom: 1rem;">Admin Panel</h3>
+        <input id="amount" type="number" step="0.01" placeholder="Amount (e.g., 50 for add, -10 for deduct)">
+        <input id="adminKey" type="password" placeholder="Admin Authentication Key">
+        <button onclick="updateBalance()" id="updateBtn">Update Balance</button>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="loyalty-banner">
-    ✨ **LOYALTY BONUS:** Get RM5 OFF on your 5th Top-Up! Ask us for your Digital Loyalty Card on WhatsApp!
-</div>
+  <script>
+    // Configuration
+    const CONFIG = {
+      API_URL: "https://script.google.com/macros/s/AKfycbxvB9OdTbF--CuYT9QV6gAF5tUM-W7JU2wE7no2Iztewuy2tZtkX5W5MwJeC65ypA9h7Q/exec",
+      MAX_RETRIES: 3,
+      TIMEOUT: 10000
+    };
 
-<div class="order-form-sticky-wrapper">
-    <div id="pubg-input-group" style="display: block;">
-        <p>STEP 1: Enter your **PUBG Player ID** below.</p>
-        <div class="id-input-group">
-            <input type="text" id="pubg-id" placeholder="Enter PUBG Player ID (e.g. 523456789)" required oninput="saveID('pubg')">
-            <button onclick="showIDGuide('pubg')" class="guide-btn">? ID Guide</button>
-        </div>
-    </div>
-    <div id="mlbb-input-group" style="display: none;">
-        <p>STEP 1: Enter your **Mobile Legends ID and Zone** (e.g. 36274747 (7729))</p>
-        <div class="id-input-group">
-            <input type="text" id="mlbb-id" placeholder="MLBB ID (Zone) e.g. 36274747(7729)" required oninput="saveID('mlbb')">
-            <button onclick="showIDGuide('mlbb')" class="guide-btn">? ID Guide</button>
-        </div>
-    </div>
-    
-    <div class="search-input-group">
-        <input type="text" id="package-search" placeholder="Quick Search: Type UC or Diamond amount (e.g., 1000)" oninput="filterPackages()">
-    </div>
-    
-</div>
+    // Utility functions
+    function showLoading(buttonId, text = "Processing...") {
+      const btn = document.getElementById(buttonId);
+      btn.innerHTML = `<span class="loading"></span> ${text}`;
+      btn.disabled = true;
+    }
 
-<div class="tabs">
-  <button class="tab-btn" onclick="showTab('pubg', this)">🎮 PUBG UC</button>
-  <button class="tab-btn inactive" onclick="showTab('mlbb', this)">💎 Mobile Legends</button>
-  <button class="tab-btn inactive" onclick="showTab('promo-pubg', this)">⚡ Limited Time UC Deals</button>
-  <button class="tab-btn inactive" onclick="showTab('promo-mlbb', this)">⚡ Limited Time Diamond Deals</button>
-</div>
+    function hideLoading(buttonId, text) {
+      const btn = document.getElementById(buttonId);
+      btn.innerHTML = text;
+      btn.disabled = false;
+    }
 
-<div id="pubg" class="section active">
-  <h2>PUBG UC Packages</h2>
-  <div class="packages" id="pubg-packages">
-    </div>
-  <div class="how">
-    <h3>How It Works</h3>
-    <ol>
-      <li>**Enter your PUBG Player ID** in the **sticky box above** (Step 1). *Your ID is saved for next time!*</li>
-      <li>Click **"✅ Order Instantly"** on your desired package (Step 2).</li>
-      <li>Your order will be pre-filled! Send the message and receive UC instantly in-game.</li>
-    </ol>
-  </div>
-</div>
+    function showResult(message, type = 'info') {
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = message;
+      resultDiv.className = `result ${type}`;
+      resultDiv.style.display = 'block';
+    }
 
-<div id="mlbb" class="section">
-  <h2>Mobile Legends Diamond Packages</h2>
-  <div class="packages" id="mlbb-packages">
-    </div>
-  <div class="how">
-    <h3>How It Works</h3>
-    <ol>
-      <li>**Enter your MLBB ID and Zone** in the **sticky box above** (Step 1). *Your ID is saved for next time!*</li>
-      <li>Click **"✅ Order Instantly"** on your desired package (Step 2).</li>
-      <li>Your order will be pre-filled! Send the message and receive diamonds instantly in-game.</li>
-    </ol>
-  </div>
-</div>
+    function validatePhone(phone) {
+      // Malaysian phone number validation
+      const phoneRegex = /^(\+?6?01)[0-46-9]-*[0-9]{7,8}$|^(\+?6?0)[2-9]-*[0-9]{7,8}$/;
+      return phoneRegex.test(phone.replace(/\s+/g, ''));
+    }
 
-<div id="promo-pubg" class="section">
-  <h2>⚡ Limited Time UC Deals</h2>
-  <p class="timer-text">Deal ends in: <span id="pubg-timer"></span></p>
-  <div class="packages" id="pubg-promo-packages">
-    </div>
-  <div class="how">
-    <h3>⏰ Limited Time Promo!</h3>
-    <ol>
-      <li>Ensure your **PUBG Player ID** is entered in the sticky box above.</li>
-      <li>Click **"✅ Order Instantly"** on your desired promo package.</li>
-      <li>These special prices are available for a limited time only!</li>
-    </ol>
-  </div>
-</div>
+    async function makeAPICall(data, retries = 0) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), CONFIG.TIMEOUT);
 
-<div id="promo-mlbb" class="section">
-  <h2>⚡ Limited Time Diamond Deals</h2>
-  <p class="timer-text">Deal ends in: <span id="mlbb-timer"></span></p>
-  <div class="packages" id="mlbb-promo-packages">
-    </div>
-  <div class="how">
-    <h3>⏰ Limited Time Promo!</h3>
-    <ol>
-      <li>Ensure your **MLBB ID and Zone** is entered in the sticky box above.</li>
-      <li>Click **"✅ Order Instantly"** on your desired promo package.</li>
-      <li>These special prices are available for a limited time only!</li>
-    </ol>
-  </div>
-</div>
+        const response = await fetch(CONFIG.API_URL, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+          signal: controller.signal
+        });
 
-<div class="section" style="display: block; padding-top: 0;">
-    <div class="how" style="margin-top: 1rem;">
-        <h2 style="margin-top: 0; margin-bottom: 1.5rem; color: var(--color-text-light);">Why Choose Mastermind Esports?</h2>
-        <p style="margin-bottom: 1.5rem; color: var(--color-text-muted);">
-            Mastermind Esports is dedicated to providing Malaysian gamers with the best value and quickest top-up service. Unlike other services, we offer:<br>
-        </p>
-        <ul style="list-style-type: '⚡ '; padding-left: 2rem; color: var(--color-text-light); line-height: 2;">
-            <li>**Instant Delivery Guarantee:** Most orders completed in under 5 minutes.</li>
-            <li>**Cheapest Price:** Our packages are consistently lower than in-game stores.</li>
-            <li>**100% Secure:** We only require your **Player ID**—never your password or login details.</li>
-            <li>**Local Support:** Dedicated Malaysian WhatsApp support ready to help with any issue.</li>
-        </ul>
-    </div>
-</div>
-<div class="testimonials">
-    <h3>Trusted by thousands of Malaysian Gamers</h3>
-    <div class="testimonial-cards">
-        <div class="testimonial-card"><p>⭐⭐⭐⭐⭐</p><p>"Super fast! Got my UC in under 5 minutes. Highly recommended and reliable."</p><span>— Afiq M. (PUBG)</span></div>
-        <div class="testimonial-card"><p>⭐⭐⭐⭐⭐</p><p>"The best price I could find for MLBB diamonds, and the WhatsApp service was excellent."</p><span>— Li H. (Mobile Legends)</span></div>
-        <div class="testimonial-card"><p>⭐⭐⭐⭐⭐</p><p>"Smooth transaction, zero hassle. Will definitely top up here again for my next skin."</p><span>— Syafiq Z. (Returning Customer)</span></div>
-    </div>
-</div>
+        clearTimeout(timeoutId);
 
-<div class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    <div class="faq-container">
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                <span>How long does delivery take?</span>
-                <span class="faq-toggle">+</span>
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+      } catch (error) {
+        if (retries < CONFIG.MAX_RETRIES) {
+          console.log(`Retry attempt ${retries + 1}`);
+          await new Promise(resolve => setTimeout(resolve, 1000 * (retries + 1)));
+          return makeAPICall(data, retries + 1);
+        }
+        throw error;
+      }
+    }
+
+    async function checkBalance() {
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!phone) {
+        showResult("Please enter your phone number.", 'error');
+        return;
+      }
+
+      if (!validatePhone(phone)) {
+        showResult("Please enter a valid Malaysian phone number.", 'error');
+        return;
+      }
+
+      showLoading('checkBtn', 'Checking...');
+
+      try {
+        const data = await makeAPICall({
+          action: "getBalance",
+          phone: phone
+        });
+
+        if (data.success) {
+          const historyFormatted = (data.history || 'No transaction history')
+            .replace(/\n/g, '<br>');
+
+          showResult(`
+            <h3 style="color: #FFB300; margin-bottom: 10px;">${data.name || 'Customer'}</h3>
+            <p style="font-size: 1.2em; margin: 10px 0;"><strong>Balance: RM${data.balance}</strong></p>
+            <div style="margin-top: 15px; text-align: left;">
+              <strong>Transaction History:</strong><br>
+              <small style="line-height: 1.4;">${historyFormatted}</small>
             </div>
-            <div class="faq-answer">
-                Most orders are completed within 5-15 minutes after payment confirmation. During peak hours, it may take up to 30 minutes.
-            </div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                <span>Is it safe to provide my Player ID?</span>
-                <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-answer">
-                Yes, absolutely safe! We only need your Player ID to deliver the UC/Diamonds. We never ask for passwords or login details.
-            </div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                <span>What payment methods do you accept?</span>
-                <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-answer">
-                We accept DuitNow QR, Touch 'n Go eWallet, GrabPay, FPX, and all major Malaysian online banking methods.
-            </div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                <span>What if I don't receive my UC/Diamonds?</span>
-                <span class="faq-toggle">+</span>
-            </div>
-            <div class="faq-answer">
-                Contact us immediately on WhatsApp with your order details. We guarantee delivery or full refund within 24 hours.
-            </div>
-        </div>
-    </div>
-</div>
+          `, 'success');
 
-<div class="final-trust-summary">
-    <span>✅ SECURE PAYMENT</span>
-    <span>|</span>
-    <span>⚡ INSTANT DELIVERY</span>
-    <span>|</span>
-    <span>🇲🇾 100% MALAYSIAN SERVICE</span>
-</div>
+          // Show admin panel for authorized users
+          document.getElementById("adminSection").style.display = "block";
+        } else {
+          showResult(data.message || "Phone number not found in our system.", 'error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showResult("Connection error. Please check your internet and try again.", 'error');
+      } finally {
+        hideLoading('checkBtn', 'Check Balance');
+      }
+    }
 
-<footer>
-  <a href="#" onclick="alert('Mastermind Esports guarantees delivery within 5-15 minutes after payment confirmation. We never require your password.')" style="color: var(--color-text-muted); text-decoration: none; margin: 0 10px;">Our Guarantee</a>
-  |
-  <a href="terms.html" style="color: var(--color-text-muted); text-decoration: none; margin: 0 10px;">Terms of Service</a>
-  |
-  <a href="https://wa.me/60147433177?text=Hi%21%20I%20have%20a%20general%20question%20about%20your%20top-up%20service." style="color: var(--color-text-muted); text-decoration: none; margin: 0 10px;">Contact Support</a>
-  |
-  &copy; 2020-2025 Mastermind Esports. All rights reserved.
-</footer>
+    async function updateBalance() {
+      const phone = document.getElementById('phone').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value);
+      const adminKey = document.getElementById('adminKey').value.trim();
 
-<a href="https://wa.me/60147433177?text=Hi%21%20I%20have%20a%20general%20question%20about%20top-ups." class="wa-btn">
-  Chat on WhatsApp
-</a>
+      if (!phone || isNaN(amount) || !adminKey) {
+        showResult("Please fill all fields correctly!", 'error');
+        return;
+      }
 
-<div id="id-guide-modal" class="modal-overlay" onclick="closeIDGuide(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <button class="close-btn" onclick="closeIDGuide()">×</button>
-        <h3 id="guide-title">How to Find Your Player ID</h3>
-        <p id="guide-description"></p>
-        <img id="guide-image" src="" alt="Game ID Location Guide"> 
-        <p class="final-note" style="font-size: 0.9em; color: var(--color-text-muted);">*Please double-check your ID before ordering. We are not responsible for incorrect user input.</p>
-    </div>
-</div>
+      if (!validatePhone(phone)) {
+        showResult("Please enter a valid Malaysian phone number.", 'error');
+        return;
+      }
 
-<script src="script.js"></script>
+      showLoading('updateBtn', 'Updating...');
 
+      try {
+        const data = await makeAPICall({
+          action: "updateBalance",
+          phone: phone,
+          amount: amount,
+          adminKey: adminKey
+        });
+
+        if (data.success) {
+          showResult(`✅ Balance updated successfully!<br>New Balance: <strong>RM${data.newBalance}</strong>`, 'success');
+
+          // Clear admin fields
+          document.getElementById('amount').value = '';
+          document.getElementById('adminKey').value = '';
+
+          // Refresh balance display
+          setTimeout(() => checkBalance(), 1000);
+        } else {
+          showResult(data.message || "Update failed. Please check your credentials.", 'error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showResult("Connection error. Please try again.", 'error');
+      } finally {
+        hideLoading('updateBtn', 'Update Balance');
+      }
+    }
+
+    // Event listeners
+    document.getElementById('phone').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        checkBalance();
+      }
+    });
+
+    document.getElementById('adminKey').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        updateBalance();
+      }
+    });
+
+    // Auto-format phone number
+    document.getElementById('phone').addEventListener('input', function (e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.startsWith('60')) {
+        // Already has country code
+      } else if (value.startsWith('0')) {
+        value = '6' + value;
+      } else if (value.startsWith('1')) {
+        value = '60' + value;
+      }
+      e.target.value = value;
+    });
+  </script>
 </body>
+
 </html>
