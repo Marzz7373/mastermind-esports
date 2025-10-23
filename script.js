@@ -154,7 +154,7 @@ function generatePackageCards(containerId, data, gameType, isPromo = false) {
 
         // Add button
         cardContent += `
-            <button class="buy-btn" onclick="initiateWhatsAppOrder('${gameType}', '${buttonOrderText}', '${price}')">
+            <button class="buy-btn" onclick="initiateWhatsAppOrder('${gameType}', '${buttonOrderText}', '${price}', event)">
                 <span style="margin-right: 5px;">✅</span> Order Instantly
             </button>`;
 
@@ -273,7 +273,7 @@ function showTab(tabName, clickedButton) {
   filterPackages(); 
 }
 
-function initiateWhatsAppOrder(game, packageValue, price) {
+function initiateWhatsAppOrder(game, packageValue, price, event) {
   let id, message, idInput;
   
   if (game.includes('pubg')) {
@@ -323,7 +323,37 @@ function initiateWhatsAppOrder(game, packageValue, price) {
   message = `Hi! I'd like to purchase ${packageValue} (${price}). My ${gameName} is: ${id}. Please confirm and send the payment details.`;
 
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  window.open(whatsappLink, '_blank');
+  
+  // Add loading state to button
+  const clickedButton = event.target.closest('.buy-btn');
+  if (clickedButton) {
+    const originalText = clickedButton.innerHTML;
+    clickedButton.innerHTML = '<span style="margin-right: 5px;">⏳</span> Opening WhatsApp...';
+    clickedButton.disabled = true;
+    
+    setTimeout(() => {
+      clickedButton.innerHTML = originalText;
+      clickedButton.disabled = false;
+    }, 3000);
+  }
+  
+  try {
+    // Track conversion event
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'purchase_intent', {
+        'event_category': 'ecommerce',
+        'event_label': `${game}_${packageValue}`,
+        'value': parseFloat(price.replace('RM', ''))
+      });
+    }
+    
+    window.open(whatsappLink, '_blank');
+  } catch (error) {
+    alert('Unable to open WhatsApp. Please copy this message and send it manually: ' + message);
+    navigator.clipboard.writeText(message).catch(() => {
+      console.log('Clipboard access denied');
+    });
+  }
 }
 
 function showIDGuide(game) {
@@ -335,13 +365,11 @@ function showIDGuide(game) {
     if (game === 'pubg') {
         title.textContent = "How to Find Your PUBG Player ID";
         description.innerHTML = "Your **PUBG Player ID** is a 9-10 digit number found directly under your in-game name in the lobby screen. **Tap your avatar** to view your Profile where it is clearly displayed. *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Avatar/Profile > ID</span>*";
-        // *** REPLACE WITH YOUR HOSTED PUBG ID GUIDE IMAGE URL ***
-        image.src = "REPLACE_WITH_YOUR_PUBG_ID_GUIDE_IMAGE_URL"; 
+        image.src = "https://i.imgur.com/pubg-id-guide.png"; // Using a placeholder - you can replace with your actual image 
     } else if (game === 'mlbb') {
         title.textContent = "How to Find Your Mobile Legends ID & Zone";
         description.innerHTML = "Your **MLBB ID** is the first set of numbers, and the **Zone ID** is the number in parentheses (e.g., 36274747(7729)). Both are located at the bottom-right of your profile photo in the lobby. **Please copy the entire number, including the parentheses.** *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Profile > ID(Zone)</span>*";
-        // *** REPLACE WITH YOUR HOSTED MLBB ID GUIDE IMAGE URL ***
-        image.src = "REPLACE_WITH_YOUR_MLBB_ID_GUIDE_IMAGE_URL";
+        image.src = "https://i.imgur.com/mlbb-id-guide.png"; // Using a placeholder - you can replace with your actual image
     }
 
     modal.style.display = 'flex';
@@ -381,13 +409,35 @@ function updateTimer() {
     }
 }
 
+function toggleFAQ(element) {
+    const answer = element.nextElementSibling;
+    const toggle = element.querySelector('.faq-toggle');
+    
+    // Close all other FAQs
+    document.querySelectorAll('.faq-answer.active').forEach(item => {
+        if (item !== answer) {
+            item.classList.remove('active');
+            item.previousElementSibling.classList.remove('active');
+        }
+    });
+    
+    // Toggle current FAQ
+    answer.classList.toggle('active');
+    element.classList.toggle('active');
+}
+
 let timerInterval;
 window.onload = function() {
     // 5. CALL THE GENERATION FUNCTIONS ON LOAD
+    // Lazy load packages for better performance
     generatePackageCards('pubg-packages', pubgPackages, 'pubg');
-    generatePackageCards('mlbb-packages', mlbbPackages, 'mlbb');
-    generatePackageCards('pubg-promo-packages', promoPackages.pubg, 'pubg', true);
-    generatePackageCards('mlbb-promo-packages', promoPackages.mlbb, 'mlbb', true);
+    
+    // Load other packages after a short delay
+    setTimeout(() => {
+        generatePackageCards('mlbb-packages', mlbbPackages, 'mlbb');
+        generatePackageCards('pubg-promo-packages', promoPackages.pubg, 'pubg', true);
+        generatePackageCards('mlbb-promo-packages', promoPackages.mlbb, 'mlbb', true);
+    }, 100);
 
     loadID(); 
     
