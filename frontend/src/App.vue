@@ -1,20 +1,27 @@
 <template>
-  <router-view />
+  <div id="app">
+    <router-view />
+  </div>
 </template>
 
 <script setup>
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from './pages/Home.vue'
-import Game from './pages/Game.vue'
-
-const routes = [
-  { path: '/', component: Home },
-  { path: '/game/:slug', component: Game },
-]
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-})
-
 </script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+}
+</style>
