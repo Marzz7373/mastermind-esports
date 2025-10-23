@@ -12,7 +12,7 @@ const pubgPackages = [
     { uc: '1,800 UC', price: 'RM103' },
     { uc: '2,125 UC', price: 'RM125' },
     { uc: '2,460 UC', price: 'RM145' },
-    { uc: '2,760 UC', price: 'RM166', badge: 'BEST SELLER', highlight: true, demand: 75 }, // Highlighted card
+    { uc: '2,760 UC', price: 'RM166', badge: 'BEST SELLER', highlight: true, demand: 75 },
     { uc: '3,850 UC', price: 'RM200' },
     { uc: '4,510 UC', price: 'RM241' },
     { uc: '5,170 UC', price: 'RM282' },
@@ -99,9 +99,6 @@ const promoPackages = {
 // 2. CARD GENERATION FUNCTION
 // =================================================================
 
-/**
- * Generates and injects the package card HTML into the specified container.
- */
 function generatePackageCards(containerId, data, gameType, isPromo = false) {
     const container = document.getElementById(containerId);
     if (!container) return; 
@@ -164,49 +161,36 @@ function generatePackageCards(containerId, data, gameType, isPromo = false) {
     container.innerHTML = html;
 }
 
-
 // =================================================================
 // 3. PACKAGE FILTERING LOGIC
 // =================================================================
 
-/**
- * Filters the visible package cards based on the text entered in the search box.
- */
 function filterPackages() {
-    // 1. Get the current search term, convert to lowercase, and remove symbols/commas
     const searchTerm = document.getElementById('package-search').value.toLowerCase().replace(/,/g, '').replace(/💎/g, '').replace(/uc/g, '').trim();
     
-    // 2. Determine which game/tab is currently active
     let activeContainerId;
     const activeSection = document.querySelector('.section.active');
     if (activeSection) {
-        // If the active section is a promo section (e.g., promo-pubg), we target its package container
         activeContainerId = activeSection.id + '-packages';
     } else {
-        // Fallback
         activeContainerId = 'pubg-packages'; 
     }
 
     const packageCards = document.getElementById(activeContainerId).querySelectorAll('.card');
 
-    // 3. Loop through all cards in the active section and filter
     packageCards.forEach(card => {
-        // Get the title text (e.g., '2,760 UC' or '1446 💎')
         const titleElement = card.querySelector('h3');
         if (!titleElement) return;
 
-        // Clean the package title for better matching (remove text, keep numbers)
         const packageTitle = titleElement.textContent.toLowerCase().replace(/,/g, '').replace(/💎/g, '').replace(/uc/g, '').trim();
         
-        // If search is empty, show all. Otherwise, check if package title includes the search term
         if (searchTerm === '' || packageTitle.includes(searchTerm)) {
-            card.style.display = 'block'; // Show the card
+            card.style.display = 'block';
         } else {
-            card.style.display = 'none'; // Hide the card
+            card.style.display = 'none';
         }
     });
 }
-
 
 // =================================================================
 // 4. CORE LOGIC (ID, TABS, WHATSAPP, MODAL, TIMER)
@@ -232,128 +216,126 @@ function loadID() {
 }
 
 function showTab(tabName, clickedButton) {
-  // FIX: Clear the search term when switching tabs
-  document.getElementById('package-search').value = '';
+    document.getElementById('package-search').value = '';
     
-  var sections = document.querySelectorAll('.section');
-  sections.forEach(s => s.classList.remove('active'));
-  
-  const targetSection = document.getElementById(tabName);
-  if (targetSection) {
-      targetSection.classList.add('active');
-  } else {
-      document.getElementById('pubg').classList.add('active');
-  }
-
-  var buttons = document.querySelectorAll('.tab-btn');
-  buttons.forEach(b => b.classList.add('inactive'));
-  
-  if (clickedButton) {
-    clickedButton.classList.remove('inactive');
-  } else {
-    const tabButtonSelector = `.tabs button[onclick*="'${tabName}'"]`;
-    const activeBtn = document.querySelector(tabButtonSelector);
-    if (activeBtn) {
-        activeBtn.classList.remove('inactive');
+    var sections = document.querySelectorAll('.section');
+    sections.forEach(s => s.classList.remove('active'));
+    
+    const targetSection = document.getElementById(tabName);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    } else {
+        document.getElementById('pubg').classList.add('active');
     }
-  }
 
-  document.getElementById('pubg-input-group').style.display = 'none';
-  document.getElementById('mlbb-input-group').style.display = 'none';
+    var buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(b => b.classList.add('inactive'));
+    
+    if (clickedButton) {
+        clickedButton.classList.remove('inactive');
+    } else {
+        const tabButtonSelector = `.tabs button[onclick*="'${tabName}'"]`;
+        const activeBtn = document.querySelector(tabButtonSelector);
+        if (activeBtn) {
+            activeBtn.classList.remove('inactive');
+        }
+    }
 
-  if (tabName.includes('pubg')) {
-      document.getElementById('pubg-input-group').style.display = 'block';
-      document.getElementById('pubg-id').focus();
-  } else if (tabName.includes('mlbb')) {
-      document.getElementById('mlbb-input-group').style.display = 'block';
-      document.getElementById('mlbb-id').focus();
-  }
-  
-  // NEW: Re-run the filter logic to display all packages in the new tab
-  filterPackages(); 
+    document.getElementById('pubg-input-group').style.display = 'none';
+    document.getElementById('mlbb-input-group').style.display = 'none';
+
+    if (tabName.includes('pubg')) {
+        document.getElementById('pubg-input-group').style.display = 'block';
+        document.getElementById('pubg-id').focus();
+    } else if (tabName.includes('mlbb')) {
+        document.getElementById('mlbb-input-group').style.display = 'block';
+        document.getElementById('mlbb-id').focus();
+    }
+    
+    filterPackages(); 
 }
 
 function initiateWhatsAppOrder(game, packageValue, price, event) {
-  let id, message, idInput;
-  
-  if (game.includes('pubg')) {
-    idInput = document.getElementById('pubg-id');
-  } else if (game.includes('mlbb')) {
-    idInput = document.getElementById('mlbb-id');
-  }
-
-  id = idInput ? idInput.value.trim() : '';
-
-  if (!id) {
-    alert(ID_ALERT_MESSAGE);
+    let id, message, idInput;
     
-    if (idInput) {
-        idInput.style.borderColor = '#ff6b6b'; 
+    if (game.includes('pubg')) {
+        idInput = document.getElementById('pubg-id');
+    } else if (game.includes('mlbb')) {
+        idInput = document.getElementById('mlbb-id');
+    }
+
+    id = idInput ? idInput.value.trim() : '';
+
+    if (!id) {
+        alert(ID_ALERT_MESSAGE);
+        
+        if (idInput) {
+            idInput.style.borderColor = '#ff6b6b'; 
+            setTimeout(() => {
+                idInput.style.borderColor = '#334155'; 
+            }, 800);
+            idInput.focus();
+        }
+        return;
+    }
+    
+    // Validation Logic
+    if (game.includes('pubg')) {
+        if (!/^\d{9,11}$/.test(id) || id.length > 11) {
+            alert("Please enter a valid PUBG Player ID (usually 9 to 11 digits, numbers only). Check the ID Guide.");
+            idInput.focus();
+            idInput.style.borderColor = '#ff6b6b'; 
+            setTimeout(() => { idInput.style.borderColor = '#334155'; }, 800);
+            return;
+        }
+    }
+    if (game.includes('mlbb')) {
+        if (!/^\d+\s*\(\s*\d+\s*\)$/.test(id)) {
+            alert("Please enter your MLBB ID in the correct format: ID(ZONE). Example: 12345678(1234). Check the ID Guide.");
+            idInput.focus();
+            idInput.style.borderColor = '#ff6b6b'; 
+            setTimeout(() => { idInput.style.borderColor = '#334155'; }, 800);
+            return;
+        }
+    }
+
+    saveID(game.includes('pubg') ? 'pubg' : 'mlbb');
+
+    const gameName = game.includes('pubg') ? 'PUBG Player ID' : 'MLBB ID';
+    message = `Hi! I'd like to purchase ${packageValue} (${price}). My ${gameName} is: ${id}. Please confirm and send the payment details.`;
+
+    const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    
+    // Add loading state to button
+    const clickedButton = event.target.closest('.buy-btn');
+    if (clickedButton) {
+        const originalText = clickedButton.innerHTML;
+        clickedButton.innerHTML = '<span style="margin-right: 5px;">⏳</span> Opening WhatsApp...';
+        clickedButton.disabled = true;
+        
         setTimeout(() => {
-            idInput.style.borderColor = '#334155'; 
-        }, 800);
-        idInput.focus();
-    }
-    return;
-  }
-  
-  // Validation Logic
-  if (game.includes('pubg')) {
-      if (!/^\d{9,11}$/.test(id) || id.length > 11) {
-          alert("Please enter a valid PUBG Player ID (usually 9 to 11 digits, numbers only). Check the ID Guide.");
-          idInput.focus();
-          idInput.style.borderColor = '#ff6b6b'; 
-          setTimeout(() => { idInput.style.borderColor = '#334155'; }, 800);
-          return;
-      }
-  }
-  if (game.includes('mlbb')) {
-      if (!/^\d+\s*\(\s*\d+\s*\)$/.test(id)) {
-          alert("Please enter your MLBB ID in the correct format: ID(ZONE). Example: 12345678(1234). Check the ID Guide.");
-          idInput.focus();
-          idInput.style.borderColor = '#ff6b6b'; 
-          setTimeout(() => { idInput.style.borderColor = '#334155'; }, 800);
-          return;
-      }
-  }
-
-  saveID(game.includes('pubg') ? 'pubg' : 'mlbb');
-
-  const gameName = game.includes('pubg') ? 'PUBG Player ID' : 'MLBB ID';
-  message = `Hi! I'd like to purchase ${packageValue} (${price}). My ${gameName} is: ${id}. Please confirm and send the payment details.`;
-
-  const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  
-  // Add loading state to button
-  const clickedButton = event.target.closest('.buy-btn');
-  if (clickedButton) {
-    const originalText = clickedButton.innerHTML;
-    clickedButton.innerHTML = '<span style="margin-right: 5px;">⏳</span> Opening WhatsApp...';
-    clickedButton.disabled = true;
-    
-    setTimeout(() => {
-      clickedButton.innerHTML = originalText;
-      clickedButton.disabled = false;
-    }, 3000);
-  }
-  
-  try {
-    // Track conversion event
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'purchase_intent', {
-        'event_category': 'ecommerce',
-        'event_label': `${game}_${packageValue}`,
-        'value': parseFloat(price.replace('RM', ''))
-      });
+            clickedButton.innerHTML = originalText;
+            clickedButton.disabled = false;
+        }, 3000);
     }
     
-    window.open(whatsappLink, '_blank');
-  } catch (error) {
-    alert('Unable to open WhatsApp. Please copy this message and send it manually: ' + message);
-    navigator.clipboard.writeText(message).catch(() => {
-      console.log('Clipboard access denied');
-    });
-  }
+    try {
+        // Track conversion event
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'purchase_intent', {
+                'event_category': 'ecommerce',
+                'event_label': `${game}_${packageValue}`,
+                'value': parseFloat(price.replace('RM', ''))
+            });
+        }
+        
+        window.open(whatsappLink, '_blank');
+    } catch (error) {
+        alert('Unable to open WhatsApp. Please copy this message and send it manually: ' + message);
+        navigator.clipboard.writeText(message).catch(() => {
+            console.log('Clipboard access denied');
+        });
+    }
 }
 
 function showIDGuide(game) {
@@ -365,7 +347,7 @@ function showIDGuide(game) {
     if (game === 'pubg') {
         title.textContent = "How to Find Your PUBG Player ID";
         description.innerHTML = "Your **PUBG Player ID** is a 9-10 digit number found directly under your in-game name in the lobby screen. **Tap your avatar** to view your Profile where it is clearly displayed. *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Avatar/Profile > ID</span>*";
-        image.src = "https://i.imgur.com/pubg-id-guide.png"; // Using a placeholder - you can replace with your actual image 
+        image.src = "https://i.imgur.com/pubg-id-guide.png"; // Using a placeholder - you can replace with your actual image
     } else if (game === 'mlbb') {
         title.textContent = "How to Find Your Mobile Legends ID & Zone";
         description.innerHTML = "Your **MLBB ID** is the first set of numbers, and the **Zone ID** is the number in parentheses (e.g., 36274747(7729)). Both are located at the bottom-right of your profile photo in the lobby. **Please copy the entire number, including the parentheses.** *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Profile > ID(Zone)</span>*";
@@ -382,31 +364,6 @@ function closeIDGuide(event) {
     }
     document.getElementById('id-guide-modal').style.display = 'none';
     document.body.style.overflow = 'auto'; 
-}
-
-function updateTimer() {
-    const now = new Date();
-    // Set timer to reset every midnight (24 hours from now)
-    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); 
-    const timeRemaining = tomorrow - now;
-
-    const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
-    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-    const timerDisplay = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
-    if (document.getElementById('pubg-timer')) {
-      document.getElementById('pubg-timer').textContent = timerDisplay;
-    }
-    if (document.getElementById('mlbb-timer')) {
-      document.getElementById('mlbb-timer').textContent = timerDisplay;
-    }
-
-    if (timeRemaining < 0) {
-        clearInterval(timerInterval);
-        location.reload();
-    }
 }
 
 function toggleFAQ(element) {
@@ -426,9 +383,32 @@ function toggleFAQ(element) {
     element.classList.toggle('active');
 }
 
+function updateTimer() {
+    const now = new Date();
+    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); 
+    const timeRemaining = tomorrow - now;
+
+    const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
+    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+    const timerDisplay = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+    if (document.getElementById('pubg-timer')) {
+        document.getElementById('pubg-timer').textContent = timerDisplay;
+    }
+    if (document.getElementById('mlbb-timer')) {
+        document.getElementById('mlbb-timer').textContent = timerDisplay;
+    }
+
+    if (timeRemaining < 0) {
+        clearInterval(timerInterval);
+        location.reload();
+    }
+}
+
 let timerInterval;
 window.onload = function() {
-    // 5. CALL THE GENERATION FUNCTIONS ON LOAD
     // Lazy load packages for better performance
     generatePackageCards('pubg-packages', pubgPackages, 'pubg');
     
