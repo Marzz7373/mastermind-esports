@@ -18,6 +18,24 @@
   padding: 0;
 }
 
+/* Performance optimizations */
+img {
+  will-change: transform;
+}
+
+.card {
+  will-change: transform;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
   background: var(--color-dark-bg);
   color: var(--color-text-light);
@@ -110,6 +128,18 @@ header p .promise-highlight {
 .payment-logos img:hover {
     filter: none; 
     opacity: 1;
+}
+
+.security-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(0, 255, 204, 0.1);
+    border: 1px solid rgba(0, 255, 204, 0.3);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-success);
+    margin: 0 0.25rem;
 }
 
 .loyalty-banner {
@@ -489,6 +519,76 @@ header p .promise-highlight {
     margin-bottom: 0.5rem;
 }
 
+.faq-section {
+    padding: 4rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--color-mid-bg);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--color-border-subtle);
+}
+
+.faq-section h2 {
+    text-align: center;
+    color: var(--color-primary-accent);
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 1.25rem;
+    background: var(--color-light-bg);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: var(--color-text-light);
+    transition: background 0.3s;
+}
+
+.faq-question:hover {
+    background: rgba(255, 179, 0, 0.1);
+}
+
+.faq-toggle {
+    font-size: 1.5rem;
+    color: var(--color-primary-accent);
+    transition: transform 0.3s;
+}
+
+.faq-answer {
+    padding: 0 1.25rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: var(--color-dark-bg);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.faq-answer.active {
+    padding: 1.25rem;
+    max-height: 200px;
+}
+
+.faq-question.active .faq-toggle {
+    transform: rotate(45deg);
+}
+
 .final-trust-summary {
     text-align: center;
     padding: 1.5rem 2rem;
@@ -632,5 +732,40 @@ footer {
   /* Mobile Adjustment for search bar */
   .search-input-group {
       margin-top: 0.75rem; 
+  }
+
+  /* Mobile-specific optimizations */
+  .payment-logos {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .security-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .testimonial-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .final-trust-summary {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .faq-section {
+    padding: 2rem 1rem;
+  }
+
+  /* Improve touch targets */
+  .tab-btn {
+    min-height: 44px;
+    padding: 1rem 1.25rem;
+  }
+
+  .buy-btn {
+    min-height: 44px;
+    font-size: 0.95rem;
   }
 }
