@@ -2,8 +2,8 @@
 // Replace with your actual Supabase project details
 
 const SUPABASE_CONFIG = {
-    url: 'https://jboyorkrdwzgusctfhco.supabase.co', // Your project URL
-    anon_key: 'YOUR_SUPABASE_ANON_KEY_HERE', // Replace with your anon key
+    url: 'https://twupkkstvwjklaivtbgq.supabase.co', // Your project URL
+    anon_key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3dXBra3N0dndqa2xhaXZ0YmdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjExODg5MjAsImV4cCI6MjA3Njc2NDkyMH0._233VRv9QEbfX9C629F3hNG_dAqzrffawWUDhq9K4DI', // Replace with your anon key
     service_role_key: 'YOUR_SERVICE_ROLE_KEY_HERE' // For admin operations (keep secure)
 };
 
