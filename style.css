@@ -93,6 +93,25 @@ header p .promise-highlight {
     font-weight: 700;
 }
 
+/* === NEW ACCOUNT BUTTON STYLE === */
+.account-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary-accent);
+  color: var(--color-dark-bg);
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 8px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(255, 179, 0, 0.2);
+}
+.account-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(255, 179, 0, 0.4);
+}
+/* === END NEW STYLE === */
+
 .trust-bar {
   background: var(--color-light-bg);
   padding: 0.75rem 2rem;
@@ -407,6 +426,24 @@ header p .promise-highlight {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
 }
+
+/* === NEW BUTTON GROUP STYLES === */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Space between buttons */
+}
+
+.buy-btn.wallet-btn {
+  background: var(--color-primary-accent); /* Gold color */
+  color: var(--color-dark-bg);
+}
+
+.buy-btn.wallet-btn:hover {
+  box-shadow: 0 8px 20px rgba(255, 179, 0, 0.3);
+}
+/* === END NEW STYLES === */
+
 
 .best-value-badge, .promo-badge {
   position: absolute;
@@ -767,5 +804,17 @@ footer {
   .buy-btn {
     min-height: 44px;
     font-size: 0.95rem;
+  }
+}
+
+/* === NEW STYLES FOR BUTTON GROUP ON LARGER SCREENS === */
+@media (min-width: 480px) {
+  .button-group {
+    flex-direction: row;
+  }
+  .buy-btn {
+    font-size: 0.85rem; /* Slightly smaller text to fit */
+    padding: 0.875rem 0.5rem; /* Adjust padding */
+    width: 100%;
   }
 }
