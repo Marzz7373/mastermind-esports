@@ -1,3 +1,6 @@
+// !!! PASTE YOUR DEPLOYED WEB APP URL HERE !!!
+const API_URL = "https://script.google.com/macros/s/AKfycbzJ7kANQFFX0c7HlG9wljNm06wMhUbRyPmpC-IxZ67SkXXBeJixpFAELJEZQJcfXOTZ/exec"; // <--- PASTE YOUR URL HERE
+
 const WHATSAPP_NUMBER = '60147433177';
 const ID_ALERT_MESSAGE = "Please enter your Player ID before clicking 'Order Instantly'.";
 
@@ -149,11 +152,17 @@ function generatePackageCards(containerId, data, gameType, isPromo = false) {
                 </div>`;
         }
 
-        // Add button
+        // === MODIFIED BUTTONS ===
         cardContent += `
-            <button class="buy-btn" onclick="initiateWhatsAppOrder('${gameType}', '${buttonOrderText}', '${price}', event)">
-                <span style="margin-right: 5px;">✅</span> Order Instantly
-            </button>`;
+            <div class="button-group">
+                <button class="buy-btn wallet-btn" onclick="initiateWalletPurchase('${gameType}', '${buttonOrderText}', '${price.replace('RM', '')}', event)">
+                    <span style="margin-right: 5px;">💳</span> Pay with Wallet
+                </button>
+                <button class="buy-btn" onclick="initiateWhatsAppOrder('${gameType}', '${buttonOrderText}', '${price}', event)">
+                    <span style="margin-right: 5px;">✅</span> Order (WhatsApp)
+                </button>
+            </div>`;
+        // === END MODIFIED BUTTONS ===
 
         html += `<div class="${cardClass}">${cardContent}</div>`;
     });
@@ -338,6 +347,102 @@ function initiateWhatsAppOrder(game, packageValue, price, event) {
     }
 }
 
+// =================================================================
+// 5. NEW WALLET PURCHASE LOGIC
+// =================================================================
+
+async function initiateWalletPurchase(game, packageValue, price, event) {
+  const clickedButton = event.target.closest('.buy-btn');
+  
+  // 1. Check if logged in
+  const userPhone = localStorage.getItem('mastermind_user_phone');
+  if (!userPhone) {
+    alert("You must be logged in to pay with your wallet.\n\nPlease go to the 'My Account' page to log in first.");
+    window.location.href = 'account.html'; // Redirect to login page
+    return;
+  }
+  
+  // 2. Get and validate Game ID
+  let id, idInput;
+  const gameType = game.includes('pubg') ? 'pubg' : 'mlbb';
+  idInput = document.getElementById(`${gameType}-id`);
+  id = idInput ? idInput.value.trim() : '';
+
+  if (!id) {
+    alert(ID_ALERT_MESSAGE);
+    idInput.focus();
+    return;
+  }
+  
+  // (Your existing validation logic from WhatsApp function)
+  if (game.includes('pubg')) {
+    if (!/^\d{9,11}$/.test(id) || id.length > 11) {
+        alert("Please enter a valid PUBG Player ID (usually 9 to 11 digits, numbers only). Check the ID Guide.");
+        idInput.focus();
+        return;
+    }
+  }
+  if (game.includes('mlbb')) {
+      if (!/^\d+\s*\(\s*\d+\s*\)$/.test(id)) {
+          alert("Please enter your MLBB ID in the correct format: ID(ZONE). Example: 12345678(1234). Check the ID Guide.");
+          idInput.focus();
+          return;
+      }
+  }
+
+  // 3. Confirm Purchase
+  const priceNum = parseFloat(price);
+  if (confirm(`Are you sure you want to buy ${packageValue} for RM ${priceNum.toFixed(2)} using your wallet?\n\nYour Game ID: ${id}`)) {
+    
+    // 4. Show loading state
+    const originalText = clickedButton.innerHTML;
+    clickedButton.innerHTML = '<span style="margin-right: 5px;">⏳</span> Processing...';
+    clickedButton.disabled = true;
+
+    try {
+      // 5. Call the API
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          action: "makeWalletPurchase",
+          phone: userPhone,
+          game: gameType,
+          gameID: id,
+          packageName: packageValue,
+          price: priceNum
+        })
+      });
+      
+      const result = await response.json();
+
+      if (result.status === "error") {
+        throw new Error(result.message);
+      }
+
+      // 6. Handle Success
+      alert(`✅ Purchase Successful!\n\n${packageValue} will be sent to ${id} shortly.\nYour new balance is RM ${result.newBalance.toFixed(2)}.`);
+      // Track conversion
+      if (typeof gtag !== 'undefined') {
+          gtag('event', 'purchase_wallet', { 'value': priceNum });
+      }
+
+    } catch (error) {
+      // 7. Handle Error
+      alert(`Purchase Failed:\n${error.message}\n\nPlease check your balance or use the WhatsApp order method.`);
+    } finally {
+      // 8. Restore button
+      clickedButton.innerHTML = originalText;
+      clickedButton.disabled = false;
+    }
+  }
+}
+
+
+// =================================================================
+// 6. ORIGINAL CORE FUNCTIONS (Modal, FAQ, Timer, Load)
+// =================================================================
+
 function showIDGuide(game) {
     const modal = document.getElementById('id-guide-modal');
     const title = document.getElementById('guide-title');
@@ -347,11 +452,11 @@ function showIDGuide(game) {
     if (game === 'pubg') {
         title.textContent = "How to Find Your PUBG Player ID";
         description.innerHTML = "Your **PUBG Player ID** is a 9-10 digit number found directly under your in-game name in the lobby screen. **Tap your avatar** to view your Profile where it is clearly displayed. *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Avatar/Profile > ID</span>*";
-        image.src = "https://i.imgur.com/pubg-id-guide.png"; // Using a placeholder - you can replace with your actual image
+        image.src = "https://i.imgur.com/w8NIIv6.png"; // Placeholder
     } else if (game === 'mlbb') {
         title.textContent = "How to Find Your Mobile Legends ID & Zone";
         description.innerHTML = "Your **MLBB ID** is the first set of numbers, and the **Zone ID** is the number in parentheses (e.g., 36274747(7729)). Both are located at the bottom-right of your profile photo in the lobby. **Please copy the entire number, including the parentheses.** *Example path: <span style='font-weight: 700; color: var(--color-success);'>Lobby > Profile > ID(Zone)</span>*";
-        image.src = "https://i.imgur.com/mlbb-id-guide.png"; // Using a placeholder - you can replace with your actual image
+        image.src = "https://i.imgur.com/b9sYxM8.png"; // Placeholder
     }
 
     modal.style.display = 'flex';
