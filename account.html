@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account - Mastermind Esports</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      padding-bottom: 100px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--color-mid-bg);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 16px;
+    }
+    .container h2 {
+      color: var(--color-primary-accent);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+    .input-group input {
+      width: 100%;
+      padding: 1rem;
+      background: var(--color-dark-bg);
+      border: 1px solid #334155;
+      color: var(--color-text-light);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .btn {
+      width: 100%;
+      background: var(--color-primary-accent);
+      color: var(--color-dark-bg);
+      border: none;
+      padding: 1rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    .btn.secondary {
+      background: #c9302c;
+      color: white;
+      margin-top: 1rem;
+    }
+    #result, #loading {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+    }
+    #walletDetails {
+      display: none; /* Hidden by default */
+    }
+    .balance-box {
+      background: var(--color-dark-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid var(--color-primary-accent);
+    }
+    .balance-box p {
+      color: var(--color-text-muted);
+      font-size: 1.1rem;
+      margin: 0 0 10px 0;
+    }
+    .balance-box h3 {
+      color: var(--color-primary-accent);
+      font-size: 2.5rem;
+      margin: 0;
+    }
+    #historyContainer {
+      margin-top: 2rem;
+    }
+    #historyContainer h4 {
+      color: var(--color-text-light);
+      margin-bottom: 1rem;
+    }
+    #historyList {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      background: var(--color-dark-bg);
+      border-radius: 8px;
+      padding: 0.5rem;
+    }
+    #historyList li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--color-border-subtle);
+      color: var(--color-text-muted);
+    }
+    #historyList li:last-child {
+      border: none;
+    }
+    #historyList li .amount-positive {
+      color: var(--color-success);
+      font-weight: 600;
+    }
+    #historyList li .amount-negative {
+      color: #ff6b6b;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1><span class="header-icon">💳</span> My Account & Wallet</h1>
+    <p>Log in to use your wallet balance and see your history.</p>
+  </header>
+
+  <div class="container">
+    
+    <div id="loginForm">
+      <h2>Log In or Sign Up</h2>
+      <div class="input-group">
+        <label for="phone">Phone Number (e.g., 60123456789)</label>
+        <input type="tel" id="phone" placeholder="Enter your WhatsApp number" />
+      </div>
+      <button class="btn" onclick="handleLogin()">Log In / Register</button>
+      
+      <p style="color: var(--color-text-muted); font-size: 0.9rem; text-align: center; margin-top: 1rem;">
+        We use your phone number as your secure ID. A new account will be created if you're not registered.
+      </p>
+    </div>
+
+    <div id="walletDetails">
+      <h2 id="welcomeMessage">Welcome, ...</h2>
+      
+      <div class="balance-box">
+        <p>Your Current Wallet Balance:</p>
+        <h3 id="balanceDisplay">RM 0.00</h3>
+      </div>
+      
+      <div class="how" style="margin-top: 2rem;">
+        <h4>How to Add Funds?</h4>
+        <p style="color: var(--color-text-muted);">
+          To top up your wallet, please send a message to our admin on WhatsApp. We will manually add the funds to your account after payment confirmation.
+        </p>
+        <a href="https://wa.me/60147433177?text=Hi%21%20I'd%20like%20to%20add%20funds%20to%20my%20Mastermind%20Wallet." target="_blank" class="btn" style="text-decoration: none; text-align: center; margin-top: 1rem;">
+          WhatsApp Admin to Top Up
+        </a>
+      </div>
+
+      <div id="historyContainer">
+        <h4>Recent Transaction History</h4>
+        <ul id="historyList">
+          </ul>
+      </div>
+
+      <button class="btn secondary" onclick="handleLogout()">Log Out</button>
+    </div>
+
+    <div id="loading" style="display: none;">Loading...</div>
+    <div id="result" style="color: #ff6b6b;"></div>
+  </div>
+
+  <footer>
+    <a href="index.html" style="color: var(--color-primary-accent); text-decoration: none; margin: 0 10px;">← Back to Home</a>
+  </footer>
+
+<script>
+// !!! PASTE YOUR DEPLOYED WEB APP URL HERE !!!
+const API_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"; 
+
+const loginForm = document.getElementById('loginForm');
+const walletDetails = document.getElementById('walletDetails');
+const resultDiv = document.getElementById('result');
+const loadingDiv = document.getElementById('loading');
+const phoneInput = document.getElementById('phone');
+const welcomeMessage = document.getElementById('welcomeMessage');
+const balanceDisplay = document.getElementById('balanceDisplay');
+const historyList = document.getElementById('historyList');
+
+// On page load, check if user is already logged in
+document.addEventListener('DOMContentLoaded', () => {
+  const loggedInPhone = localStorage.getItem('mastermind_user_phone');
+  if (loggedInPhone) {
+    phoneInput.value = loggedInPhone;
+    showWalletDetails(loggedInPhone);
+  }
+});
+
+async function handleLogin() {
+  const phone = phoneInput.value.trim();
+  if (!/^(601)[0-9]{8,9}$/.test(phone)) {
+    showResult("Please enter a valid Malaysian phone number (e.g., 60123456789)");
+    return;
+  }
+  
+  showLoading(true);
+  
+  try {
+    const response = await apiCall("loginOrRegister", { phone: phone });
+    
+    // Save login to localStorage
+    localStorage.setItem('mastermind_user_phone', response.phone);
+    
+    // Now fetch full details
+    await showWalletDetails(response.phone);
+    
+  } catch (error) {
+    showResult(error.message);
+  } finally {
+    showLoading(false);
+  }
+}
+
+async function showWalletDetails(phone) {
+  showLoading(true);
+  loginForm.style.display = 'none';
+  
+  try {
+    const details = await apiCall("getWalletDetails", { phone: phone });
+
+    welcomeMessage.textContent = `Welcome, ${details.name || details.phone}!`;
+    balanceDisplay.textContent = `RM ${details.balance.toFixed(2)}`;
+    
+    historyList.innerHTML = ''; // Clear old history
+    if (details.history && details.history.length > 0) {
+      details.history.forEach(item => {
+        const li = document.createElement('li');
+        const amountClass = item.amount >= 0 ? 'amount-positive' : 'amount-negative';
+        const amountSign = item.amount >= 0 ? '+' : '';
+        
+        li.innerHTML = `
+          <span>
+            <strong>${item.type}</strong><br>
+            <small>${item.date}</small>
+          </span>
+          <span class="${amountClass}">
+            ${amountSign} RM ${parseFloat(item.amount).toFixed(2)}
+          </span>
+        `;
+        historyList.appendChild(li);
+      });
+    } else {
+      historyList.innerHTML = '<li>No transactions found.</li>';
+    }
+    
+    walletDetails.style.display = 'block';
+    showResult(""); // Clear any errors
+    
+  } catch (error) {
+    showResult(error.message);
+    loginForm.style.display = 'block'; // Show login form again if error
+  } finally {
+    showLoading(false);
+  }
+}
+
+function handleLogout() {
+  localStorage.removeItem('mastermind_user_phone');
+  localStorage.removeItem('mastermind_user_balance'); // Clear old cache
+  
+  walletDetails.style.display = 'none';
+  loginForm.style.display = 'block';
+  phoneInput.value = '';
+  showResult("You have been logged out.");
+}
+
+// --- API Utility ---
+async function apiCall(action, payload) {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" }, // Use text/plain for Apps Script
+    body: JSON.stringify({ action, ...payload })
+  });
+
+  const result = await response.json();
+
+  if (result.status === "error") {
+    throw new Error(result.message);
+  }
+  
+  return result;
+}
+
+function showResult(message) {
+  resultDiv.textContent = message;
+}
+
+function showLoading(isLoading) {
+  loadingDiv.style.display = isLoading ? 'block' : 'none';
+  resultDiv.textContent = '';
+}
+
+</script>
+</body>
+</html>
+
