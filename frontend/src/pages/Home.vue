@@ -250,6 +250,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { supabase } from '../lib/supabase'
+import { useToast } from '../composables/useToast'
+
+const { success, error, warning, info } = useToast()
 
 const user = ref(null)
 const profile = ref(null)
@@ -378,11 +381,12 @@ function handleWhatsApp() {
   const whatsappUrl = `https://wa.me/60147433177?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
   showPurchaseOptions.value = false
+  info('Opening WhatsApp... Your order details are ready!')
 }
 
 async function handleWalletPurchase() {
   if (walletBalance.value < selectedProduct.value.price) {
-    alert('Insufficient balance. Please top up your wallet.')
+    warning('Insufficient balance. Please top up your wallet.')
     return
   }
 
@@ -397,7 +401,7 @@ async function handleWalletPurchase() {
     .eq('id', user.value.id)
 
   if (updateError) {
-    alert('Error processing payment')
+    error('Error processing payment. Please try again.')
     return
   }
 
@@ -414,10 +418,12 @@ async function handleWalletPurchase() {
     })
 
   if (!txError) {
-    alert('Purchase successful! Your order is being processed.')
+    success(`✅ Purchase successful! ${selectedProduct.value.name} is being processed.`)
     await loadProfile()
     await loadTransactions()
     showPurchaseOptions.value = false
+  } else {
+    error('Failed to create transaction. Please contact support.')
   }
 }
 
@@ -429,11 +435,12 @@ async function handleAuth() {
     })
 
     if (error) {
-      alert(error.message)
+      error(error.message)
     } else {
       user.value = data.user
       await loadProfile()
       showAuthModal.value = false
+      success('Welcome back! Successfully logged in.')
     }
   } else {
     const { data, error } = await supabase.auth.signUp({
@@ -442,7 +449,7 @@ async function handleAuth() {
     })
 
     if (error) {
-      alert(error.message)
+      error(error.message)
     } else {
       const { error: profileError } = await supabase
         .from('profiles')
@@ -457,7 +464,9 @@ async function handleAuth() {
         user.value = data.user
         await loadProfile()
         showAuthModal.value = false
-        alert('Registration successful!')
+        success('Registration successful! Welcome to Mastermind Esports.')
+      } else {
+        error('Failed to create profile. Please try again.')
       }
     }
   }
@@ -471,11 +480,11 @@ async function handleLogout() {
 
 async function handleTopup(method) {
   if (topupAmount.value < 10) {
-    alert('Minimum top-up amount is RM10')
+    warning('Minimum top-up amount is RM10')
     return
   }
 
-  const { error } = await supabase
+  const { error: txError } = await supabase
     .from('transactions')
     .insert({
       user_id: user.value.id,
@@ -485,34 +494,40 @@ async function handleTopup(method) {
       status: 'pending'
     })
 
-  if (!error) {
-    alert(`Top-up request submitted via ${method}. Please contact us on WhatsApp (0147433177) to complete payment.`)
+  if (!txError) {
+    success(`Top-up request submitted via ${method}. Please contact us on WhatsApp (0147433177) to complete payment.`)
     await loadTransactions()
     topupAmount.value = 10
+  } else {
+    error('Failed to submit top-up request. Please try again.')
   }
 }
 
 async function updateProduct(product) {
-  const { error } = await supabase
+  const { error: updateError } = await supabase
     .from('products')
     .update({ price: product.price })
     .eq('id', product.id)
 
-  if (!error) {
-    alert('Product updated successfully')
+  if (!updateError) {
+    success('Product updated successfully')
     await loadProducts()
+  } else {
+    error('Failed to update product')
   }
 }
 
 async function toggleProductStatus(product) {
-  const { error } = await supabase
+  const { error: updateError } = await supabase
     .from('products')
     .update({ is_active: !product.is_active })
     .eq('id', product.id)
 
-  if (!error) {
-    alert('Product status updated')
+  if (!updateError) {
+    success('Product status updated')
     await loadProducts()
+  } else {
+    error('Failed to update product status')
   }
 }
 
@@ -538,14 +553,16 @@ async function updateTransactionStatus(tx) {
     }
   }
 
-  const { error } = await supabase
+  const { error: updateError } = await supabase
     .from('transactions')
     .update(updates)
     .eq('id', tx.id)
 
-  if (!error) {
-    alert('Transaction updated')
+  if (!updateError) {
+    success('Transaction updated successfully')
     await loadTransactions()
+  } else {
+    error('Failed to update transaction')
   }
 }
 </script>

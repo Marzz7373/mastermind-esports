@@ -7,6 +7,18 @@
   <meta name="description" content="Malaysia's fastest and most secure top-up service for PUBG UC and Mobile Legends Diamonds. Instant delivery via WhatsApp.">
   <meta name="keywords" content="pubg uc, mlbb diamonds, top up malaysia, topup game murah, pubg mobile top up">
   <meta name="author" content="Mastermind Esports">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#FFB300">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mastermind Esports">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5490387431056822"
@@ -17,6 +29,17 @@
   </script>
 
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('SW registered:', reg))
+          .catch(err => console.log('SW registration failed:', err));
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -50,6 +73,11 @@
 <div class="loyalty-banner">
     ✨ **LOYALTY BONUS:** Get RM5 OFF on your 5th Top-Up! 
     <a href="wallet.html" style="color: #0C0F2C; font-weight: 700; text-decoration: none; margin-left: 10px; padding: 5px 10px; background: rgba(255,255,255,0.2); border-radius: 15px;">💳 Check Wallet Balance</a>
+</div>
+
+<!-- Online/Offline Status Indicator -->
+<div id="connection-status" class="connection-status" style="display: none;">
+    <span id="status-text">You're offline</span>
 </div>
 
 <div class="order-form-sticky-wrapper">
@@ -237,6 +265,9 @@
         <p class="final-note" style="font-size: 0.9em; color: var(--color-text-muted);">*Please double-check your ID before ordering. We are not responsible for incorrect user input.</p>
     </div>
 </div>
+
+<!-- Toast Notification Container -->
+<div id="toast-container" class="toast-container"></div>
 
 <script src="script.js"></script>
 

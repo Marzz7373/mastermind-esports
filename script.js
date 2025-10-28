@@ -5,6 +5,144 @@ const WHATSAPP_NUMBER = '60147433177';
 const ID_ALERT_MESSAGE = "Please enter your Player ID before clicking 'Order Instantly'.";
 
 // =================================================================
+// TOAST NOTIFICATION SYSTEM
+// =================================================================
+let toastIdCounter = 0;
+
+function showToast(message, type = 'info', duration = 4000) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+  
+  const toastId = `toast-${toastIdCounter++}`;
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.id = toastId;
+  
+  const iconMap = {
+    success: '✓',
+    error: '✕',
+    warning: '⚠',
+    info: 'ℹ'
+  };
+  
+  toast.innerHTML = `
+    <div class="toast-icon">
+      <span>${iconMap[type] || 'ℹ'}</span>
+    </div>
+    <div class="toast-message">${message}</div>
+    <button class="toast-close" onclick="removeToast('${toastId}')">×</button>
+  `;
+  
+  container.appendChild(toast);
+  
+  // Trigger animation
+  setTimeout(() => toast.style.opacity = '1', 10);
+  
+  // Auto remove
+  if (duration > 0) {
+    setTimeout(() => removeToast(toastId), duration);
+  }
+  
+  return toastId;
+}
+
+function removeToast(toastId) {
+  const toast = document.getElementById(toastId);
+  if (!toast) return;
+  
+  toast.classList.add('removing');
+  setTimeout(() => toast.remove(), 300);
+}
+
+// Helper functions
+const toast = {
+  success: (msg, duration) => showToast(msg, 'success', duration),
+  error: (msg, duration) => showToast(msg, 'error', duration),
+  warning: (msg, duration) => showToast(msg, 'warning', duration),
+  info: (msg, duration) => showToast(msg, 'info', duration)
+};
+
+// =================================================================
+// LOADING OVERLAY
+// =================================================================
+function showLoading(message = 'Processing...') {
+  const overlay = document.createElement('div');
+  overlay.id = 'loading-overlay';
+  overlay.className = 'loading-overlay';
+  overlay.innerHTML = `
+    <div class="spinner">
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+    </div>
+    <div class="loading-text">${message}</div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+function hideLoading() {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) {
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.remove(), 300);
+  }
+}
+
+// =================================================================
+// PWA INSTALL PROMPT
+// =================================================================
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // Don't show if already dismissed
+  if (localStorage.getItem('pwa-dismissed')) return;
+  
+  // Show install prompt after 5 seconds
+  setTimeout(() => {
+    showInstallPrompt();
+  }, 5000);
+});
+
+function showInstallPrompt() {
+  const prompt = document.createElement('div');
+  prompt.className = 'install-prompt';
+  prompt.id = 'install-prompt';
+  prompt.innerHTML = `
+    <div class="install-prompt-text">
+      📱 Install our app for faster access and offline support!
+    </div>
+    <button class="install-prompt-btn" onclick="installPWA()">Install</button>
+    <button class="install-prompt-close" onclick="dismissInstallPrompt()">×</button>
+  `;
+  document.body.appendChild(prompt);
+}
+
+function installPWA() {
+  if (!deferredPrompt) return;
+  
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === 'accepted') {
+      toast.success('Thank you for installing Mastermind Esports!');
+    }
+    deferredPrompt = null;
+    dismissInstallPrompt();
+  });
+}
+
+function dismissInstallPrompt() {
+  const prompt = document.getElementById('install-prompt');
+  if (prompt) {
+    prompt.style.animation = 'slideOutRight 0.3s ease-out';
+    setTimeout(() => prompt.remove(), 300);
+  }
+  localStorage.setItem('pwa-dismissed', 'true');
+}
+
+// =================================================================
 // 1. PACKAGE DATA (Contains all package details, easy to update!)
 // =================================================================
 
@@ -276,7 +414,7 @@ function initiateWhatsAppOrder(game, packageValue, price, event) {
     id = idInput ? idInput.value.trim() : '';
 
     if (!id) {
-        alert(ID_ALERT_MESSAGE);
+        toast.error(ID_ALERT_MESSAGE);
         
         if (idInput) {
             idInput.style.borderColor = '#ff6b6b'; 
@@ -291,7 +429,7 @@ function initiateWhatsAppOrder(game, packageValue, price, event) {
     // Validation Logic
     if (game.includes('pubg')) {
         if (!/^\d{9,11}$/.test(id) || id.length > 11) {
-            alert("Please enter a valid PUBG Player ID (usually 9 to 11 digits, numbers only). Check the ID Guide.");
+            toast.error("Please enter a valid PUBG Player ID (usually 9 to 11 digits, numbers only). Check the ID Guide.");
             idInput.focus();
             idInput.style.borderColor = '#ff6b6b'; 
             setTimeout(() => { idInput.style.borderColor = '#334155'; }, 800);
@@ -300,7 +438,7 @@ function initiateWhatsAppOrder(game, packageValue, price, event) {
     }
     if (game.includes('mlbb')) {
         if (!/^\d+\s*\(\s*\d+\s*\)$/.test(id)) {
-            alert("Please enter your MLBB ID in the correct format: ID(ZONE). Example: 12345678(1234). Check the ID Guide.");
+            toast.error("Please enter your MLBB ID in the correct format: ID(ZONE). Example: 12345678(1234). Check the ID Guide.");
             idInput.focus();
             idInput.style.borderColor = '#ff6b6b'; 
             setTimeout(() => { idInput.style.borderColor = '#334155'; }, 800);
@@ -339,8 +477,9 @@ function initiateWhatsAppOrder(game, packageValue, price, event) {
         }
         
         window.open(whatsappLink, '_blank');
+        toast.success('Opening WhatsApp... Your order details are ready!');
     } catch (error) {
-        alert('Unable to open WhatsApp. Please copy this message and send it manually: ' + message);
+        toast.error('Unable to open WhatsApp. Message copied to clipboard!');
         navigator.clipboard.writeText(message).catch(() => {
             console.log('Clipboard access denied');
         });
@@ -357,8 +496,10 @@ async function initiateWalletPurchase(game, packageValue, price, event) {
   // 1. Check if logged in
   const userPhone = localStorage.getItem('mastermind_user_phone');
   if (!userPhone) {
-    alert("You must be logged in to pay with your wallet.\n\nPlease go to the 'My Account' page to log in first.");
-    window.location.href = 'account.html'; // Redirect to login page
+    toast.warning("Please log in to use wallet payment. Redirecting...");
+    setTimeout(() => {
+      window.location.href = 'account.html';
+    }, 2000);
     return;
   }
   
@@ -369,7 +510,7 @@ async function initiateWalletPurchase(game, packageValue, price, event) {
   id = idInput ? idInput.value.trim() : '';
 
   if (!id) {
-    alert(ID_ALERT_MESSAGE);
+    toast.error(ID_ALERT_MESSAGE);
     idInput.focus();
     return;
   }
@@ -377,14 +518,14 @@ async function initiateWalletPurchase(game, packageValue, price, event) {
   // (Your existing validation logic from WhatsApp function)
   if (game.includes('pubg')) {
     if (!/^\d{9,11}$/.test(id) || id.length > 11) {
-        alert("Please enter a valid PUBG Player ID (usually 9 to 11 digits, numbers only). Check the ID Guide.");
+        toast.error("Please enter a valid PUBG Player ID (usually 9 to 11 digits, numbers only). Check the ID Guide.");
         idInput.focus();
         return;
     }
   }
   if (game.includes('mlbb')) {
       if (!/^\d+\s*\(\s*\d+\s*\)$/.test(id)) {
-          alert("Please enter your MLBB ID in the correct format: ID(ZONE). Example: 12345678(1234). Check the ID Guide.");
+          toast.error("Please enter your MLBB ID in the correct format: ID(ZONE). Example: 12345678(1234). Check the ID Guide.");
           idInput.focus();
           return;
       }
@@ -398,6 +539,8 @@ async function initiateWalletPurchase(game, packageValue, price, event) {
     const originalText = clickedButton.innerHTML;
     clickedButton.innerHTML = '<span style="margin-right: 5px;">⏳</span> Processing...';
     clickedButton.disabled = true;
+    
+    showLoading('Processing your wallet purchase...');
 
     try {
       // 5. Call the API
@@ -421,7 +564,9 @@ async function initiateWalletPurchase(game, packageValue, price, event) {
       }
 
       // 6. Handle Success
-      alert(`✅ Purchase Successful!\n\n${packageValue} will be sent to ${id} shortly.\nYour new balance is RM ${result.newBalance.toFixed(2)}.`);
+      hideLoading();
+      toast.success(`✅ Purchase Successful! ${packageValue} will be sent to ${id} shortly. New balance: RM ${result.newBalance.toFixed(2)}`);
+      
       // Track conversion
       if (typeof gtag !== 'undefined') {
           gtag('event', 'purchase_wallet', { 'value': priceNum });
@@ -429,7 +574,8 @@ async function initiateWalletPurchase(game, packageValue, price, event) {
 
     } catch (error) {
       // 7. Handle Error
-      alert(`Purchase Failed:\n${error.message}\n\nPlease check your balance or use the WhatsApp order method.`);
+      hideLoading();
+      toast.error(`Purchase Failed: ${error.message}. Please check your balance or use WhatsApp order.`);
     } finally {
       // 8. Restore button
       clickedButton.innerHTML = originalText;
@@ -512,8 +658,50 @@ function updateTimer() {
     }
 }
 
+// =================================================================
+// ONLINE/OFFLINE STATUS MONITORING
+// =================================================================
+let wasOffline = false;
+
+function updateConnectionStatus() {
+  const statusElement = document.getElementById('connection-status');
+  const statusText = document.getElementById('status-text');
+  
+  if (!statusElement || !statusText) return;
+  
+  if (!navigator.onLine) {
+    statusElement.style.display = 'block';
+    statusElement.classList.remove('online');
+    statusText.textContent = '📡 You\'re offline - Some features may be limited';
+    wasOffline = true;
+  } else if (wasOffline) {
+    statusElement.classList.add('online');
+    statusText.textContent = '✓ Back online!';
+    setTimeout(() => {
+      statusElement.style.display = 'none';
+      wasOffline = false;
+    }, 3000);
+  }
+}
+
+window.addEventListener('online', () => {
+  updateConnectionStatus();
+  toast.success('Connection restored! You\'re back online.');
+});
+
+window.addEventListener('offline', () => {
+  updateConnectionStatus();
+  toast.warning('You\'re offline. Some features may not work.');
+});
+
+// =================================================================
+// PAGE LOAD & INITIALIZATION
+// =================================================================
 let timerInterval;
 window.onload = function() {
+    // Check connection status
+    updateConnectionStatus();
+    
     // Lazy load packages for better performance
     generatePackageCards('pubg-packages', pubgPackages, 'pubg');
     
@@ -540,4 +728,12 @@ window.onload = function() {
     
     updateTimer(); 
     timerInterval = setInterval(updateTimer, 1000);
+    
+    // Show welcome toast on first visit
+    if (!localStorage.getItem('visited_before')) {
+        setTimeout(() => {
+            toast.info('Welcome to Mastermind Esports! 🎮');
+            localStorage.setItem('visited_before', 'true');
+        }, 1000);
+    }
 }
