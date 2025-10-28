@@ -179,9 +179,9 @@
     <a href="index.html" style="color: var(--color-primary-accent); text-decoration: none; margin: 0 10px;">← Back to Home</a>
   </footer>
 
+<script src="config.js"></script>
 <script>
-// !!! PASTE YOUR DEPLOYED WEB APP URL HERE !!!
-const API_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"; 
+const API_URL = (window.MASTER_CONF && (window.MASTER_CONF.WALLET_API_URL || window.MASTER_CONF.ORDERS_API_URL)) || ""; 
 
 const loginForm = document.getElementById('loginForm');
 const walletDetails = document.getElementById('walletDetails');
