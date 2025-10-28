@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mastermind-esports.com/sitemap.xml
+
+# Allow important pages
+Allow: /index.html
+Allow: /account.html
+Allow: /wallet.html
+Allow: /terms.html
+Allow: /frontend/
+
+# Disallow admin and sensitive areas
+Disallow: /admin/
+Disallow: /*.log$
+Disallow: /supabase-config.js
+Disallow: /script.js
+
+# Crawl delay for better server performance
+Crawl-delay: 1
+
+# Specific rules for search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1

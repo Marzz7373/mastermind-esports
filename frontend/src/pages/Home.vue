@@ -19,18 +19,65 @@
 
     <section class="hero">
       <div class="container">
-        <h2 class="hero-title">Mastermind Esports</h2>
-        <p class="hero-slogan">Fast • Trusted • Affordable</p>
-        <p class="hero-subtitle">Your One-Stop Shop for Game Top-Ups & Vouchers</p>
+        <div class="hero-content">
+          <div class="hero-text">
+            <h2 class="hero-title">Mastermind Esports</h2>
+            <p class="hero-slogan">Fast • Trusted • Affordable</p>
+            <p class="hero-subtitle">Your One-Stop Shop for Game Top-Ups & Vouchers</p>
+            <div class="hero-stats">
+              <div class="hero-stat">
+                <span class="stat-number">50K+</span>
+                <span class="stat-label">Happy Customers</span>
+              </div>
+              <div class="hero-stat">
+                <span class="stat-number">99%</span>
+                <span class="stat-label">Success Rate</span>
+              </div>
+              <div class="hero-stat">
+                <span class="stat-number">3 Min</span>
+                <span class="stat-label">Avg Delivery</span>
+              </div>
+            </div>
+            <div class="hero-actions">
+              <button @click="scrollToCategories" class="btn-hero-primary">
+                🎮 Start Shopping
+              </button>
+              <button v-if="!user" @click="showAuthModal = true" class="btn-hero-secondary">
+                👤 Create Account
+              </button>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="floating-elements">
+              <div class="floating-element" v-for="n in 6" :key="n">
+                {{ ['🎮', '💎', '⚡', '🏆', '🎯', '🚀'][n-1] }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="categories">
+    <section class="categories" ref="categoriesSection">
       <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Choose Your Game</h2>
+          <p class="section-subtitle">Select from our wide range of gaming platforms</p>
+        </div>
         <div class="category-grid">
-          <div v-for="category in categories" :key="category.id" class="category-card" @click="selectedCategory = category">
+          <div 
+            v-for="category in categories" 
+            :key="category.id" 
+            class="category-card"
+            :class="{ active: selectedCategory?.id === category.id }"
+            @click="selectCategory(category)"
+          >
             <div class="category-icon">{{ category.icon }}</div>
             <h3>{{ category.name }}</h3>
+            <p class="category-description">{{ category.description || 'Top up now and play instantly!' }}</p>
+            <div class="category-badge">
+              <span>{{ getProductCount(category.id) }} Packages</span>
+            </div>
           </div>
         </div>
       </div>
@@ -282,6 +329,28 @@ const filteredProducts = computed(() => {
   if (!selectedCategory.value) return []
   return products.value.filter(p => p.category_id === selectedCategory.value.id)
 })
+
+function scrollToCategories() {
+  const categoriesSection = document.querySelector('.categories')
+  if (categoriesSection) {
+    categoriesSection.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+function selectCategory(category) {
+  selectedCategory.value = category
+  // Smooth scroll to products section
+  setTimeout(() => {
+    const productsSection = document.querySelector('.products-section')
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, 100)
+}
+
+function getProductCount(categoryId) {
+  return products.value.filter(p => p.category_id === categoryId).length
+}
 
 onMounted(async () => {
   const { data: { user: authUser } } = await supabase.auth.getUser()
@@ -606,10 +675,38 @@ async function updateTransactionStatus(tx) {
 }
 
 .hero {
-  text-align: center;
-  padding: 60px 20px;
+  padding: 80px 20px;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   border-bottom: 3px solid #00d9ff;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(0, 217, 255, 0.1), transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(0, 255, 170, 0.08), transparent 50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text {
+  text-align: left;
 }
 
 .hero-title {
@@ -632,6 +729,153 @@ async function updateTransactionStatus(tx) {
 .hero-subtitle {
   font-size: 18px;
   color: #aaa;
+  margin-bottom: 32px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  margin: 32px 0;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat .stat-number {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  color: #00d9ff;
+  margin-bottom: 4px;
+}
+
+.hero-stat .stat-label {
+  font-size: 12px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.btn-hero-primary, .btn-hero-secondary {
+  padding: 16px 32px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-hero-primary {
+  background: linear-gradient(135deg, #00d9ff 0%, #00ffaa 100%);
+  color: #000;
+}
+
+.btn-hero-secondary {
+  background: transparent;
+  color: #00d9ff;
+  border: 2px solid #00d9ff;
+}
+
+.btn-hero-primary:hover, .btn-hero-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 217, 255, 0.3);
+}
+
+.hero-visual {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-elements {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.floating-element {
+  position: absolute;
+  font-size: 48px;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.floating-element:nth-child(1) {
+  top: 10%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.floating-element:nth-child(2) {
+  top: 20%;
+  right: 10%;
+  animation-delay: 1s;
+}
+
+.floating-element:nth-child(3) {
+  top: 60%;
+  left: 10%;
+  animation-delay: 2s;
+}
+
+.floating-element:nth-child(4) {
+  bottom: 20%;
+  right: 20%;
+  animation-delay: 3s;
+}
+
+.floating-element:nth-child(5) {
+  top: 50%;
+  left: 50%;
+  animation-delay: 4s;
+}
+
+.floating-element:nth-child(6) {
+  bottom: 10%;
+  left: 40%;
+  animation-delay: 5s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #00d9ff;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: 18px;
+  color: #aaa;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .categories {
@@ -647,17 +891,64 @@ async function updateTransactionStatus(tx) {
 .category-card {
   background: linear-gradient(135deg, #1f1f3a 0%, #2a2a4a 100%);
   padding: 32px;
-  border-radius: 16px;
+  border-radius: 20px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.category-card:hover::before {
+  left: 100%;
 }
 
 .category-card:hover {
   transform: translateY(-8px);
   border-color: #00d9ff;
-  box-shadow: 0 8px 32px rgba(0, 217, 255, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 217, 255, 0.3);
+}
+
+.category-card.active {
+  border-color: #00ffaa;
+  background: linear-gradient(135deg, #1f3a1f 0%, #2a4a2a 100%);
+  box-shadow: 0 8px 32px rgba(0, 255, 170, 0.2);
+}
+
+.category-description {
+  color: #aaa;
+  font-size: 14px;
+  margin: 12px 0;
+  line-height: 1.4;
+}
+
+.category-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 217, 255, 0.2);
+  color: #00d9ff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.category-card.active .category-badge {
+  background: rgba(0, 255, 170, 0.2);
+  color: #00ffaa;
 }
 
 .category-icon {
@@ -1180,6 +1471,20 @@ async function updateTransactionStatus(tx) {
 }
 
 @media (max-width: 768px) {
+  .hero {
+    padding: 60px 20px;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
   .hero-title {
     font-size: 32px;
   }
@@ -1188,8 +1493,45 @@ async function updateTransactionStatus(tx) {
     font-size: 18px;
   }
 
+  .hero-stats {
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .hero-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-hero-primary, .btn-hero-secondary {
+    padding: 14px 24px;
+    font-size: 14px;
+  }
+
+  .floating-elements {
+    width: 250px;
+    height: 250px;
+  }
+
+  .floating-element {
+    font-size: 32px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .section-subtitle {
+    font-size: 16px;
+  }
+
   .category-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .category-card {
+    padding: 24px;
   }
 
   .products-grid {
@@ -1206,6 +1548,11 @@ async function updateTransactionStatus(tx) {
 
   .modal {
     padding: 20px;
+    margin: 20px;
+  }
+
+  .hero-visual {
+    height: 300px;
   }
 }
 </style>

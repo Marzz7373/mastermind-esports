@@ -329,12 +329,26 @@ function initiateWhatsAppOrder(game, packageValue, price, event) {
     }
     
     try {
-        // Track conversion event
+        // Enhanced tracking
         if (typeof gtag !== 'undefined') {
             gtag('event', 'purchase_intent', {
                 'event_category': 'ecommerce',
                 'event_label': `${game}_${packageValue}`,
-                'value': parseFloat(price.replace('RM', ''))
+                'value': parseFloat(price.replace('RM', '')),
+                'currency': 'MYR',
+                'transaction_id': Date.now(),
+                'custom_parameter_1': game,
+                'custom_parameter_2': 'whatsapp_order'
+            });
+        }
+        
+        // Facebook Pixel tracking
+        if (typeof fbq !== 'undefined') {
+            fbq('track', 'InitiateCheckout', {
+                value: parseFloat(price.replace('RM', '')),
+                currency: 'MYR',
+                content_name: packageValue,
+                content_category: game
             });
         }
         
@@ -422,9 +436,32 @@ async function initiateWalletPurchase(game, packageValue, price, event) {
 
       // 6. Handle Success
       alert(`✅ Purchase Successful!\n\n${packageValue} will be sent to ${id} shortly.\nYour new balance is RM ${result.newBalance.toFixed(2)}.`);
-      // Track conversion
+      // Enhanced wallet purchase tracking
       if (typeof gtag !== 'undefined') {
-          gtag('event', 'purchase_wallet', { 'value': priceNum });
+          gtag('event', 'purchase', {
+              'transaction_id': Date.now(),
+              'value': priceNum,
+              'currency': 'MYR',
+              'items': [{
+                  'item_id': `${gameType}_${packageValue}`,
+                  'item_name': packageValue,
+                  'category': gameType,
+                  'quantity': 1,
+                  'price': priceNum
+              }],
+              'custom_parameter_1': gameType,
+              'custom_parameter_2': 'wallet_purchase'
+          });
+      }
+      
+      // Facebook Pixel purchase tracking
+      if (typeof fbq !== 'undefined') {
+          fbq('track', 'Purchase', {
+              value: priceNum,
+              currency: 'MYR',
+              content_name: packageValue,
+              content_category: gameType
+          });
       }
 
     } catch (error) {
@@ -513,7 +550,58 @@ function updateTimer() {
 }
 
 let timerInterval;
+let testimonialIndex = 0;
+let statsAnimated = false;
+
+// =================================================================
+// 7. ENHANCED LOADING AND INITIALIZATION
+// =================================================================
+
+// Show loading screen
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize AOS animations
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+    }
+    
+    // Show welcome notification after loading
+    setTimeout(() => {
+        showNotification('Welcome to Mastermind Esports! 🎮', 'success');
+    }, 1000);
+    
+    // Animate statistics when they come into view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !statsAnimated) {
+                animateStats();
+                statsAnimated = true;
+            }
+        });
+    });
+    
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+});
+
 window.onload = function() {
+    // Hide loading screen with animation
+    setTimeout(() => {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.classList.add('hidden');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }
+    }, 1500);
+
     // Lazy load packages for better performance
     generatePackageCards('pubg-packages', pubgPackages, 'pubg');
     
@@ -540,4 +628,189 @@ window.onload = function() {
     
     updateTimer(); 
     timerInterval = setInterval(updateTimer, 1000);
+    
+    // Start testimonial auto-slide
+    setInterval(autoSlideTestimonials, 5000);
 }
+
+// =================================================================
+// 8. MODERN UI ENHANCEMENTS
+// =================================================================
+
+function showNotification(message, type = 'info', duration = 3000) {
+    const toast = document.getElementById('notification-toast');
+    const messageEl = toast.querySelector('.toast-message');
+    const iconEl = toast.querySelector('.toast-icon');
+    
+    messageEl.textContent = message;
+    
+    // Set icon based on type
+    switch(type) {
+        case 'success':
+            iconEl.textContent = '✅';
+            break;
+        case 'error':
+            iconEl.textContent = '❌';
+            break;
+        case 'warning':
+            iconEl.textContent = '⚠️';
+            break;
+        default:
+            iconEl.textContent = 'ℹ️';
+    }
+    
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, duration);
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function toggleDarkMode() {
+    const body = document.body;
+    const themeIcon = document.getElementById('theme-icon');
+    
+    body.classList.toggle('light-mode');
+    
+    if (body.classList.contains('light-mode')) {
+        themeIcon.textContent = '☀️';
+        localStorage.setItem('theme', 'light');
+        showNotification('Light mode activated! ☀️', 'info');
+    } else {
+        themeIcon.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
+        showNotification('Dark mode activated! 🌙', 'info');
+    }
+}
+
+function animateStats() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    statNumbers.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-target'));
+        const increment = target / 100;
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            stat.textContent = Math.floor(current);
+        }, 20);
+    });
+}
+
+function slideTestimonials(direction) {
+    const track = document.querySelector('.testimonial-track');
+    const cards = document.querySelectorAll('.testimonial-card.enhanced');
+    const cardWidth = cards[0].offsetWidth + 32; // Include gap
+    
+    testimonialIndex += direction;
+    
+    if (testimonialIndex < 0) {
+        testimonialIndex = cards.length - 1;
+    } else if (testimonialIndex >= cards.length) {
+        testimonialIndex = 0;
+    }
+    
+    track.style.transform = `translateX(-${testimonialIndex * cardWidth}px)`;
+}
+
+function autoSlideTestimonials() {
+    slideTestimonials(1);
+}
+
+// Enhanced WhatsApp order with better UX
+function initiateWhatsAppOrderEnhanced(game, packageValue, price, event) {
+    // Show loading state
+    const button = event.target.closest('.buy-btn');
+    const originalText = button.innerHTML;
+    button.innerHTML = '<span style="margin-right: 5px;">⏳</span> Processing...';
+    button.disabled = true;
+    
+    // Add haptic feedback if available
+    if (navigator.vibrate) {
+        navigator.vibrate(50);
+    }
+    
+    // Call original function
+    setTimeout(() => {
+        initiateWhatsAppOrder(game, packageValue, price, event);
+        
+        // Restore button after delay
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }, 2000);
+    }, 500);
+}
+
+// Enhanced error handling
+window.addEventListener('error', function(e) {
+    console.error('Error caught:', e.error);
+    showNotification('Something went wrong. Please refresh the page.', 'error');
+});
+
+// Performance monitoring
+if ('performance' in window) {
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            if (perfData.loadEventEnd - perfData.loadEventStart > 3000) {
+                console.warn('Slow page load detected');
+            }
+        }, 0);
+    });
+}
+
+// Progressive Web App features
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('SW registered: ', registration);
+            })
+            .catch(function(registrationError) {
+                console.log('SW registration failed: ', registrationError);
+            });
+    });
+}
+
+// Enhanced keyboard navigation
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        // Close any open modals
+        closeIDGuide();
+    }
+    
+    if (e.key === 'ArrowLeft') {
+        slideTestimonials(-1);
+    }
+    
+    if (e.key === 'ArrowRight') {
+        slideTestimonials(1);
+    }
+});
+
+// Smooth scroll for anchor links
+document.addEventListener('click', function(e) {
+    if (e.target.matches('a[href^="#"]')) {
+        e.preventDefault();
+        const target = document.querySelector(e.target.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+});
