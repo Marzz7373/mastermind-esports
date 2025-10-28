@@ -9,6 +9,15 @@
   <meta name="author" content="Mastermind Esports">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#00D4FF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mastermind Esports">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik05NiA0OEM3MS4yIDQ4IDUyIDY3LjIgNTIgOTJWNzJDNTEuOTk5OSA2Ny4yIDUyIDY3LjIgNTIgNzJIMTQwVjkyQzE0MCA2Ny4yIDEyMC44IDQ4IDk2IDQ4WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTk2IDE0NEM3MS4yIDE0NCA1MiAxMjQuOCA1MiAxMDBWMTIwQzUxLjk5OTkgMTI0LjggNTIgMTI0LjggNTIgMTIwSDE0MFYxMDBDMTQwIDEyNC44IDEyMC44IDE0NCA5NiAxNDRaIiBmaWxsPSJ3aGl0ZSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfbGluZWFyXzFfMSIgeDE9IjAiIHkxPSIwIiB4Mj0iMTkyIiB5Mj0iMTkyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiMwMDRGRkYiLz4KPHN0b3Agb2Zmc2V0PSIwLjUiIHN0b3AtY29sb3I9IiM4QjVDRjYiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkY2QjM1Ii8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5490387431056822"
        crossorigin="anonymous"></script>
 
@@ -32,6 +41,11 @@
     Malaysia's Premium Top-Up Service for PUBG and MLBB.
   </p>
   <a href="account.html" class="account-btn">💳 My Account & Wallet</a>
+  
+  <!-- Dark Mode Toggle -->
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+    <span class="theme-icon">🌙</span>
+  </button>
 </header>
 
 
@@ -69,7 +83,7 @@
     </div>
     
     <div class="search-input-group">
-        <input type="text" id="package-search" placeholder="Quick Search: Type UC or Diamond amount (e.g., 1000)" oninput="filterPackages()">
+        <input type="text" id="package-search" placeholder="Quick Search: Type UC or Diamond amount (e.g., 1000)" oninput="debouncedFilterPackages()">
     </div>
     
 </div>

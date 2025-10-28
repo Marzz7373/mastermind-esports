@@ -106,73 +106,157 @@ function generatePackageCards(containerId, data, gameType, isPromo = false) {
     const container = document.getElementById(containerId);
     if (!container) return; 
     
-    let html = '';
+    // Add loading state
+    container.innerHTML = '<div class="loading-spinner"></div>';
     
-    data.forEach(pkg => {
-        let cardClass = isPromo ? 'card promo-card' : 'card';
-        let packageTitle = pkg.uc || pkg.diamonds;
-        let packageValue = isPromo ? `${pkg.title}` : packageTitle;
-        let price = pkg.price || pkg.newPrice;
-        let buttonOrderText = isPromo ? `PROMO ${packageValue}` : packageValue;
+    // Simulate loading delay for better UX
+    setTimeout(() => {
+        let html = '';
         
-        if (pkg.highlight) {
-            cardClass += ' featured';
-        }
+        data.forEach((pkg, index) => {
+            let cardClass = isPromo ? 'card promo-card' : 'card';
+            let packageTitle = pkg.uc || pkg.diamonds;
+            let packageValue = isPromo ? `${pkg.title}` : packageTitle;
+            let price = pkg.price || pkg.newPrice;
+            let buttonOrderText = isPromo ? `PROMO ${packageValue}` : packageValue;
+            
+            if (pkg.highlight) {
+                cardClass += ' featured';
+            }
 
-        let cardContent = '';
+            let cardContent = '';
 
-        // Add badge if present
-        if (pkg.badge) {
-            const badgeClass = isPromo ? 'promo-badge' : (pkg.badge.includes('BEST SELLER') ? 'best-value-badge' : 'promo-badge');
-            cardContent += `<div class="${badgeClass}">${pkg.badge}</div>`;
-        }
+            // Add badge if present
+            if (pkg.badge) {
+                const badgeClass = isPromo ? 'promo-badge' : (pkg.badge.includes('BEST SELLER') ? 'best-value-badge' : 'promo-badge');
+                cardContent += `<div class="${badgeClass} pulse">${pkg.badge}</div>`;
+            }
 
-        // Add title
-        cardContent += `<h3>${packageValue}</h3>`;
+            // Add title
+            cardContent += `<h3 class="gradient-text">${packageValue}</h3>`;
 
-        // Add old price for promos
-        if (pkg.oldPrice) {
-            cardContent += `<div class="old-price">${pkg.oldPrice}</div>`;
-        }
-        
-        // Add highlight text
-        if (pkg.highlight && !isPromo) {
-            cardContent += `<div style="font-size: 0.9em; color: var(--color-primary-accent); font-weight: 500; margin-bottom: -10px;">BEST VALUE</div>`;
-        }
+            // Add old price for promos
+            if (pkg.oldPrice) {
+                cardContent += `<div class="old-price">${pkg.oldPrice}</div>`;
+            }
+            
+            // Add highlight text
+            if (pkg.highlight && !isPromo) {
+                cardContent += `<div style="font-size: 0.9em; color: var(--color-primary-accent); font-weight: 500; margin-bottom: -10px;" class="glow">BEST VALUE</div>`;
+            }
 
-        // Add price
-        cardContent += `<div class="price">${price}</div>`;
+            // Add price
+            cardContent += `<div class="price gradient-text">${price}</div>`;
 
-        // Add high demand bar
-        if (pkg.demand) {
+            // Add high demand bar
+            if (pkg.demand) {
+                cardContent += `
+                    <div class="high-demand-bar">
+                        <p>Selling FAST! Only 12 left this hour.</p>
+                        <span class="bar-fill" style="width: ${pkg.demand}%;"></span>
+                    </div>`;
+            }
+
+            // === MODIFIED BUTTONS ===
             cardContent += `
-                <div class="high-demand-bar">
-                    <p>Selling FAST! Only 12 left this hour.</p>
-                    <span class="bar-fill" style="width: ${pkg.demand}%;"></span>
+                <div class="button-group">
+                    <button class="buy-btn wallet-btn interactive" onclick="initiateWalletPurchase('${gameType}', '${buttonOrderText}', '${price.replace('RM', '')}', event)">
+                        <span style="margin-right: 5px;">💳</span> Pay with Wallet
+                    </button>
+                    <button class="buy-btn interactive" onclick="initiateWhatsAppOrder('${gameType}', '${buttonOrderText}', '${price}', event)">
+                        <span style="margin-right: 5px;">✅</span> Order (WhatsApp)
+                    </button>
                 </div>`;
-        }
+            // === END MODIFIED BUTTONS ===
 
-        // === MODIFIED BUTTONS ===
-        cardContent += `
-            <div class="button-group">
-                <button class="buy-btn wallet-btn" onclick="initiateWalletPurchase('${gameType}', '${buttonOrderText}', '${price.replace('RM', '')}', event)">
-                    <span style="margin-right: 5px;">💳</span> Pay with Wallet
-                </button>
-                <button class="buy-btn" onclick="initiateWhatsAppOrder('${gameType}', '${buttonOrderText}', '${price}', event)">
-                    <span style="margin-right: 5px;">✅</span> Order (WhatsApp)
-                </button>
-            </div>`;
-        // === END MODIFIED BUTTONS ===
+            html += `<div class="${cardClass} fade-in-up" style="animation-delay: ${index * 0.1}s;">${cardContent}</div>`;
+        });
 
-        html += `<div class="${cardClass}">${cardContent}</div>`;
+        container.innerHTML = html;
+        
+        // Add intersection observer for scroll animations
+        observeCards(container);
+    }, 300);
+}
+
+// Intersection Observer for scroll animations
+function observeCards(container) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                // Unobserve after animation to improve performance
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { 
+        threshold: 0.1,
+        rootMargin: '50px 0px -50px 0px' // Start animation slightly before element is visible
     });
 
-    container.innerHTML = html;
+    const cards = container.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+}
+
+// Lazy loading for images
+function initLazyLoading() {
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// Debounce function for performance
+function debounce(func, wait, immediate) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            timeout = null;
+            if (!immediate) func(...args);
+        };
+        const callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func(...args);
+    };
+}
+
+// Throttle function for scroll events
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
 }
 
 // =================================================================
 // 3. PACKAGE FILTERING LOGIC
 // =================================================================
+
+// Debounced search function for better performance
+const debouncedFilterPackages = debounce(filterPackages, 300);
 
 function filterPackages() {
     const searchTerm = document.getElementById('package-search').value.toLowerCase().replace(/,/g, '').replace(/💎/g, '').replace(/uc/g, '').trim();
@@ -186,6 +270,7 @@ function filterPackages() {
     }
 
     const packageCards = document.getElementById(activeContainerId).querySelectorAll('.card');
+    let visibleCount = 0;
 
     packageCards.forEach(card => {
         const titleElement = card.querySelector('h3');
@@ -195,10 +280,32 @@ function filterPackages() {
         
         if (searchTerm === '' || packageTitle.includes(searchTerm)) {
             card.style.display = 'block';
+            card.style.opacity = '1';
+            visibleCount++;
         } else {
             card.style.display = 'none';
+            card.style.opacity = '0';
         }
     });
+
+    // Show "no results" message if needed
+    const container = document.getElementById(activeContainerId);
+    let noResultsMsg = container.querySelector('.no-results');
+    
+    if (visibleCount === 0 && searchTerm !== '') {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.innerHTML = '<p>No packages found matching your search.</p>';
+            noResultsMsg.style.textAlign = 'center';
+            noResultsMsg.style.padding = '2rem';
+            noResultsMsg.style.color = 'var(--color-text-muted)';
+            container.appendChild(noResultsMsg);
+        }
+        noResultsMsg.style.display = 'block';
+    } else if (noResultsMsg) {
+        noResultsMsg.style.display = 'none';
+    }
 }
 
 // =================================================================
@@ -315,16 +422,25 @@ function initiateWhatsAppOrder(game, packageValue, price, event) {
 
     const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     
-    // Add loading state to button
+    // Add loading state to button with modern animation
     const clickedButton = event.target.closest('.buy-btn');
     if (clickedButton) {
         const originalText = clickedButton.innerHTML;
-        clickedButton.innerHTML = '<span style="margin-right: 5px;">⏳</span> Opening WhatsApp...';
+        clickedButton.innerHTML = '<span class="loading-spinner" style="margin-right: 8px;"></span> Processing...';
         clickedButton.disabled = true;
+        clickedButton.classList.add('shimmer');
+        
+        // Add success animation after processing
+        setTimeout(() => {
+            clickedButton.innerHTML = '<span style="margin-right: 5px;">✅</span> Redirecting...';
+            clickedButton.classList.remove('shimmer');
+            clickedButton.classList.add('bounce');
+        }, 1500);
         
         setTimeout(() => {
             clickedButton.innerHTML = originalText;
             clickedButton.disabled = false;
+            clickedButton.classList.remove('bounce');
         }, 3000);
     }
     
@@ -513,7 +629,224 @@ function updateTimer() {
 }
 
 let timerInterval;
+
+// Theme management
+function initTheme() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('.theme-icon');
+    const savedTheme = localStorage.getItem('mastermind_theme') || 'dark';
+    
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeIcon.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+    
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        themeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+        localStorage.setItem('mastermind_theme', newTheme);
+        
+        // Add transition effect
+        document.body.style.transition = 'background 0.3s ease, color 0.3s ease';
+        setTimeout(() => {
+            document.body.style.transition = '';
+        }, 300);
+    });
+}
+
+// Service Worker Registration
+function initServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then((registration) => {
+                    console.log('SW registered: ', registration);
+                })
+                .catch((registrationError) => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+        });
+    }
+}
+
+// Advanced Analytics and User Tracking
+function initAnalytics() {
+    // Track user interactions
+    const trackEvent = (eventName, properties = {}) => {
+        // Google Analytics 4 event tracking
+        if (typeof gtag !== 'undefined') {
+            gtag('event', eventName, {
+                event_category: 'user_interaction',
+                event_label: properties.label || '',
+                value: properties.value || 0,
+                ...properties
+            });
+        }
+        
+        // Custom analytics (you can send to your own analytics service)
+        console.log('Analytics Event:', eventName, properties);
+    };
+
+    // Track page views
+    trackEvent('page_view', {
+        page_title: document.title,
+        page_location: window.location.href
+    });
+
+    // Track button clicks
+    document.addEventListener('click', (e) => {
+        if (e.target.matches('.buy-btn')) {
+            const gameType = e.target.onclick.toString().includes('pubg') ? 'pubg' : 'mlbb';
+            trackEvent('purchase_button_click', {
+                game_type: gameType,
+                button_type: e.target.classList.contains('wallet-btn') ? 'wallet' : 'whatsapp'
+            });
+        }
+        
+        if (e.target.matches('.tab-btn')) {
+            const tabName = e.target.textContent.trim();
+            trackEvent('tab_switch', {
+                tab_name: tabName
+            });
+        }
+    });
+
+    // Track search queries
+    const searchInput = document.getElementById('package-search');
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce((e) => {
+            if (e.target.value.length > 2) {
+                trackEvent('search_query', {
+                    search_term: e.target.value,
+                    search_length: e.target.value.length
+                });
+            }
+        }, 1000));
+    }
+
+    // Track scroll depth
+    let maxScrollDepth = 0;
+    const trackScrollDepth = throttle(() => {
+        const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        if (scrollDepth > maxScrollDepth) {
+            maxScrollDepth = scrollDepth;
+            if (maxScrollDepth % 25 === 0) { // Track at 25%, 50%, 75%, 100%
+                trackEvent('scroll_depth', {
+                    depth_percentage: maxScrollDepth
+                });
+            }
+        }
+    }, 1000);
+
+    window.addEventListener('scroll', trackScrollDepth);
+
+    // Track time on page
+    const startTime = Date.now();
+    window.addEventListener('beforeunload', () => {
+        const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+        trackEvent('time_on_page', {
+            seconds: timeOnPage
+        });
+    });
+
+    // Track form interactions
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('focus', () => {
+            trackEvent('form_field_focus', {
+                field_name: input.id || input.name || 'unknown'
+            });
+        });
+    });
+}
+
+// Performance monitoring
+function initPerformanceMonitoring() {
+    // Monitor Core Web Vitals
+    if ('web-vital' in window) {
+        // This would integrate with actual web vitals library
+        console.log('Performance monitoring initialized');
+    }
+    
+    // Monitor page load time
+    window.addEventListener('load', () => {
+        const loadTime = performance.now();
+        console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
+        
+        // Track performance metrics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_load_time', {
+                event_category: 'performance',
+                value: Math.round(loadTime)
+            });
+        }
+    });
+
+    // Monitor Largest Contentful Paint (LCP)
+    if ('PerformanceObserver' in window) {
+        try {
+            const observer = new PerformanceObserver((list) => {
+                const entries = list.getEntries();
+                const lastEntry = entries[entries.length - 1];
+                console.log('LCP:', lastEntry.startTime);
+            });
+            observer.observe({ entryTypes: ['largest-contentful-paint'] });
+        } catch (e) {
+            console.log('LCP monitoring not supported');
+        }
+    }
+}
+
+// Add smooth scroll behavior
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+// Add keyboard navigation
+function initKeyboardNavigation() {
+    document.addEventListener('keydown', (e) => {
+        // ESC key to close modals
+        if (e.key === 'Escape') {
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => {
+                if (modal.style.display === 'flex') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+        
+        // Tab navigation for cards
+        if (e.key === 'Tab') {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.style.outline = 'none';
+            });
+        }
+    });
+}
+
 window.onload = function() {
+    // Initialize modern features
+    initTheme();
+    initServiceWorker();
+    initAnalytics();
+    initPerformanceMonitoring();
+    initSmoothScroll();
+    initKeyboardNavigation();
+    initLazyLoading();
+    
     // Lazy load packages for better performance
     generatePackageCards('pubg-packages', pubgPackages, 'pubg');
     
@@ -540,4 +873,7 @@ window.onload = function() {
     
     updateTimer(); 
     timerInterval = setInterval(updateTimer, 1000);
+    
+    // Add page transition effects
+    document.body.classList.add('fade-in-up');
 }
