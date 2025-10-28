@@ -21,6 +21,7 @@
 /* Performance optimizations */
 img {
   will-change: transform;
+  height: auto;
 }
 
 .card {

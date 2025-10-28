@@ -1,0 +1,28 @@
+{
+  "name": "Mastermind Esports",
+  "short_name": "Mastermind",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0C0F2C",
+  "theme_color": "#0C0F2C",
+  "description": "Malaysia's fastest PUBG UC & MLBB Diamond Top-Up.",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
