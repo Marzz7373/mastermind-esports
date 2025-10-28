@@ -7,8 +7,8 @@
           <div class="nav-buttons">
             <button v-if="!user" @click="showAuthModal = true" class="btn-primary">Login</button>
             <div v-else class="user-menu">
-              <span class="wallet-balance">💰 RM {{ walletBalance.toFixed(2) }}</span>
-              <button @click="showWallet = true" class="btn-secondary">Wallet</button>
+              <RealtimeWallet v-if="user" :user-id="user.id" />
+              <NotificationCenter v-if="user" :user-id="user.id" />
               <button v-if="isAdmin" @click="showAdmin = true" class="btn-admin">Admin</button>
               <button @click="handleLogout" class="btn-secondary">Logout</button>
             </div>
@@ -250,6 +250,8 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { supabase } from '../lib/supabase'
+import NotificationCenter from '../components/NotificationCenter.vue'
+import RealtimeWallet from '../components/RealtimeWallet.vue'
 
 const user = ref(null)
 const profile = ref(null)

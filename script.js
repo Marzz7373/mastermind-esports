@@ -440,7 +440,98 @@ async function initiateWalletPurchase(game, packageValue, price, event) {
 
 
 // =================================================================
-// 6. ORIGINAL CORE FUNCTIONS (Modal, FAQ, Timer, Load)
+// 6. REAL-TIME FEATURES
+// =================================================================
+
+// Real-time notification system
+class RealtimeNotifications {
+    constructor() {
+        this.notifications = []
+        this.isConnected = false
+        this.checkInterval = null
+    }
+
+    async initialize() {
+        // Request notification permission
+        if ('Notification' in window && Notification.permission === 'default') {
+            await Notification.requestPermission()
+        }
+
+        // Start checking for updates
+        this.startPolling()
+        this.isConnected = true
+    }
+
+    startPolling() {
+        // Check for updates every 30 seconds
+        this.checkInterval = setInterval(() => {
+            this.checkForUpdates()
+        }, 30000)
+    }
+
+    async checkForUpdates() {
+        try {
+            // Check for new transactions
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({
+                    action: "checkUpdates",
+                    phone: localStorage.getItem('mastermind_user_phone')
+                })
+            })
+
+            const result = await response.json()
+            
+            if (result.status === "success" && result.updates) {
+                this.handleUpdates(result.updates)
+            }
+        } catch (error) {
+            console.log('Real-time check failed:', error)
+        }
+    }
+
+    handleUpdates(updates) {
+        updates.forEach(update => {
+            this.showNotification(update.title, update.message, update.url)
+        })
+    }
+
+    showNotification(title, body, url = null) {
+        if ('Notification' in window && Notification.permission === 'granted') {
+            const notification = new Notification(title, {
+                body,
+                icon: '/favicon.ico',
+                badge: '/favicon.ico',
+                tag: 'mastermind-esports'
+            })
+
+            if (url) {
+                notification.onclick = () => {
+                    window.focus()
+                    window.location.href = url
+                    notification.close()
+                }
+            }
+
+            // Auto-close after 5 seconds
+            setTimeout(() => notification.close(), 5000)
+        }
+    }
+
+    cleanup() {
+        if (this.checkInterval) {
+            clearInterval(this.checkInterval)
+        }
+        this.isConnected = false
+    }
+}
+
+// Initialize real-time notifications
+const realtimeNotifications = new RealtimeNotifications()
+
+// =================================================================
+// 7. ORIGINAL CORE FUNCTIONS (Modal, FAQ, Timer, Load)
 // =================================================================
 
 function showIDGuide(game) {
@@ -540,4 +631,7 @@ window.onload = function() {
     
     updateTimer(); 
     timerInterval = setInterval(updateTimer, 1000);
+
+    // Initialize real-time features
+    realtimeNotifications.initialize();
 }
