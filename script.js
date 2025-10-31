@@ -1,102 +1,9 @@
-// !!! PASTE YOUR DEPLOYED WEB APP URL HERE !!!
-const API_URL = "https://script.google.com/macros/s/AKfycbzJ7kANQFFX0c7HlG9wljNm06wMhUbRyPmpC-IxZ67SkXXBeJixpFAELJEZQJcfXOTZ/exec"; // <--- PASTE YOUR URL HERE
+const API_URL = "https://script.google.com/macros/s/AKfycbyYWzmHkjJHZPh-d1Wq2gO2mpzJ-QjNL7_M47BUZ7B00GLhDnPDHdkz1BA6aUQenECE/exec";
 
 const WHATSAPP_NUMBER = '60147433177';
 const ID_ALERT_MESSAGE = "Please enter your Player ID before clicking 'Order Instantly'.";
 
-// =================================================================
-// 1. PACKAGE DATA (Contains all package details, easy to update!)
-// =================================================================
-
-const pubgPackages = [
-    { uc: '325 UC', price: 'RM22' },
-    { uc: '660 UC', price: 'RM43' },
-    { uc: '1,320 UC', price: 'RM85' },
-    { uc: '1,800 UC', price: 'RM103' },
-    { uc: '2,125 UC', price: 'RM125' },
-    { uc: '2,460 UC', price: 'RM145' },
-    { uc: '2,760 UC', price: 'RM166', badge: 'BEST SELLER', highlight: true, demand: 75 },
-    { uc: '3,850 UC', price: 'RM200' },
-    { uc: '4,510 UC', price: 'RM241' },
-    { uc: '5,170 UC', price: 'RM282' },
-    { uc: '5,650 UC', price: 'RM300' },
-    { uc: '8,100 UC', price: 'RM390' },
-    { uc: '8,400 UC', price: 'RM413' },
-    { uc: '9,060 UC', price: 'RM454' },
-    { uc: '9,900 UC', price: 'RM490' },
-    { uc: '10,200 UC', price: 'RM512' },
-    { uc: '10,560 UC', price: 'RM531' },
-    { uc: '10,860 UC', price: 'RM552' },
-    { uc: '11,950 UC', price: 'RM586' },
-    { uc: '12,250 UC', price: 'RM608' },
-    { uc: '12,910 UC', price: 'RM649' },
-    { uc: '13,750 UC', price: 'RM685' },
-    { uc: '16,200 UC', price: 'RM777' },
-    { uc: '18,000 UC', price: 'RM875' },
-    { uc: '20,050 UC', price: 'RM974' },
-    { uc: '24,300 UC', price: 'RM1,164' },
-    { uc: '32,400 UC', price: 'RM1,549' },
-    { uc: '40,500 UC', price: 'RM1,935' },
-    { uc: '44,350 UC', price: 'RM2,127' },
-    { uc: '48,600 UC', price: 'RM2,316' },
-    { uc: '50,400 UC', price: 'RM2,418' },
-    { uc: '56,700 UC', price: 'RM2,702' },
-    { uc: '60,550 UC', price: 'RM2,899' },
-    { uc: '64,800 UC', price: 'RM3,088' },
-    { uc: '72,900 UC', price: 'RM3,474' },
-    { uc: '81,000 UC', price: 'RM3,850' },
-    { uc: '97,200 UC', price: 'RM4,622' },
-    { uc: '105,300 UC', price: 'RM5,013' },
-];
-
-const mlbbPackages = [
-    { diamonds: '70 💎', price: 'RM6' },
-    { diamonds: '140 💎', price: 'RM12' },
-    { diamonds: '284 💎', price: 'RM23' },
-    { diamonds: '355 💎', price: 'RM30' },
-    { diamonds: '429 💎', price: 'RM35' },
-    { diamonds: '565 💎', price: 'RM45' },
-    { diamonds: '639 💎', price: 'RM50' },
-    { diamonds: '716 💎', price: 'RM55' },
-    { diamonds: '870 💎', price: 'RM65' },
-    { diamonds: '1060 💎', price: 'RM75' },
-    { diamonds: '1145 💎', price: 'RM80' },
-    { diamonds: '1285 💎', price: 'RM90' },
-    { diamonds: '1446 💎', price: 'RM100' },
-    { diamonds: '1586 💎', price: 'RM110' },
-    { diamonds: '1712 💎', price: 'RM115' },
-    { diamonds: '2015 💎', price: 'RM145' },
-    { diamonds: '2162 💎', price: 'RM155' },
-    { diamonds: '2531 💎', price: 'RM180' },
-    { diamonds: '2976 💎', price: 'RM200' },
-    { diamonds: '3274 💎', price: 'RM215' },
-    { diamonds: '3517 💎', price: 'RM230' },
-    { diamonds: '4047 💎', price: 'RM260' },
-    { diamonds: '4562 💎', price: 'RM300' },
-    { diamonds: '5138 💎', price: 'RM335' },
-    { diamonds: '5567 💎', price: 'RM360' },
-    { diamonds: '6092 💎', price: 'RM390' },
-    { diamonds: '6668 💎', price: 'RM430' },
-    { diamonds: '4422 💎', price: 'RM310' },
-    { diamonds: '7502 💎', price: 'RM490' },
-    { diamonds: '8218 💎', price: 'RM515' },
-    { diamonds: '9377 💎', price: 'RM600' },
-    { diamonds: '10907 💎', price: 'RM690' },
-    { diamonds: '12640 💎', price: 'RM810' },
-];
-
-const promoPackages = {
-    pubg: [
-        { title: '1,800 UC', newPrice: 'RM90', oldPrice: 'RM103', badge: 'HOT DEAL' },
-        { title: '3,850 UC', newPrice: 'RM170', oldPrice: 'RM200', badge: 'BEST VALUE' },
-        { title: '8,100 UC', newPrice: 'RM325', oldPrice: 'RM390', badge: 'MEGA SALE' }
-    ],
-    mlbb: [
-        { title: '1446 💎', newPrice: 'RM88', oldPrice: 'RM100', badge: 'HOT DEAL' },
-        { title: '2976 💎', newPrice: 'RM185', oldPrice: 'RM200', badge: 'BEST VALUE' },
-        { title: '6092 💎', newPrice: 'RM365', oldPrice: 'RM390', badge: 'MEGA SALE' }
-    ]
-};
+// The package data is now loaded dynamically from the API.
 
 // =================================================================
 // 2. CARD GENERATION FUNCTION
@@ -513,16 +420,34 @@ function updateTimer() {
 }
 
 let timerInterval;
+
+async function loadAllPackages() {
+    try {
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        // Generate cards with the fetched data
+        generatePackageCards('pubg-packages', data.pubgPackages, 'pubg');
+        generatePackageCards('mlbb-packages', data.mlbbPackages, 'mlbb');
+        generatePackageCards('pubg-promo-packages', data.promoPackages.pubg, 'pubg', true);
+        generatePackageCards('mlbb-promo-packages', data.promoPackages.mlbb, 'mlbb', true);
+
+    } catch (error) {
+        console.error("Failed to load package data:", error);
+        // You could display an error message to the user here
+        const packageContainers = document.querySelectorAll('.packages');
+        packageContainers.forEach(container => {
+            container.innerHTML = `<p style="color: var(--color-secondary-accent); text-align: center;">Failed to load packages. Please try refreshing the page.</p>`;
+        });
+    }
+}
+
 window.onload = function() {
-    // Lazy load packages for better performance
-    generatePackageCards('pubg-packages', pubgPackages, 'pubg');
-    
-    // Load other packages after a short delay
-    setTimeout(() => {
-        generatePackageCards('mlbb-packages', mlbbPackages, 'mlbb');
-        generatePackageCards('pubg-promo-packages', promoPackages.pubg, 'pubg', true);
-        generatePackageCards('mlbb-promo-packages', promoPackages.mlbb, 'mlbb', true);
-    }, 100);
+    // Load all data from the API
+    loadAllPackages();
 
     loadID(); 
     
