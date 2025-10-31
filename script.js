@@ -175,7 +175,7 @@ function generatePackageCards(containerId, data, gameType, isPromo = false) {
 // =================================================================
 
 function filterPackages() {
-    const searchTerm = document.getElementById('package-search').value.toLowerCase().replace(/,/g, '').replace(/💎/g, '').replace(/uc/g, '').trim();
+    const searchTerm = document.getElementById('package-search').value.toLowerCase().replace(/,/g, '').trim();
     
     let activeContainerId;
     const activeSection = document.querySelector('.section.active');
@@ -191,7 +191,7 @@ function filterPackages() {
         const titleElement = card.querySelector('h3');
         if (!titleElement) return;
 
-        const packageTitle = titleElement.textContent.toLowerCase().replace(/,/g, '').replace(/💎/g, '').replace(/uc/g, '').trim();
+        const packageTitle = titleElement.textContent.toLowerCase().replace(/,/g, '').trim();
         
         if (searchTerm === '' || packageTitle.includes(searchTerm)) {
             card.style.display = 'block';

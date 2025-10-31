@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Case for Search Functionality</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Test Case for Search Functionality</h1>
+    <p>This test case verifies that the search functionality in the `filterPackages` function works correctly.</p>
+
+    <div class="order-form-sticky-wrapper">
+        <div id="pubg-input-group" style="display: block;">
+            <p>STEP 1: Enter your **PUBG Player ID** below.</p>
+            <div class="id-input-group">
+                <input type="text" id="pubg-id" placeholder="Enter PUBG Player ID (e.g. 523456789)" required oninput="saveID('pubg')">
+                <button onclick="showIDGuide('pubg')" class="guide-btn">? ID Guide</button>
+            </div>
+        </div>
+        <div class="search-input-group">
+            <input type="text" id="package-search" placeholder="Quick Search: Type UC or Diamond amount (e.g., 1000)" oninput="filterPackages()">
+        </div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn" onclick="showTab('pubg', this)">🎮 PUBG UC</button>
+    </div>
+
+    <div id="pubg" class="section active">
+        <h2>PUBG UC Packages</h2>
+        <div class="packages" id="pubg-packages">
+            </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Mock the gtag function to avoid errors
+        function gtag() {
+            console.log('gtag called:', arguments);
+        }
+
+        // Mock the showTab function to avoid errors
+        function showTab(tabName, clickedButton) {
+            console.log('showTab called:', tabName);
+        }
+
+        // Mock the saveID function to avoid errors
+        function saveID(game) {
+            console.log('saveID called:', game);
+        }
+
+        // Mock the showIDGuide function to avoid errors
+        function showIDGuide(game) {
+            console.log('showIDGuide called:', game);
+        }
+
+        // Run the test
+        document.addEventListener('DOMContentLoaded', () => {
+            generatePackageCards('pubg-packages', pubgPackages, 'pubg');
+        });
+    </script>
+
+</body>
+</html>
