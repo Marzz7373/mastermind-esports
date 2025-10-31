@@ -390,6 +390,8 @@ async function initiateWalletPurchase(game, packageValue, price, event) {
       }
   }
 
+  saveID(gameType);
+
   // 3. Confirm Purchase
   const priceNum = parseFloat(price);
   if (confirm(`Are you sure you want to buy ${packageValue} for RM ${priceNum.toFixed(2)} using your wallet?\n\nYour Game ID: ${id}`)) {
