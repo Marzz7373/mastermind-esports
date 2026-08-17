@@ -1,5 +1,5 @@
 // !!! PASTE YOUR DEPLOYED WEB APP URL HERE !!!
-const API_URL = "https://script.google.com/macros/s/AKfycbzJ7kANQFFX0c7HlG9wljNm06wMhUbRyPmpC-IxZ67SkXXBeJixpFAELJEZQJcfXOTZ/exec"; // <--- PASTE YOUR URL HERE
+const API_URL = "https://script.google.com/macros/s/AKfycbxvB9OdTbF--CuYT9QV6gAF5tUM-W7JU2wE7no2Iztewuy2tZtkX5W5MwJeC65ypA9h7Q/exec";; // <--- PASTE YOUR URL HERE
 
 const WHATSAPP_NUMBER = '60147433177';
 const ID_ALERT_MESSAGE = "Please enter your Player ID before clicking 'Order Instantly'.";
